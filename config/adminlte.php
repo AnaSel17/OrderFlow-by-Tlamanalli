@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Tlamanalli | Dashboard',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,12 +63,14 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-    'logo_img_class' => 'brand-image img-circle elevation-3',
-    'logo_img_xl' => null,
-    'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Admin Logo',
+    // --- Logo sidebar (logo arriba + texto abajo) ---
+    'logo'            => '<span class="brand-text">Tonalli Studio</span>',
+    'logo_img'        => 'images/tonalli-logo.png',      
+    'logo_img_class'  => 'brand-image',                  
+    'logo_img_xl'     => null,
+    'logo_img_xl_class'=> 'brand-image',                 
+    'logo_img_alt'    => 'Tonalli Logo',
+
 
     /*
     |--------------------------------------------------------------------------
@@ -133,13 +135,13 @@ return [
     |
     */
 
-    'usermenu_enabled' => true,
-    'usermenu_header' => false,
-    'usermenu_header_class' => 'bg-primary',
-    'usermenu_image' => false,
-    'usermenu_desc' => false,
-    'usermenu_profile_url' => false,
-
+    'usermenu_enabled'      => true,
+    'usermenu_image'        => true,
+    'usermenu_desc'         => true,
+    'usermenu_profile_url'  => true,
+    'use_route_url'         => true,
+    'logout_url'            => 'logout',
+    
     /*
     |--------------------------------------------------------------------------
     | Layout
@@ -193,14 +195,14 @@ return [
     'classes_body' => '',
     'classes_brand' => '',
     'classes_brand_text' => '',
-    'classes_content_wrapper' => '',
+    'classes_content_wrapper' => 'tonalli-bg',     // fondo beige del contenido
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
+    'classes_sidebar' => 'sidebar-light',          // sidebar claro nativo de AdminLTE
     'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-white navbar-light',
-    'classes_topnav_nav' => 'navbar-expand',
-    'classes_topnav_container' => 'container',
+    'classes_topnav' => 'tonalli-navbar navbar-expand', // header dorado + expand
+    'classes_topnav_nav' => 'navbar-nav',
+    'classes_topnav_container' => 'container-fluid',
 
     /*
     |--------------------------------------------------------------------------
@@ -257,7 +259,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'dashboard',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -285,6 +287,7 @@ return [
     'laravel_asset_bundling' => false,
     'laravel_css_path' => 'css/app.css',
     'laravel_js_path' => 'js/app.js',
+    'custom_css' => 'css/tonalli.css',
 
     /*
     |--------------------------------------------------------------------------
@@ -298,101 +301,119 @@ return [
     |
     */
 
-    'menu' => [
-        // Navbar items:
-        [
-            'type' => 'navbar-search',
-            'text' => 'search',
-            'topnav_right' => true,
-        ],
-        [
-            'type' => 'fullscreen-widget',
-            'topnav_right' => true,
-        ],
+'menu' => [
+    // ---- TOPBAR ----
+    ['type' => 'navbar-search', 'text' => 'Buscar', 'topnav_right' => true],
+    ['type' => 'fullscreen-widget', 'topnav_right' => true],
 
-        // Sidebar items:
-        [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
-        ],
-        [
-            'text' => 'blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
-        ],
-        [
-            'text' => 'pages',
-            'url' => 'admin/pages',
-            'icon' => 'far fa-fw fa-file',
-            'label' => 4,
-            'label_color' => 'success',
-        ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text' => 'multilevel',
-            'icon' => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                        ],
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-            ],
-        ],
-        ['header' => 'labels'],
-        [
-            'text' => 'important',
-            'icon_color' => 'red',
-            'url' => '#',
-        ],
-        [
-            'text' => 'warning',
-            'icon_color' => 'yellow',
-            'url' => '#',
-        ],
-        [
-            'text' => 'information',
-            'icon_color' => 'cyan',
-            'url' => '#',
+    // ---- SIDEBAR ----
+    ['type' => 'sidebar-menu-search', 'text' => 'Buscar'],
+    ['header' => 'OPERACIÓN'],
+
+    // DASHBOARD
+    [
+        'text' => 'Dashboard',
+        'icon' => 'fas fa-home',
+        'url'  => '/dashboard',
+    ],
+
+    // USUARIOS
+    [
+        'text' => 'Usuarios',
+        'icon' => 'fas fa-user',
+        'submenu' => [
+            ['text' => 'Listado',           'url' => '/users'],
+            ['text' => 'Crear usuario',     'url' => '/users/create'],
+            ['text' => 'Roles',             'url' => '/roles'],         // can: manage-roles
+            ['text' => 'Permisos',          'url' => '/permissions'],   // can: manage-permissions
+            ['text' => 'Actividad',         'url' => '/users/activity'],
         ],
     ],
+
+    // MENÚ (PRODUCTOS)
+    [
+        'text' => 'Menú',
+        'icon' => 'fas fa-list',
+        'submenu' => [
+            ['text' => 'Categorías',        'url' => '/menu/categories'],
+            ['text' => 'Platillos',         'url' => '/menu/items'],
+            ['text' => 'Modificadores',     'url' => '/menu/modifiers'],       // extras: leche, tamaño…
+            ['text' => 'Combos',            'url' => '/menu/combos'],
+            ['text' => 'Precios & costos',  'url' => '/menu/pricing'],
+            ['text' => 'Inventario',        'url' => '/inventory'],            // stock por insumo
+            ['text' => 'Importar/Exportar', 'url' => '/menu/import-export'],
+        ],
+    ],
+
+    // PEDIDOS
+    [
+        'text' => 'Pedidos',
+        'icon' => 'fas fa-receipt',
+        'submenu' => [
+            ['text' => 'Nuevo pedido',      'url' => '/orders/create'],
+            ['text' => 'En preparación',    'url' => '/orders/in-progress'],
+            ['text' => 'Listos',            'url' => '/orders/ready'],
+            ['text' => 'Entregados',        'url' => '/orders/delivered'],
+            ['text' => 'Cancelados',        'url' => '/orders/cancelled'],
+            ['text' => 'Mesas',             'url' => '/tables'],
+            ['text' => 'Comandas',          'url' => '/kds'],                   // pantalla cocina (KDS)
+            ['text' => 'Devoluciones',      'url' => '/orders/returns'],
+        ],
+    ],
+
+    // REPORTES
+    [
+        'text' => 'Reportes',
+        'icon' => 'fas fa-chart-bar',
+        'submenu' => [
+            ['text' => 'Ventas por día',        'url' => '/reports/sales-daily'],
+            ['text' => 'Ventas por producto',    'url' => '/reports/sales-products'],
+            ['text' => 'Top clientes',           'url' => '/reports/top-customers'],
+            ['text' => 'Pedidos por estado',     'url' => '/reports/orders-status'],
+            ['text' => 'Inventario bajo',        'url' => '/reports/low-stock'],
+            ['text' => 'Exportar (CSV/PDF)',     'url' => '/reports/export'],
+        ],
+    ],
+
+    ['header' => 'NEGOCIO'],
+
+    // PROMOCIONES / MARKETING
+    [
+        'text' => 'Promociones',
+        'icon' => 'fas fa-tags',
+        'submenu' => [
+            ['text' => 'Cupones',              'url' => '/promos/coupons'],
+            ['text' => 'Happy hours',          'url' => '/promos/happy-hour'],
+            ['text' => 'Programas de lealtad', 'url' => '/promos/loyalty'],
+        ],
+    ],
+
+    // CONFIGURACIÓN
+    [
+        'text' => 'Configuración',
+        'icon' => 'fas fa-cog',
+        'submenu' => [
+            ['text' => 'Tienda (datos)',    'url' => '/settings/store'],
+            ['text' => 'Impuestos/propina', 'url' => '/settings/tax-tip'],
+            ['text' => 'Pagos',             'url' => '/settings/payments'],   // métodos: cash, tarjeta…
+            ['text' => 'Impresoras',        'url' => '/settings/printers'],
+            ['text' => 'Notificaciones',    'url' => '/settings/notifications'],
+            ['text' => 'Usuarios & seguridad','url' => '/settings/security'],
+        ],
+    ],
+
+    // AYUDA
+    [
+        'text' => 'Ayuda',
+        'icon' => 'fas fa-question-circle',
+        'submenu' => [
+            ['text' => 'Guía rápida',    'url' => '/help/quickstart'],
+            ['text' => 'Preguntas frecuentes', 'url' => '/help/faq'],
+            ['text' => 'Soporte',        'url' => '/help/support'],
+        ],
+    ],
+],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -465,15 +486,16 @@ return [
             ],
         ],
         'Chartjs' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
-                    'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js',
+                'type' => 'js',
+                'asset' => false,
+                'location' => '//cdn.jsdelivr.net/npm/chart.js', // siempre la última estable
                 ],
             ],
         ],
+
         'Sweetalert2' => [
             'active' => false,
             'files' => [
@@ -499,7 +521,18 @@ return [
                 ],
             ],
         ],
+        'TonalliTheme' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css', 
+                    'asset' => true, 
+                    'location' => 'css/tonalli.css'],
+            ],
+        ],
     ],
+    
+
 
     /*
     |--------------------------------------------------------------------------

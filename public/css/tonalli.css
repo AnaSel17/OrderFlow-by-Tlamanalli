@@ -1,0 +1,134 @@
+:root{
+  --ton-gold:#D4952C;   /* Header */
+  --ton-beige:#F6F1E6;  /* Fondo */
+  --ton-border:#E6DFD2; /* Borde tarjeta / divisorias */
+}
+
+/* Header dorado */
+.tonalli-navbar{ background:var(--ton-gold) !important; color:#fff; }
+.tonalli-navbar .nav-link, .tonalli-navbar .navbar-brand{ color:#fff !important; }
+
+/* Fondo claro del contenido */
+.tonalli-bg{ background:var(--ton-beige); }
+
+/* Tarjetas: solo borde y sombra suave sobre el estilo de AdminLTE */
+.card{
+  border:1px solid var(--ton-border);
+  border-radius:16px;
+  box-shadow:0 6px 18px rgba(0,0,0,.06);
+}
+
+/* Card con dos gráficas y línea divisoria */
+.card .card-body.split{ display:grid; grid-template-columns:1fr 1fr; gap:0; }
+.card .card-body.split > div{ padding:16px; }
+.card .card-body.split > div + div{ border-left:1px solid var(--ton-border); }
+
+
+/* ===== NAVBAR (header dorado) ===== */
+.tonalli-navbar { background: var(--ton-gold) !important; color:#fff; }
+.tonalli-navbar .navbar-brand, 
+.tonalli-navbar .nav-link, 
+.tonalli-navbar .navbar-nav .nav-link { color:#fff !important; }
+
+/* ===== SIDEBAR CLARO (quitar azul y suavizar) ===== */
+.sidebar-light .nav-sidebar > .nav-item > .nav-link {
+  border-radius:12px;
+  margin:2px 8px;
+}
+.sidebar-light .nav-sidebar > .nav-item > .nav-link.active {
+  background:#F0E3C8;            /* dorado MUY claro */
+  color:#3d3d3d;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+.sidebar-light .brand-link {
+  background:#FBF7EF;             /* header logo del sidebar */
+  border-bottom:1px solid var(--ton-border);
+}
+
+/* ===== CONTENT ===== */
+.content-wrapper.tonalli-bg { background: var(--ton-beige); }
+.content-header h1 { font-weight:600; color:#3d3d3d; }
+
+/* ===== CARDS (más borde/sombra/rounded como el mockup) ===== */
+.card{
+  background:#fff;
+  border:1px solid var(--ton-border);
+  border-radius:18px;
+  box-shadow:0 10px 22px rgba(0,0,0,.06);
+}
+.card .card-body{ padding:18px 20px; }
+.card .text-muted{ color:#6b6b6b !important; }
+
+/* Métrica “badge” a la izquierda (opcional) */
+.card .btn.btn-light{
+  background:#F5F0E6; border:none; color:#3d3d3d;
+  box-shadow: inset 0 0 0 1px var(--ton-border);
+  border-radius:12px;
+}
+
+/* ===== PANEL DE GRÁFICAS con divisoria visible ===== */
+.card .card-body.split{ display:grid; grid-template-columns:1fr 1fr; gap:0; min-height:260px; }
+.card .card-body.split > div{ padding:16px; }
+.card .card-body.split > div + div{ border-left:1px solid var(--ton-border); }
+
+/* ===== SCROLL general más suave (detalle) ===== */
+body { scroll-behavior:smooth; }
+
+/* Contenedor del logo */
+.brand-link {
+    flex-direction: column;   /* Logo arriba, texto abajo */
+    align-items: center;
+    padding: 1rem 0 !important;
+    background-color: #fff;   /* Fondo claro, cámbialo si quieres */
+    border-bottom: 1px solid #e6dfd2;
+}
+
+/* Logo grande */
+.brand-link .brand-image {
+    max-height: 80px !important;  /* Ajusta tamaño del logo */
+    width: auto;
+    margin-bottom: 10px;
+}
+
+/* Texto debajo del logo */
+.brand-link .brand-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;  /* Puedes usar el dorado o el color del logo */
+    display: block;
+    text-align: center;
+}
+
+/* === Brand del sidebar: logo arriba, texto abajo, centrados === */
+.main-sidebar .brand-link{
+  height: auto !important;              /* deja crecer el contenedor */
+  padding: 1rem 0 !important;
+  display: flex;
+  flex-direction: column;               /* apila vertical */
+  align-items: center;                  /* centra horizontal */
+  background: #fff;                     /* opcional: claro */
+  border-bottom: 1px solid var(--ton-border);
+}
+
+/* Logo grande y centrado */
+.main-sidebar .brand-link .brand-image{
+  float: none !important;               /* anula float por defecto */
+  display: block;
+  max-height: 80px !important;          /* ajusta tamaño del logo */
+  width: auto;
+  margin: 0 auto 10px !important;       /* centrado + espacio con el texto */
+  border-radius: 0 !important;          /* por si tenía img-circle */
+  box-shadow: none !important;          /* sin elevation */
+}
+
+/* Texto debajo del logo */
+.main-sidebar .brand-link .brand-text{
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #333;
+  line-height: 1.1;
+  text-align: center;
+  margin: 0;
+}
+
