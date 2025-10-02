@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'Tlamanalli | Dashboard',
+    'title' => 'Tlamanalli    |   Dashboard',
     'title_prefix' => '',
     'title_postfix' => '',
 
