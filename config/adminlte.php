@@ -322,8 +322,8 @@ return [
         'text' => 'Usuarios',
         'icon' => 'fas fa-user',
         'submenu' => [
-            ['text' => 'Listado',           'url' => '/users'],
-            ['text' => 'Crear usuario',     'url' => '/users/create'],
+            ['text' => 'Listado',           'url' => '/usuarios'],
+            ['text' => 'Crear usuario',     'url' => '/usuarios/crear'],
             ['text' => 'Roles',             'url' => '/roles'],         // can: manage-roles
             ['text' => 'Permisos',          'url' => '/permissions'],   // can: manage-permissions
             ['text' => 'Actividad',         'url' => '/users/activity'],
@@ -528,6 +528,11 @@ return [
                     'type' => 'css', 
                     'asset' => true, 
                     'location' => 'css/tonalli.css'],
+            ],
+             [ 
+                'type' => 'css',
+                'asset' => true, // true = busca en la carpeta /public
+                'location' => 'css/custom-admin.css' // Tu nuevo archivo de estilos
             ],
         ],
     ],

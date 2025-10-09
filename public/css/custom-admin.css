@@ -1,0 +1,136 @@
+/* ==========================================================================
+   TEMA VISUAL MINIMALISTA PARA LISTADOS (Versión Final Definitiva)
+   ========================================================================== */
+
+/* --- 1. PALETA DE COLORES Y VARIABLES --- */
+:root {
+    --color-fondo: #FDFBF5;
+    /* Se eliminó --color-navbar */
+    --color-card: #FFFFFF;
+    --color-texto-principal: #3D3D3D;
+    --color-texto-secundario: #888888;
+    --color-borde-suave: #F0F0F0;
+    --color-fila-alterna: #FAFAFA; /* Un gris casi blanco para filas */
+    --color-primary: #e1e338; /* Púrpura para el botón principal */
+    --color-primary-hover: #c0b40f; /* Púrpura más oscuro para hover */
+}
+
+/* --- 2. LAYOUT GENERAL --- */
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto-principal);
+    font-family: 'Nunito', sans-serif;
+}
+.content-wrapper { background-color: var(--color-fondo); }
+/* Se eliminó la regla .main-header.navbar */
+
+/* --- 3. TARJETA DE CONTENIDO PRINCIPAL --- */
+.main-content-card {
+    background-color: var(--color-card);
+    border-radius: 18px;
+    padding: 2rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--color-borde-suave);
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.card-title-custom {
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--color-texto-principal);
+}
+
+/* --- 4. CONTROLES: FILTROS Y BOTONES --- */
+.form-control-dark, .form-select-dark {
+    background-color: #FDFDFD;
+    border: 1px solid #EAEAEA;
+    border-radius: 10px;
+    padding: 0.7rem 1rem;
+    transition: all 0.2s ease;
+}
+.form-control-dark:focus, .form-select-dark:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(106, 27, 154, 0.15);
+}
+
+.btn-add-user {
+    background-color: var(--color-primary);
+    color: #fff;
+    border-radius: 10px;
+    padding: 0.7rem 1.5rem;
+    font-weight: 700;
+    border: none;
+    transition: all 0.2s ease-in-out;
+}
+.btn-add-user:hover {
+    background-color: var(--color-primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.btn-clear {
+    background: none;
+    color: var(--color-texto-secundario);
+    border: 1px solid #EAEAEA;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+.btn-clear:hover {
+    color: var(--color-texto-principal);
+    background-color: #f5f5f5;
+}
+
+/* --- 5. TABLA: DISEÑO LIMPIO CON LÍNEAS --- */
+.table-responsive-custom { margin-top: 2rem; }
+
+.table-dark-custom {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-dark-custom thead th {
+    background-color: #FDFDFD;
+    border-bottom: 2px solid var(--color-borde-suave);
+    color: var(--color-texto-principal);
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding: 1rem 1.5rem;
+    text-align: left;
+    text-transform: none;
+    letter-spacing: 0.5px;
+}
+
+.table-dark-custom tbody tr {
+    border-bottom: 1px solid var(--color-borde-suave);
+    transition: background-color 0.2s ease;
+}
+
+.table-dark-custom tbody tr:nth-child(even) {
+    background-color: var(--color-fila-alterna);
+}
+
+.table-dark-custom tbody tr:hover {
+    background-color: #F0E3C8;
+}
+
+.table-dark-custom tbody td {
+    padding: 1.25rem 1.5rem;
+    vertical-align: middle;
+    border: none;
+}
+
+.table-dark-custom tbody td:first-child,
+.table-dark-custom tbody td:last-child {
+    border-radius: 0;
+}
+
+.action-buttons a {
+    color: var(--color-texto-secundario);
+    margin: 0 8px;
+    transition: color 0.2s ease;
+}
+.action-buttons a:hover {
+    color: var(--color-primary);
+}

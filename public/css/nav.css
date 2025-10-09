@@ -1,0 +1,92 @@
+/* --------------------------------------------------------------------------
+   3. HEADER (Navbar Dorada)
+   -------------------------------------------------------------------------- */
+.tonalli-navbar {
+    background: var(--ton-gold) !important;
+}
+
+.tonalli-navbar .nav-link,
+.tonalli-navbar .navbar-brand {
+    color: #fff !important;
+}
+
+/* --------------------------------------------------------------------------
+   4. SIDEBAR (Menú Lateral)
+   -------------------------------------------------------------------------- */
+
+/* Contenedor del Logo (Unificado) */
+.main-sidebar .brand-link {
+    height: auto !important;
+    padding: 1rem 0 !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #FBF7EF; /* Color del header del logo de tu código */
+    border-bottom: 1px solid var(--ton-border);
+}
+
+/* Logo (Imagen) */
+.main-sidebar .brand-link .brand-image {
+    float: none !important;
+    max-height: 80px !important;
+    width: auto;
+    margin: 0 auto 10px !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+/* Texto del Logo */
+.main-sidebar .brand-link .brand-text {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #333;
+    text-align: center;
+    margin: 0;
+}
+
+/* Estilo de los items principales del menú */
+.sidebar-light .nav-sidebar > .nav-item > .nav-link {
+    border-radius: 12px;
+    margin: 2px 8px;
+}
+
+/* Item activo o padre de un submenú abierto */
+.sidebar-light .nav-sidebar > .nav-item > .nav-link.active,
+.sidebar-light .nav-sidebar > .nav-item.menu-is-opening > .nav-link {
+    background: #F0E3C8; /* Dorado MUY claro */
+    color: #3d3d3d;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .01);
+}
+
+/* --------------------------------------------------------------------------
+   5. FIX PARA SUBMENÚ (CORRECCIÓN DE TRANSPARENCIA Y ESTILO ACTIVO)
+   -------------------------------------------------------------------------- */
+
+/* Muestra el texto cuando el sidebar está colapsado (modo "mini") */
+.sidebar-collapse .nav-sidebar .nav-link p {
+    display: inline-block !important;
+    margin-left: 0.75rem;
+    opacity: 1 !important;
+    animation: none !important;
+}
+
+/* Estilos del CONTENEDOR del submenú (treeview) */
+.nav-treeview {
+    background-color: #FBF7EF !important; /* CORRECCIÓN: Fondo sólido y forzado */
+    margin: 0 8px 8px 8px;
+    padding: 8px 8px 8px 20px; /* Padding para los items interiores */
+    border-radius: 0 0 12px 12px;
+}
+
+/* Estilo para CADA LINK dentro del submenú */
+.nav-treeview > .nav-item > .nav-link {
+    color: #555;
+    border-radius: 8px;
+}
+
+/* Estilo para el LINK ACTIVO dentro del submenú (reemplaza el azul) */
+.nav-treeview > .nav-item > .nav-link.active {
+    background-color: #F0E3C8; /* Mismo dorado claro que el item padre */
+    color: #3d3d3d;
+    font-weight: 600;
+}
