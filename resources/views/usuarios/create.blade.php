@@ -2,6 +2,7 @@
 
 {{-- Se revierte la variable a $usuario --}}
 @section('title', isset($usuario) ? 'Editar Empleado' : 'Registrar Empleado')
+ <link rel="stylesheet" href="{{ asset('css/crearusuario.css') }}">
 
 @section('content')
 <div class="container-fluid py-4 px-4">

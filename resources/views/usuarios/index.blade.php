@@ -1,6 +1,11 @@
 @extends('adminlte::page')
 @section('title', 'Lista de Empleados')
 
+{{-- AGREGAR ESTO PARA CARGAR TU ARCHIVO CSS PERSONALIZADO --}}
+@push('css')
+    <link rel="stylesheet" href="{{ asset('css/empleados.css') }}">
+@endpush
+
 @section('content')
 
 <div class="container-fluid d-flex flex-column gap-4 px-5 py-4">

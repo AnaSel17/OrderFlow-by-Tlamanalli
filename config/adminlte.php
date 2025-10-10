@@ -65,7 +65,7 @@ return [
 
     // --- Logo sidebar (logo arriba + texto abajo) ---
     'logo'            => '<span class="brand-text">Tonalli Studio</span>',
-    'logo_img'        => 'images/tonalli-logo.png',      
+    'logo_img'        => 'images/logo.png',      
     'logo_img_class'  => 'brand-image',                  
     'logo_img_xl'     => null,
     'logo_img_xl_class'=> 'brand-image',                 

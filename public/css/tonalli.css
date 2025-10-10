@@ -6,11 +6,13 @@
 :root {
   --ton-blue: #114358;        /* Azul petróleo principal */
   --ton-gold: #F2AA1F;        /* Dorado complementario */
-  --ton-beige: #F1ECE7;       /* Beige claro */
+  --ton-beige: #f4f6f9;       /* Beige claro */
   --ton-black: #090909;       /* Negro profundo */
   --ton-white: #FFFFFF;       /* Blanco puro */
   --ton-border: #E0DAD3;      /* Bordes suaves */
   --ton-shadow: rgba(0, 0, 0, 0.08);
+  /* Variable para el ancho del sidebar para el desplazamiento (PUSH) */
+  --sidebar-width-expanded: 250px; 
 }
 
 /* === BASE === */
@@ -54,18 +56,19 @@ body {
   background-color: var(--ton-white) !important;
   border-right: 1px solid var(--ton-border);
   box-shadow: 4px 0 12px var(--ton-shadow);
+  /* Asegura el ancho base */
+  width: var(--sidebar-width-expanded);
 }
 
-/* Logo y texto */
+/* === LOGO Y TEXTO (ajustado para ocupar mejor el espacio) === */
 .main-sidebar .brand-link {
   background: linear-gradient(135deg, #114358 0%, #F2AA1F 120%);
-
   border-bottom: 1px solid var(--ton-gold);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1.6rem 0; /* un poco más de espacio */
+  padding: 0.8rem 0; /* antes 1.2rem: menos espacio vertical */
   color: var(--ton-white);
   transition: all 0.3s ease;
 }
@@ -76,21 +79,54 @@ body {
 }
 
 .main-sidebar .brand-image {
-  max-height: 140px !important; /* antes era 75px */
+  max-height: 115px !important; /* más grande sin desbordar */
   width: auto;
-  margin-bottom: 10px;
-  transition: transform 0.3s ease;
+  margin-bottom: 6px; /* acercamos más el texto */
+  object-fit: contain;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));
 }
 
 .main-sidebar .brand-link:hover .brand-image {
-  transform: scale(1.1); /* un poco más grande al pasar el mouse */
+  transform: scale(1.05);
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25));
 }
 
 .main-sidebar .brand-text {
   font-weight: 700;
   letter-spacing: 0.4px;
-  font-size: 1.1rem; /* texto un poco más legible debajo del logo */
+  font-size: 1.05rem; /* un toque más grande */
+  text-align: center;
 }
+/* Imagen responsive */
+.main-sidebar .brand-image {
+  display: block;
+  width: 80%;              /* ocupa 80% del ancho del contenedor */
+  max-width: 120px;        /* límite máximo para pantallas grandes */
+  height: auto;            /* mantiene proporción */
+  margin-bottom: 6px;
+  object-fit: contain;
+  transition: transform 0.3s ease, filter 0.3s ease, width 0.3s ease;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));
+}
+
+
+/* === COMPORTAMIENTO: SIDEBAR PUSH CON HOVER (SOLO CSS) === */
+
+/* Asume que .main-sidebar y .content-wrapper son hermanos directos */
+.main-sidebar:hover ~ .content-wrapper {
+    /* Desplaza el contenido principal a la derecha al hacer hover sobre el menú */
+    margin-left: var(--sidebar-width-expanded) !important;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+/* Si el sidebar está colapsado (e.g., body.sidebar-mini), necesita este ajuste
+   para que se expanda visualmente y se aplique el desplazamiento */
+.main-sidebar:hover {
+    width: var(--sidebar-width-expanded) !important;
+    position: fixed; /* O el valor que tenga tu sidebar por defecto */
+}
+
 
 /* === MENÚ PRINCIPAL === */
 .sidebar-light .nav-sidebar > .nav-item > .nav-link {
@@ -155,25 +191,46 @@ body {
   box-shadow: 0 3px 8px var(--ton-shadow);
 }
 
-/* === TARJETAS === */
-.card {
-  background: var(--ton-white);
-  border: 1px solid var(--ton-border);
-  border-radius: 16px;
-  box-shadow: 0 10px 20px var(--ton-shadow);
-  transition: all 0.3s ease;
+/* Tarjetas: solo borde y sombra suave sobre el estilo de AdminLTE */ 
+.card{ border:1px solid var(--ton-border); border-radius:16px; box-shadow:0 6px 18px rgba(0,0,0,.06); }
+
+
+/* Card con dos gráficas y línea divisoria */ .card .card-body.split{
+   display:grid; grid-template-columns:1fr 1fr; gap:0; } 
+   .card .card-body.split > div{ padding:16px; } 
+   .card .card-body.split > div + div{ border-left:1px solid var(--ton-border); }
+
+
+/* === AJUSTE DE TAMAÑO DE GRÁFICAS (NUEVO) === */
+
+/* 1. Altura compacta para el contenedor de la gráfica, para que se vean como en la imagen 3 */
+/* Sugiero añadir la clase 'chart-container' al .card-body de tus gráficas */
+.card-body.chart-container {
+    height: 300px; /* Altura fija para hacerlas más compactas. Ajusta si es necesario. */
+    position: relative;
+    padding: 15px;
+    overflow: hidden;
 }
 
-.card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.1);
+/* 2. Asegura que el canvas/gráfico se ajuste a la altura */
+.card-body.chart-container canvas {
+    max-height: 100%;
+    width: 100% !important;
 }
 
-.card .card-header {
-  background: linear-gradient(90deg, var(--ton-gold), var(--ton-beige));
-  border-bottom: 1px solid var(--ton-border);
-  font-weight: 600;
-  color: var(--ton-black);
+/* 3. Forzar las tarjetas (gráficas) a ocupar el ancho completo en el dashboard */
+/* Esto hace que las gráficas aparezcan una encima de la otra, como en las capturas de pantalla */
+.cards-container,
+.card-row,
+.card-deck {
+    flex-wrap: wrap; 
+}
+
+.cards-container .card,
+.card-row .card,
+.card-deck .card {
+    flex: 1 1 100%; /* Ocupa el 100% del ancho del contenedor */
+    max-width: 100%;
 }
 
 
@@ -219,39 +276,40 @@ body {
   transition: all 0.25s ease-in-out;
 }
 
-/* === LAYOUT: CARTAS HORIZONTALES === */
+/* === LAYOUT: CARTAS HORIZONTALES (Original, modificado arriba) === */
 /* Use a container to layout .card elements horizontally while keeping existing card styling */
+/*
 .cards-container,
 .card-row,
 .card-deck {
   display: flex;
-  flex-direction: row; /* horizontal layout */
-  flex-wrap: nowrap; /* keep them in one line by default */
-  gap: 1rem; /* space between cards */
+  flex-direction: row; 
+  flex-wrap: nowrap; 
+  gap: 1rem; 
   align-items: flex-start;
 }
 
-/* Allow cards to shrink slightly but keep a comfortable width */
 .cards-container .card,
 .card-row .card,
 .card-deck .card {
-  flex: 0 1 280px; /* do not grow, can shrink, base width 280px */
+  flex: 0 1 280px; 
   min-width: 220px;
 }
+*/
 
 /* Responsive: allow wrapping on smaller screens to avoid overflow */
 @media (max-width: 900px) {
   .cards-container,
   .card-row,
   .card-deck {
-    flex-wrap: wrap; /* stack to next line when needed */
+    flex-wrap: wrap; 
     justify-content: center;
   }
 
   .cards-container .card,
   .card-row .card,
   .card-deck .card {
-    flex: 1 1 calc(50% - 1rem); /* two columns where possible */
+    flex: 1 1 calc(50% - 1rem); 
   }
 }
 
@@ -259,7 +317,6 @@ body {
   .cards-container .card,
   .card-row .card,
   .card-deck .card {
-    flex: 1 1 100%; /* single column on small screens */
+    flex: 1 1 100%; 
   }
 }
-
