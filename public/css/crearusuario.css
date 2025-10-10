@@ -1,0 +1,186 @@
+/*
+ * Archivo: crearusuario.css
+ * Paleta de colores:
+ * - Principal: #114358 (Azul Marino Oscuro)
+ * - Complementario 1: #F2AA1F (Mostaza/Naranja Oscuro)
+ * - Complementario 2: #F1ECE7 (Beige Claro)
+ * - Oscuro: #090909 (Negro)
+ * - Claro: #FFFFFF (Blanco)
+ *
+ * Mejoras: Diseño más llamativo y hover contrastante en botón principal.
+ */
+
+:root {
+    --color-principal: #114358;
+    --color-complementario-1: #F2AA1F;
+    --color-complementario-2: #F1ECE7;
+    --color-hover-claro: #e0d9d4; /* Color de hover sutil para elementos claros */
+    --color-oscuro: #090909;
+    --color-claro: #FFFFFF;
+    --sombra-suave: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --sombra-oscura: 0 10px 20px rgba(0, 0, 0, 0.25); /* Sombra más pronunciada */
+}
+
+/* -------------------------------------------------------------------------- */
+/* Estilos Generales y Contenedor Principal */
+/* -------------------------------------------------------------------------- */
+
+.main-content-card {
+    background-color: var(--color-claro);
+    border-radius: 16px; /* Bordes más redondeados */
+    box-shadow: var(--sombra-oscura); /* Sombra más oscura y llamativa */
+    padding: 3rem; /* Espaciado interno generoso */
+    max-width: 900px;
+    margin: 40px auto; /* Centrar con más margen */
+    border: none; /* Quitamos el borde sutil */
+}
+
+.card-title-custom {
+    color: var(--color-principal);
+    font-weight: 800; /* Más peso */
+    font-size: 2rem; /* Título más grande */
+    margin-bottom: 2.5rem !important;
+    border-bottom: 4px solid var(--color-complementario-1); /* Línea de contraste más gruesa */
+    display: inline-block;
+    padding-bottom: 8px;
+    letter-spacing: 2px; /* Más espaciado para minimalismo y claridad */
+    text-transform: uppercase;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Formulario y Etiquetas */
+/* -------------------------------------------------------------------------- */
+
+.form-label {
+    color: var(--color-principal);
+    font-weight: 700; /* Más peso para las etiquetas */
+    margin-bottom: 0.5rem;
+    display: block;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Campos de Entrada (Input, Select) */
+/* -------------------------------------------------------------------------- */
+
+.form-control-dark,
+.form-select-dark {
+    display: block;
+    width: 100%;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--color-oscuro);
+    background-color: var(--color-complementario-2); /* Fondo Beige Claro */
+    border: 1px solid var(--color-complementario-2);
+    border-radius: 8px; /* Bordes más suaves */
+    transition: all 0.2s ease-in-out;
+}
+
+/* Foco: Borde más grueso y color principal */
+.form-control-dark:focus,
+.form-select-dark:focus {
+    color: var(--color-oscuro);
+    background-color: var(--color-claro);
+    border: 2px solid var(--color-principal); /* Borde más grueso en foco */
+    outline: 0;
+    box-shadow: 0 0 10px rgba(17, 67, 88, 0.4); /* Sombra más clara pero notoria */
+}
+
+.form-control-dark::placeholder {
+    color: #a0a0a0;
+    opacity: 1;
+}
+
+input[name="password"][placeholder]:not(:focus) {
+    font-style: italic;
+    color: #888;
+}
+
+
+/* -------------------------------------------------------------------------- */
+/* Alertas de Éxito y Error */
+/* -------------------------------------------------------------------------- */
+
+.alert-success {
+    color: var(--color-principal);
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.alert-danger {
+    color: var(--color-oscuro);
+    background-color: var(--color-complementario-2); /* Usamos el beige claro para un look minimalista */
+    border: 1px solid #f5c6cb;
+    border-left: 6px solid var(--color-complementario-1); /* Barra de contraste amarilla/mostaza */
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    box-shadow: var(--sombra-suave);
+}
+
+.alert-danger .alert-heading {
+    color: var(--color-principal); /* Título de error en color principal */
+    font-size: 1.1rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+}
+
+.alert-danger ul {
+    margin-bottom: 0;
+    margin-top: 0.5rem;
+    padding-left: 20px;
+    font-weight: 500;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Botones de Acción - Efecto Invertido y Llamativo */
+/* -------------------------------------------------------------------------- */
+
+.btn {
+    padding: 0.8rem 1.8rem; /* Un poco más de padding */
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    text-transform: uppercase;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Transición más suave y dinámica */
+    letter-spacing: 1px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Sombra predeterminada */
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Botón de Guardar/Actualizar (Submit) */
+.btn-submit-custom {
+    background-color: var(--color-principal); /* Dark Teal */
+    color: var(--color-claro); /* White text */
+    border: 2px solid var(--color-principal);
+}
+
+/* ESTILO HOVER SOLICITADO: Usa el color de hover del botón de Cancelar */
+.btn-submit-custom:hover {
+    background-color: var(--color-hover-claro); /* #e0d9d4 (Color de hover de Cancelar) */
+    color: var(--color-principal); /* El texto cambia a Dark Teal para gran contraste */
+    border-color: var(--color-principal); /* Mantenemos el borde oscuro */
+    transform: scale(1.05); /* Ligeramente más grande */
+    box-shadow: 0 8px 20px rgba(17, 67, 88, 0.4); /* Sombra pronunciada y enfocada */
+}
+
+/* Botón de Cancelar (Clear) */
+.btn-clear {
+    background-color: var(--color-complementario-2); /* Light Beige */
+    color: var(--color-oscuro); /* Black text */
+    border: 2px solid var(--color-complementario-2);
+}
+
+.btn-clear:hover {
+    background-color: var(--color-hover-claro); /* Ligeramente más oscuro (el mismo color de hover que el submit) */
+    color: var(--color-oscuro);
+    border-color: var(--color-hover-claro);
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}

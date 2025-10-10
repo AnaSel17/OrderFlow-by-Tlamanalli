@@ -1,134 +1,265 @@
-:root{
-  --ton-gold:#D4952C;   /* Header */
-  --ton-beige:#F6F1E6;  /* Fondo */
-  --ton-border:#E6DFD2; /* Borde tarjeta / divisorias */
+/* ==========================================================
+   TONALLI UI — Versión moderna con degradados dinámicos
+   ========================================================== */
+
+/* === PALETA DE COLOR === */
+:root {
+  --ton-blue: #114358;        /* Azul petróleo principal */
+  --ton-gold: #F2AA1F;        /* Dorado complementario */
+  --ton-beige: #F1ECE7;       /* Beige claro */
+  --ton-black: #090909;       /* Negro profundo */
+  --ton-white: #FFFFFF;       /* Blanco puro */
+  --ton-border: #E0DAD3;      /* Bordes suaves */
+  --ton-shadow: rgba(0, 0, 0, 0.08);
 }
 
-/* Header dorado */
-.tonalli-navbar{ background:var(--ton-gold) !important; color:#fff; }
-.tonalli-navbar .nav-link, .tonalli-navbar .navbar-brand{ color:#fff !important; }
-
-/* Fondo claro del contenido */
-.tonalli-bg{ background:var(--ton-beige); }
-
-/* Tarjetas: solo borde y sombra suave sobre el estilo de AdminLTE */
-.card{
-  border:1px solid var(--ton-border);
-  border-radius:16px;
-  box-shadow:0 6px 18px rgba(0,0,0,.06);
+/* === BASE === */
+body {
+  background-color: var(--ton-beige);
+  color: var(--ton-black);
+  font-family: "Poppins", "Segoe UI", sans-serif;
+  font-size: 15px;
+  letter-spacing: 0.3px;
 }
 
-/* Card con dos gráficas y línea divisoria */
-.card .card-body.split{ display:grid; grid-template-columns:1fr 1fr; gap:0; }
-.card .card-body.split > div{ padding:16px; }
-.card .card-body.split > div + div{ border-left:1px solid var(--ton-border); }
-
-
-/* ===== NAVBAR (header dorado) ===== */
-.tonalli-navbar { background: var(--ton-gold) !important; color:#fff; }
-.tonalli-navbar .navbar-brand, 
-.tonalli-navbar .nav-link, 
-.tonalli-navbar .navbar-nav .nav-link { color:#fff !important; }
-
-/* ===== SIDEBAR CLARO (quitar azul y suavizar) ===== */
-.sidebar-light .nav-sidebar > .nav-item > .nav-link {
-  border-radius:12px;
-  margin:2px 8px;
-}
-.sidebar-light .nav-sidebar > .nav-item > .nav-link.active {
-  background:#F0E3C8;            /* dorado MUY claro */
-  color:#3d3d3d;
-  box-shadow: 0 2px 8px rgba(0,0,0,.08);
-}
-.sidebar-light .brand-link {
-  background:#FBF7EF;             /* header logo del sidebar */
-  border-bottom:1px solid var(--ton-border);
+/* === NAVBAR === */
+.tonalli-navbar {
+  background: linear-gradient(90deg, var(--ton-blue), var(--ton-black));
+  color: var(--ton-white);
+  box-shadow: 0 3px 10px var(--ton-shadow);
+  border-bottom: 2px solid var(--ton-gold);
 }
 
-/* ===== CONTENT ===== */
-.content-wrapper.tonalli-bg { background: var(--ton-beige); }
-.content-header h1 { font-weight:600; color:#3d3d3d; }
-
-/* ===== CARDS (más borde/sombra/rounded como el mockup) ===== */
-.card{
-  background:#fff;
-  border:1px solid var(--ton-border);
-  border-radius:18px;
-  box-shadow:0 10px 22px rgba(0,0,0,.06);
-}
-.card .card-body{ padding:18px 20px; }
-.card .text-muted{ color:#6b6b6b !important; }
-
-/* Métrica “badge” a la izquierda (opcional) */
-.card .btn.btn-light{
-  background:#F5F0E6; border:none; color:#3d3d3d;
-  box-shadow: inset 0 0 0 1px var(--ton-border);
-  border-radius:12px;
-}
-
-/* ===== PANEL DE GRÁFICAS con divisoria visible ===== */
-.card .card-body.split{ display:grid; grid-template-columns:1fr 1fr; gap:0; min-height:260px; }
-.card .card-body.split > div{ padding:16px; }
-.card .card-body.split > div + div{ border-left:1px solid var(--ton-border); }
-
-/* ===== SCROLL general más suave (detalle) ===== */
-body { scroll-behavior:smooth; }
-
-/* Contenedor del logo */
-.brand-link {
-    flex-direction: column;   /* Logo arriba, texto abajo */
-    align-items: center;
-    padding: 1rem 0 !important;
-    background-color: #fff;   /* Fondo claro, cámbialo si quieres */
-    border-bottom: 1px solid #e6dfd2;
-}
-
-/* Logo grande */
-.brand-link .brand-image {
-    max-height: 80px !important;  /* Ajusta tamaño del logo */
-    width: auto;
-    margin-bottom: 10px;
-}
-
-/* Texto debajo del logo */
-.brand-link .brand-text {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #333;  /* Puedes usar el dorado o el color del logo */
-    display: block;
-    text-align: center;
-}
-
-/* === Brand del sidebar: logo arriba, texto abajo, centrados === */
-.main-sidebar .brand-link{
-  height: auto !important;              /* deja crecer el contenedor */
-  padding: 1rem 0 !important;
-  display: flex;
-  flex-direction: column;               /* apila vertical */
-  align-items: center;                  /* centra horizontal */
-  background: #fff;                     /* opcional: claro */
-  border-bottom: 1px solid var(--ton-border);
-}
-
-/* Logo grande y centrado */
-.main-sidebar .brand-link .brand-image{
-  float: none !important;               /* anula float por defecto */
-  display: block;
-  max-height: 80px !important;          /* ajusta tamaño del logo */
-  width: auto;
-  margin: 0 auto 10px !important;       /* centrado + espacio con el texto */
-  border-radius: 0 !important;          /* por si tenía img-circle */
-  box-shadow: none !important;          /* sin elevation */
-}
-
-/* Texto debajo del logo */
-.main-sidebar .brand-link .brand-text{
-  display: block;
-  font-size: 1.1rem;
+.tonalli-navbar .navbar-brand {
   font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--ton-gold) !important;
+}
+
+.tonalli-navbar .nav-link {
+  color: var(--ton-white) !important;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.tonalli-navbar .nav-link:hover {
+  background: linear-gradient(90deg, var(--ton-gold), var(--ton-blue));
+  color: var(--ton-white) !important;
+  transform: translateY(-2px);
+}
+
+/* === SIDEBAR === */
+.main-sidebar {
+  background-color: var(--ton-white) !important;
+  border-right: 1px solid var(--ton-border);
+  box-shadow: 4px 0 12px var(--ton-shadow);
+}
+
+/* Logo y texto */
+.main-sidebar .brand-link {
+  background: linear-gradient(135deg, #114358 0%, #F2AA1F 120%);
+
+  border-bottom: 1px solid var(--ton-gold);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.6rem 0; /* un poco más de espacio */
+  color: var(--ton-white);
+  transition: all 0.3s ease;
+}
+
+.main-sidebar .brand-link:hover {
+  background: linear-gradient(90deg, var(--ton-gold), var(--ton-blue));
+  color: var(--ton-white);
+}
+
+.main-sidebar .brand-image {
+  max-height: 140px !important; /* antes era 75px */
+  width: auto;
+  margin-bottom: 10px;
+  transition: transform 0.3s ease;
+}
+
+.main-sidebar .brand-link:hover .brand-image {
+  transform: scale(1.1); /* un poco más grande al pasar el mouse */
+}
+
+.main-sidebar .brand-text {
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  font-size: 1.1rem; /* texto un poco más legible debajo del logo */
+}
+
+/* === MENÚ PRINCIPAL === */
+.sidebar-light .nav-sidebar > .nav-item > .nav-link {
+  color: var(--ton-black);
+  border-radius: 12px;
+  margin: 6px 1px;
+  padding: 12px 15px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.sidebar-light .nav-sidebar > .nav-item > .nav-link i.nav-icon {
+  color: var(--ton-blue);
+  margin-right: 10px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* Hover con degradado */
+.sidebar-light .nav-sidebar > .nav-item > .nav-link:hover {
+  background: linear-gradient(90deg, var(--ton-gold) 0%, var(--ton-blue) 100%);
+  color: var(--ton-white);
+  transform: translateX(4px);
+  box-shadow: 0 4px 10px var(--ton-shadow);
+}
+
+.sidebar-light .nav-sidebar > .nav-item > .nav-link:hover i.nav-icon {
+  color: var(--ton-white);
+  transform: scale(1.1);
+}
+
+/* Activo */
+.sidebar-light .nav-sidebar > .nav-item > .nav-link.active {
+  background: linear-gradient(90deg, var(--ton-blue), var(--ton-gold));
+  color: var(--ton-white) !important;
+  box-shadow: 0 4px 10px var(--ton-shadow);
+}
+
+.sidebar-light .nav-sidebar > .nav-item > .nav-link.active i.nav-icon {
+  color: var(--ton-white);
+}
+
+/* === SUBMENÚ === */
+.nav-treeview {
+  background-color: var(--ton-beige);
+  margin: 0 1px 1px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  box-shadow: inset 0 1px 3px var(--ton-shadow);
+}
+
+.nav-treeview > .nav-item > .nav-link {
   color: #333;
-  line-height: 1.1;
-  text-align: center;
-  margin: 0;
+  border-radius: 8px;
+  padding: 10px 15px;
+  transition: all 0.3s ease;
+}
+
+.nav-treeview > .nav-item > .nav-link:hover {
+  background: linear-gradient(90deg, var(--ton-blue) 0%, var(--ton-gold) 100%);
+  color: var(--ton-white);
+  transform: translateX(3px);
+  box-shadow: 0 3px 8px var(--ton-shadow);
+}
+
+/* === TARJETAS === */
+.card {
+  background: var(--ton-white);
+  border: 1px solid var(--ton-border);
+  border-radius: 16px;
+  box-shadow: 0 10px 20px var(--ton-shadow);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.1);
+}
+
+.card .card-header {
+  background: linear-gradient(90deg, var(--ton-gold), var(--ton-beige));
+  border-bottom: 1px solid var(--ton-border);
+  font-weight: 600;
+  color: var(--ton-black);
+}
+
+
+/* === BOTONES === */
+.btn-tonalli {
+  background: linear-gradient(90deg, var(--ton-blue), var(--ton-gold));
+  background-size: 200% 100%;
+  color: var(--ton-white);
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  transition: all 0.4s ease;
+}
+
+.btn-tonalli:hover {
+  background-position: right center;
+  color: var(--ton-white);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--ton-shadow);
+}
+
+/* === SCROLLBAR === */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--ton-blue);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--ton-gold);
+}
+::-webkit-scrollbar-track {
+  background-color: var(--ton-beige);
+}
+
+/* === TRANSICIONES SUAVES === */
+.nav-sidebar .nav-link,
+.nav-treeview .nav-link,
+.card,
+.btn-tonalli {
+  transition: all 0.25s ease-in-out;
+}
+
+/* === LAYOUT: CARTAS HORIZONTALES === */
+/* Use a container to layout .card elements horizontally while keeping existing card styling */
+.cards-container,
+.card-row,
+.card-deck {
+  display: flex;
+  flex-direction: row; /* horizontal layout */
+  flex-wrap: nowrap; /* keep them in one line by default */
+  gap: 1rem; /* space between cards */
+  align-items: flex-start;
+}
+
+/* Allow cards to shrink slightly but keep a comfortable width */
+.cards-container .card,
+.card-row .card,
+.card-deck .card {
+  flex: 0 1 280px; /* do not grow, can shrink, base width 280px */
+  min-width: 220px;
+}
+
+/* Responsive: allow wrapping on smaller screens to avoid overflow */
+@media (max-width: 900px) {
+  .cards-container,
+  .card-row,
+  .card-deck {
+    flex-wrap: wrap; /* stack to next line when needed */
+    justify-content: center;
+  }
+
+  .cards-container .card,
+  .card-row .card,
+  .card-deck .card {
+    flex: 1 1 calc(50% - 1rem); /* two columns where possible */
+  }
+}
+
+@media (max-width: 520px) {
+  .cards-container .card,
+  .card-row .card,
+  .card-deck .card {
+    flex: 1 1 100%; /* single column on small screens */
+  }
 }
 

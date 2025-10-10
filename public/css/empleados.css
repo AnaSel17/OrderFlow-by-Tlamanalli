@@ -1,0 +1,204 @@
+/* ==========================================================
+    ESTILOS PROFESIONALES DE GESTIÓN DE EMPLEADOS
+    Diseño: Minimalista, Elegante y Moderno (Paleta Tonalli)
+   ========================================================== */
+
+/* === PALETA Y VARIABLES === */
+:root {
+    --ton-blue: #114358;        /* Azul petróleo */
+    --ton-gold: #F2AA1F;        /* Dorado */
+    --ton-beige: #F1ECE7;       /* Beige claro */
+    --ton-black: #1A1A1A;       /* Negro profundo */
+    --ton-white: #FFFFFF;       /* Blanco puro */
+    --ton-border: #E0DAD3;      /* Bordes suaves */
+    --ton-shadow-s: rgba(0, 0, 0, 0.06); /* Sombra ligera */
+    --ton-shadow-m: rgba(0, 0, 0, 0.12); /* Sombra media */
+}
+
+/* === BASE === */
+body, .content-wrapper {
+    background-color: var(--ton-beige);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--ton-black);
+}
+
+/* === CONTROLES PRINCIPALES === */
+.controls-container {
+    background-color: var(--ton-white);
+    border-radius: 16px;
+    padding: 2rem 2.5rem;
+    box-shadow: 0 6px 18px var(--ton-shadow-s);
+    border-top: 4px solid var(--ton-blue);
+    margin-bottom: 2rem;
+}
+
+.card-title-custom {
+    font-weight: 700;
+    font-size: 2rem;
+    color: var(--ton-black);
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+}
+
+/* === INPUTS Y SELECTS === */
+.form-control-dark,
+.form-select-dark {
+    background-color: var(--ton-white);
+    color: var(--ton-black);
+    border: 1px solid var(--ton-border);
+    border-radius: 12px;
+    padding: 0.8rem 1rem;
+    font-size: 0.95rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.form-control-dark:focus,
+.form-select-dark:focus {
+    border-color: var(--ton-gold);
+    box-shadow:
+        0 0 0 4px rgba(17, 67, 88, 0.15),
+        0 0 0 0.25rem rgba(242, 170, 31, 0.6);
+}
+
+/* === BOTONES === */
+.btn-add-user {
+    background: linear-gradient(90deg, var(--ton-blue) 0%, var(--ton-gold) 100%);
+    color: var(--ton-white);
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    padding: 0.7rem 1.8rem;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    box-shadow: 0 4px 12px var(--ton-shadow-m);
+    transition: all 0.3s ease;
+}
+
+.btn-add-user:hover {
+    background: linear-gradient(90deg, var(--ton-gold) 0%, var(--ton-blue) 100%);
+    box-shadow: 0 6px 18px rgba(242, 170, 31, 0.35);
+    transform: translateY(-2px);
+}
+
+.btn-clear {
+    background-color: var(--ton-white);
+    color: var(--ton-blue);
+    border: 2px solid var(--ton-blue);
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 0.7rem 1.5rem;
+    box-shadow: 0 2px 5px var(--ton-shadow-s);
+    transition: all 0.3s ease;
+}
+
+.btn-clear:hover {
+    background-color: var(--ton-blue);
+    color: var(--ton-white);
+    border-color: var(--ton-gold);
+    box-shadow: 0 4px 8px var(--ton-shadow-m);
+    transform: translateY(-1px);
+}
+
+/* === TABLA DE EMPLEADOS === */
+.table-card {
+    background-color: var(--ton-white);
+    border-radius: 16px;
+    box-shadow: 0 6px 20px var(--ton-shadow-s);
+    overflow: hidden;
+    border: 1px solid var(--ton-border);
+}
+
+.table-dark-custom thead {
+    background-color: var(--ton-blue);
+    color: var(--ton-white);
+}
+
+.table-dark-custom th {
+    font-weight: 600;
+    padding: 1rem;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.table-dark-custom td {
+    padding: 0.8rem 1rem;
+    vertical-align: middle;
+    border-top: 1px solid var(--ton-border);
+}
+
+.table-dark-custom tbody tr:nth-of-type(odd) {
+    background-color: var(--ton-beige);
+}
+
+.table-dark-custom tbody tr:hover {
+    background-color: rgba(242, 170, 31, 0.1);
+}
+
+/* === BADGES === */
+.badge {
+    font-weight: 600;
+    padding: 0.35rem 0.7rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+}
+
+.badge.bg-success { background-color: var(--ton-blue); color: var(--ton-white); }
+.badge.bg-danger { background-color: #dc3545; color: var(--ton-white); }
+
+/* === BOTONES DE ACCIÓN DE FILA === */
+.action-buttons a,
+.action-buttons button {
+    font-size: 0.85rem;
+    padding: 0.45rem 0.8rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn-editar {
+    background-color: var(--ton-gold);
+    color: var(--ton-black);
+}
+.btn-editar:hover {
+    background-color: var(--ton-blue);
+    color: var(--ton-white);
+    transform: scale(1.05);
+}
+
+.btn-eliminar {
+    background-color: #dc3545;
+    color: var(--ton-white);
+}
+.btn-eliminar:hover {
+    background-color: #a71d2a;
+    transform: scale(1.05);
+}
+
+/* === PAGINACIÓN === */
+.pagination-container nav {
+    display: flex;
+    justify-content: center;
+    padding: 1.5rem 0;
+}
+
+.pagination .page-item .page-link {
+    color: var(--ton-blue);
+    border: 1px solid var(--ton-border);
+    margin: 0 3px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--ton-blue);
+    border-color: var(--ton-blue);
+    color: var(--ton-white);
+    box-shadow: 0 2px 6px var(--ton-shadow-s);
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: var(--ton-gold);
+    border-color: var(--ton-gold);
+    color: var(--ton-black);
+}
