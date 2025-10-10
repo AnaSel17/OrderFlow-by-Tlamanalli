@@ -51,9 +51,9 @@
         {{-- ... resto de tu formulario ... --}}
 
                     <div class="col-md-4">
-                        <label for="user_nombre" class="form-label">Nombre</label>
+                        <label for="name" class="form-label">Nombre</label>
                         {{-- Se revierte la variable a $usuario --}}
-                        <input type="text" class="form-control-dark" id="user_nombre" name="user_nombre" value="{{ old('user_nombre', $usuario->user_nombre ?? '') }}" required>
+                        <input type="text" class="form-control-dark" id="name" name="name" value="{{ old('name', $usuario->name ?? '') }}" required>
                     </div>
                     <div class="col-md-4">
                         <label for="apellido_paterno" class="form-label">Apellido Paterno</label>

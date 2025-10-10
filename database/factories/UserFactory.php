@@ -24,11 +24,23 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
+            // Campos de AdminLTE/Laravel
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+
+            // CAMPOS PERSONALIZADOS AGREGADOS
+            'apellido_paterno' => fake()->lastName(),
+            'apellido_materno' => fake()->optional()->lastName(),
+            'telefono' => fake()->optional()->phoneNumber(),
+            'user_estado' => 'activo',
+            'last_login_at' => null,
+            
+            // EL CAMPO CLAVE QUE FALTABA: id_rol
+            // Asignamos un ID de Rol fijo (ej: 2 para un rol de 'Usuario' general)
+            'id_rol' => 2, 
         ];
     }
 
@@ -42,3 +54,5 @@ class UserFactory extends Factory
         ]);
     }
 }
+
+
