@@ -136,9 +136,9 @@ return [
     */
 
     'usermenu_enabled'      => true,
-    'usermenu_image'        => true,
+    'usermenu_image'        => false,
     'usermenu_desc'         => true,
-    'usermenu_profile_url'  => true,
+    'usermenu_profile_url'  => false,
     'use_route_url'         => true,
     'logout_url'            => 'logout',
     
