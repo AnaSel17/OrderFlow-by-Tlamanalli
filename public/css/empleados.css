@@ -1,204 +1,329 @@
-/* ==========================================================
-    ESTILOS PROFESIONALES DE GESTIÓN DE EMPLEADOS
-    Diseño: Minimalista, Elegante y Moderno (Paleta Tonalli)
-   ========================================================== */
+/* =====================================================
+   TABLA DE EMPLEADOS - DISEÑO MODERNO, ANIMADO Y ELEGANTE
+   ===================================================== */
 
-/* === PALETA Y VARIABLES === */
-:root {
-    --ton-blue: #114358;        /* Azul petróleo */
-    --ton-gold: #F2AA1F;        /* Dorado */
-    --ton-beige: #F1ECE7;       /* Beige claro */
-    --ton-black: #1A1A1A;       /* Negro profundo */
-    --ton-white: #FFFFFF;       /* Blanco puro */
-    --ton-border: #E0DAD3;      /* Bordes suaves */
-    --ton-shadow-s: rgba(0, 0, 0, 0.06); /* Sombra ligera */
-    --ton-shadow-m: rgba(0, 0, 0, 0.12); /* Sombra media */
-}
-
-/* === BASE === */
-body, .content-wrapper {
-    background-color: var(--ton-beige);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: var(--ton-black);
-}
-
-/* === CONTROLES PRINCIPALES === */
-.controls-container {
-    background-color: var(--ton-white);
-    border-radius: 16px;
-    padding: 2rem 2.5rem;
-    box-shadow: 0 6px 18px var(--ton-shadow-s);
-    border-top: 4px solid var(--ton-blue);
-    margin-bottom: 2rem;
-}
-
-.card-title-custom {
-    font-weight: 700;
-    font-size: 2rem;
-    color: var(--ton-black);
-    margin-bottom: 1.5rem;
-    text-transform: uppercase;
-}
-
-/* === INPUTS Y SELECTS === */
-.form-control-dark,
-.form-select-dark {
-    background-color: var(--ton-white);
-    color: var(--ton-black);
-    border: 1px solid var(--ton-border);
-    border-radius: 12px;
-    padding: 0.8rem 1rem;
-    font-size: 0.95rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-}
-
-.form-control-dark:focus,
-.form-select-dark:focus {
-    border-color: var(--ton-gold);
-    box-shadow:
-        0 0 0 4px rgba(17, 67, 88, 0.15),
-        0 0 0 0.25rem rgba(242, 170, 31, 0.6);
-}
-
-/* === BOTONES === */
-.btn-add-user {
-    background: linear-gradient(90deg, var(--ton-blue) 0%, var(--ton-gold) 100%);
-    color: var(--ton-white);
-    font-weight: 600;
-    border: none;
-    border-radius: 12px;
-    padding: 0.7rem 1.8rem;
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
-    box-shadow: 0 4px 12px var(--ton-shadow-m);
-    transition: all 0.3s ease;
-}
-
-.btn-add-user:hover {
-    background: linear-gradient(90deg, var(--ton-gold) 0%, var(--ton-blue) 100%);
-    box-shadow: 0 6px 18px rgba(242, 170, 31, 0.35);
-    transform: translateY(-2px);
-}
-
-.btn-clear {
-    background-color: var(--ton-white);
-    color: var(--ton-blue);
-    border: 2px solid var(--ton-blue);
-    font-weight: 600;
-    border-radius: 12px;
-    padding: 0.7rem 1.5rem;
-    box-shadow: 0 2px 5px var(--ton-shadow-s);
-    transition: all 0.3s ease;
-}
-
-.btn-clear:hover {
-    background-color: var(--ton-blue);
-    color: var(--ton-white);
-    border-color: var(--ton-gold);
-    box-shadow: 0 4px 8px var(--ton-shadow-m);
-    transform: translateY(-1px);
-}
-
-/* === TABLA DE EMPLEADOS === */
+/* === CONTENEDOR PRINCIPAL === */
 .table-card {
-    background-color: var(--ton-white);
-    border-radius: 16px;
-    box-shadow: 0 6px 20px var(--ton-shadow-s);
+    background: var(--ton-white);
+    border-radius: 18px;
     overflow: hidden;
-    border: 1px solid var(--ton-border);
+    border: 1px solid rgba(148, 113, 81, 0.25);
+    box-shadow: 0 10px 25px rgba(93, 39, 40, 0.15);
+    animation: fadeInUp 0.7s ease forwards;
+    opacity: 0;
+    transform: translateY(25px);
 }
 
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* === CABECERA === */
 .table-dark-custom thead {
-    background-color: var(--ton-blue);
-    color: var(--ton-white);
+    background: linear-gradient(90deg, #5d2728 0%, #a5644b 100%);
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-size: 0.9rem;
+    position: relative;
 }
 
 .table-dark-custom th {
-    font-weight: 600;
     padding: 1rem;
-    text-transform: uppercase;
-    font-size: 0.9rem;
+    text-align: center;
+    font-weight: 700;
+    border-bottom: 3px solid rgba(255, 255, 255, 0.15);
+    position: relative;
 }
 
-.table-dark-custom td {
-    padding: 0.8rem 1rem;
-    vertical-align: middle;
-    border-top: 1px solid var(--ton-border);
+/* Efecto de brillo animado en la cabecera */
+.table-dark-custom thead::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.25), transparent);
+    animation: shine 3s infinite linear;
 }
 
-.table-dark-custom tbody tr:nth-of-type(odd) {
-    background-color: var(--ton-beige);
+@keyframes shine {
+    0% { left: -100%; }
+    100% { left: 150%; }
 }
 
+/* === CUERPO DE LA TABLA === */
+.table-dark-custom tbody tr {
+    transition: all 0.3s ease;
+    background-color: rgba(255,255,255,0.95);
+}
+
+.table-dark-custom tbody tr:nth-child(even) {
+    background-color: rgba(186, 159, 133, 0.15);
+}
+
+/* Hover de fila */
 .table-dark-custom tbody tr:hover {
-    background-color: rgba(242, 170, 31, 0.1);
+    background: linear-gradient(90deg, rgba(186, 159, 133, 0.25), rgba(140, 70, 63, 0.15));
+    transform: scale(1.005);
+    box-shadow: inset 0 0 0 2px rgba(148, 113, 81, 0.1);
 }
 
-/* === BADGES === */
+/* === CELDAS === */
+.table-dark-custom td {
+    padding: 0.9rem 1rem;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #222;
+    border-top: 1px solid rgba(148, 113, 81, 0.25);
+    transition: background 0.3s ease;
+}
+
+/* Primera columna (ID) más fuerte */
+.table-dark-custom td:first-child {
+    font-weight: 600;
+    color: #5d2728;
+}
+
+/* === ESTADO (BADGES) === */
 .badge {
     font-weight: 600;
-    padding: 0.35rem 0.7rem;
-    border-radius: 6px;
-    font-size: 0.8rem;
-}
-
-.badge.bg-success { background-color: var(--ton-blue); color: var(--ton-white); }
-.badge.bg-danger { background-color: #dc3545; color: var(--ton-white); }
-
-/* === BOTONES DE ACCIÓN DE FILA === */
-.action-buttons a,
-.action-buttons button {
-    font-size: 0.85rem;
     padding: 0.45rem 0.8rem;
-    border-radius: 8px;
-    transition: all 0.2s ease;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    display: inline-block;
+    min-width: 85px;
 }
 
-.btn-editar {
-    background-color: var(--ton-gold);
-    color: var(--ton-black);
-}
-.btn-editar:hover {
-    background-color: var(--ton-blue);
-    color: var(--ton-white);
-    transform: scale(1.05);
+.badge.bg-success {
+    background: linear-gradient(90deg, #43a047, #2e7d32);
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(46, 125, 50, 0.25);
+    animation: pulseGreen 2s infinite;
 }
 
-.btn-eliminar {
-    background-color: #dc3545;
-    color: var(--ton-white);
-}
-.btn-eliminar:hover {
-    background-color: #a71d2a;
-    transform: scale(1.05);
+.badge.bg-danger {
+    background: linear-gradient(90deg, #d32f2f, #b71c1c);
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(183, 28, 28, 0.25);
+    animation: pulseRed 2s infinite;
 }
 
-/* === PAGINACIÓN === */
-.pagination-container nav {
+@keyframes pulseGreen {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(67,160,71,0.4); }
+    50% { box-shadow: 0 0 10px 4px rgba(67,160,71,0.2); }
+}
+
+@keyframes pulseRed {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(211,47,47,0.4); }
+    50% { box-shadow: 0 0 10px 4px rgba(211,47,47,0.2); }
+}
+
+/* === ACCIONES === */
+.action-buttons {
     display: flex;
     justify-content: center;
-    padding: 1.5rem 0;
+    align-items: center;
+    gap: 0.4rem;
 }
 
-.pagination .page-item .page-link {
-    color: var(--ton-blue);
-    border: 1px solid var(--ton-border);
-    margin: 0 3px;
-    border-radius: 8px;
-    transition: all 0.2s ease;
+/* Botones base */
+.action-buttons .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: none;
+    border-radius: 10px;
+    padding: 0.5rem 0.7rem;
+    color: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
-.pagination .page-item.active .page-link {
-    background-color: var(--ton-blue);
-    border-color: var(--ton-blue);
-    color: var(--ton-white);
-    box-shadow: 0 2px 6px var(--ton-shadow-s);
+/* Íconos */
+.action-buttons i {
+    font-size: 1rem;
+    transition: transform 0.3s ease;
 }
 
-.pagination .page-item .page-link:hover {
-    background-color: var(--ton-gold);
-    border-color: var(--ton-gold);
-    color: var(--ton-black);
+/* Hover del ícono */
+.action-buttons .btn:hover i {
+    transform: rotate(-10deg) scale(1.15);
 }
+
+/* === BOTÓN EDITAR === */
+.btn-editar {
+    background: linear-gradient(135deg, #8d6e63, #5d4037);
+}
+.btn-editar:hover {
+    background: linear-gradient(135deg, #5d4037, #8d6e63);
+    transform: translateY(-2px);
+}
+
+/* === BOTÓN ELIMINAR === */
+.btn-eliminar {
+    background: linear-gradient(135deg, #b23a48, #5d2728);
+}
+.btn-eliminar:hover {
+    background: linear-gradient(135deg, #5d2728, #b23a48);
+    transform: translateY(-2px);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+    .table-dark-custom th,
+    .table-dark-custom td {
+        padding: 0.7rem;
+        font-size: 0.85rem;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+
+    .btn-editar,
+    .btn-eliminar {
+        width: 100%;
+    }
+}
+/* =====================================================
+   ESTILOS PARA BARRA DE BÚSQUEDA Y FILTROS DE USUARIOS
+   ===================================================== */
+
+.filtros-usuarios {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem; /* Espaciado horizontal uniforme */
+    flex-wrap: wrap; /* Para que en pantallas pequeñas se acomoden */
+    margin-bottom: 2rem;
+}
+
+/* === INPUT DE BÚSQUEDA === */
+#searchInput.form-control-dark {
+    flex: 1 1 40%;
+    background: linear-gradient(135deg, #fdf8f4, #f1e4d1);
+    border: 1px solid #d1bfa3;
+    border-radius: 12px;
+    padding: 0.8rem 1.1rem;
+    font-size: 0.95rem;
+    color: #4b3b2c;
+    box-shadow: 0 3px 8px rgba(93, 39, 40, 0.08);
+    transition: all 0.3s ease;
+    min-width: 230px;
+}
+
+#searchInput.form-control-dark::placeholder {
+    color: #8c7a6a;
+    font-style: italic;
+}
+
+#searchInput.form-control-dark:focus {
+    border-color: #8c463f;
+    box-shadow: 0 0 0 4px rgba(140, 70, 63, 0.2);
+    background: #fff9f5;
+}
+
+/* === SELECT DE ROLES === */
+#rolSelect.form-select-dark {
+    flex: 1 1 30%;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: linear-gradient(135deg, #f9f4ef, #e7d9c9);
+    border: 1px solid #cbb49c;
+    border-radius: 12px;
+    padding: 0.85rem 2.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #4b3b2c;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(93, 39, 40, 0.08);
+    transition: all 0.35s ease;
+    outline: none;
+
+    /* Flecha personalizada */
+    background-image:
+        linear-gradient(45deg, transparent 50%, #8c463f 50%),
+        linear-gradient(135deg, #8c463f 50%, transparent 50%);
+    background-position:
+        calc(100% - 22px) calc(1.1em + 2px),
+        calc(100% - 17px) calc(1.1em + 2px);
+    background-size: 6px 6px;
+    background-repeat: no-repeat;
+}
+
+#rolSelect.form-select-dark:hover {
+    background: linear-gradient(135deg, #fff8f4, #f1e4d1);
+    box-shadow: 0 5px 12px rgba(93, 39, 40, 0.15);
+    border-color: #947151;
+    transform: translateY(-2px);
+}
+
+#rolSelect.form-select-dark:focus {
+    border-color: #8c463f;
+    box-shadow: 0 0 0 4px rgba(140, 70, 63, 0.25);
+    background: linear-gradient(135deg, #fffaf4, #f4e8d8);
+    transform: scale(1.02);
+}
+
+/* === BOTÓN LIMPIAR === */
+.btn-clear {
+    flex: 0 1 15%;
+    background: linear-gradient(135deg, #fff, #f5e9d9);
+    color: #5d2728;
+    border: 2px solid #947151;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 0 3px 10px rgba(148, 113, 81, 0.15);
+    transition: all 0.35s ease;
+    text-align: center;
+}
+
+.btn-clear:hover {
+    background: linear-gradient(135deg, #947151, #5d2728);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(93, 39, 40, 0.3);
+}
+
+.btn-clear:active {
+    transform: scale(0.96);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+    .filtros-usuarios {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    #searchInput,
+    #rolSelect,
+    .btn-clear {
+        width: 90%;
+    }
+}
+@media (min-width: 768px) {
+    .col-md-5 {
+        flex: 0 0 30%;
+        max-width: 30%;
+    }
+}
+
+

@@ -1,0 +1,145 @@
+/* === PALETA DE COLORES TONALLI === */
+:root {
+    --ton-primary-dark: #5d2728;
+    --ton-primary-red: #8c463f;
+    --ton-secondary-brown: #947151;
+    --ton-base-light: #ba9f85;
+    --ton-white: #FFFFFF;
+    --ton-black: #1A1A1A;
+    --ton-border: #d8c2a9;
+    --ton-shadow-s: rgba(0, 0, 0, 0.06);
+    --ton-shadow-m: rgba(0, 0, 0, 0.12);
+}
+
+/* === CONTENEDOR PRINCIPAL === */
+.roles-container {
+    background: var(--ton-white);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px var(--ton-shadow-m);
+    border: 1px solid var(--ton-border);
+    max-width: 1100px;
+    margin: 60px auto 0; /* 👈 Esto lo empuja hacia abajo */
+}
+
+
+/* === TÍTULO === */
+.section-title {
+    font-weight: 700;
+    color: var(--ton-primary-dark);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid var(--ton-secondary-brown);
+    display: inline-block;
+    padding-bottom: 4px;
+}
+
+/* === FORMULARIO DE BÚSQUEDA === */
+.search-form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.search-input {
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--ton-border);
+    box-shadow: 0 2px 4px var(--ton-shadow-s);
+    outline: none;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.search-input:focus {
+    border-color: var(--ton-primary-red);
+    box-shadow: 0 0 6px var(--ton-primary-red);
+}
+
+/* === BOTÓN FILTRAR === */
+.btn-clear {
+    background: var(--ton-primary-dark);
+    color: var(--ton-white);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-clear:hover {
+    background: var(--ton-primary-red);
+}
+
+/* === TABLA === */
+.table-wrapper {
+    overflow-x: auto;
+    box-shadow: 0 3px 10px var(--ton-shadow-s);
+    border-radius: 12px;
+}
+
+.roles-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--ton-white);
+}
+
+.roles-table thead {
+    background: var(--ton-primary-dark);
+    color: var(--ton-white);
+}
+
+.roles-table th, .roles-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--ton-border);
+}
+
+.roles-table tbody tr:hover {
+    background: rgba(186, 159, 133, 0.15);
+    transition: background 0.3s ease;
+}
+
+/* === PAGINACIÓN === */
+.pagination-wrapper {
+    margin-top: 1.5rem;
+}
+
+.btn-pagination {
+    background: var(--ton-secondary-brown);
+    color: var(--ton-white);
+    border: none;
+    padding: 8px 18px;
+    border-radius: 8px;
+    margin: 0 4px;
+    font-weight: 600;
+    transition: background 0.3s ease;
+}
+
+.btn-pagination:hover {
+    background: var(--ton-primary-red);
+}
+
+/* === BADGES (estilo tonalli) === */
+.badge {
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.bg-success {
+    background-color: var(--ton-secondary-brown) !important;
+}
+
+.bg-primary {
+    background-color: var(--ton-primary-red) !important;
+}
+
+.bg-warning {
+    background-color: var(--ton-base-light) !important;
+    color: var(--ton-black) !important;
+}
+
+.bg-danger {
+    background-color: var(--ton-primary-dark) !important;
+}

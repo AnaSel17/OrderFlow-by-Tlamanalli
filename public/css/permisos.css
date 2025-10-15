@@ -1,0 +1,77 @@
+/* ==========================================================
+   ESTILOS DE LA VISTA DE ROLES — TONALLI UI
+   Diseño: Minimalista, elegante y animado
+   ========================================================== */
+
+/* === PALETA === */
+:root {
+    --ton-brown: #5d2728;          /* Color base */
+    --ton-light: #f5ebe0;          /* Fondo claro */
+    --ton-hover: linear-gradient(135deg, #8e3a3b, #5d2728);
+    --ton-shadow: rgba(93, 39, 40, 0.3);
+}
+
+/* === CONTENEDOR GENERAL === */
+.roles-container {
+    text-align: center;
+}
+
+/* === TARJETAS DE ROL === */
+.role-card {
+    background-color: var(--ton-light);
+    color: var(--ton-brown);
+    border: 2px solid var(--ton-brown);
+    border-radius: 1.5rem;
+    padding: 2rem 1.5rem;
+    margin: 1rem 0;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s ease forwards;
+}
+
+/* Animación de entrada secuencial */
+.role-card:nth-child(1) { animation-delay: 0.1s; }
+.role-card:nth-child(2) { animation-delay: 0.3s; }
+.role-card:nth-child(3) { animation-delay: 0.5s; }
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Iconos */
+.role-icon {
+    font-size: 2.5rem;
+    color: var(--ton-brown);
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+}
+
+/* Hover general */
+.role-card:hover {
+    background: var(--ton-hover);
+    color: #fff;
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px var(--ton-shadow);
+}
+
+.role-card:hover .role-icon {
+    transform: scale(1.2);
+    color: #fff;
+}
+
+/* === RESPONSIVO === */
+@media (max-width: 768px) {
+    .role-card {
+        margin: 0.8rem auto;
+        padding: 1.5rem;
+    }
+    .role-icon {
+        font-size: 2rem;
+    }
+}

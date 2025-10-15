@@ -64,7 +64,7 @@ return [
     */
 
     // --- Logo sidebar (logo arriba + texto abajo) ---
-    'logo'            => '<span class="brand-text">Tonalli Studio</span>',
+    'logo'            => '<span class="brand-text"></span>',
     'logo_img'        => 'images/logo.png',      
     'logo_img_class'  => 'brand-image',                  
     'logo_img_xl'     => null,
@@ -324,9 +324,9 @@ return [
         'submenu' => [
             ['text' => 'Listado',           'url' => '/usuarios'],
             ['text' => 'Crear usuario',     'url' => '/usuarios/crear'],
-            ['text' => 'Roles',             'url' => '/roles'],         // can: manage-roles
+            ['text' => 'Listado Roles',             'url' => '/roles'],         // can: manage-roles
             ['text' => 'Permisos',          'url' => '/permissions'],   // can: manage-permissions
-            ['text' => 'Actividad',         'url' => '/users/activity'],
+            ['text' => 'Actividad',         'url' => '/users/actividad'], 
         ],
     ],
 

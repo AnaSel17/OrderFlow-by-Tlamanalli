@@ -91,9 +91,10 @@
                 {{-- CÓDIGO CORRECTO --}}
 <div class="row mb-4">
     <div class="col-md-6 mx-auto">
+        
         <label for="id_rol" class="form-label">Rol del Usuario</label>
-        <select class="form-select-dark" id="id_rol" name="id_rol" required>
-            <option value="" disabled {{ old('id_rol', $usuario->id_rol ?? '') ? '' : 'selected' }}>-- Selecciona un rol --</option>
+        <select class="select-rol-estilizado" id="id_rol" name="id_rol" required>
+            <option value="" disabled {{ old('id_rol', $usuario->id_rol ?? '') ? '' : 'selected' }}> Selecciona un rol</option>
             @foreach ($roles as $rol)
                 {{-- La corrección está aquí: se usa id_rol en lugar de id_rol --}}
                 <option value="{{ $rol->id_rol }}" {{ old('id_rol', $usuario->id_rol ?? '') == $rol->id_rol ? 'selected' : '' }}>

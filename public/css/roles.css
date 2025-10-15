@@ -1,0 +1,147 @@
+/* ==========================================================
+   TONALLI UI — Roles de Cafetería
+   Estilo minimalista con paleta café y estructura limpia
+   ========================================================== */
+
+:root {
+  --ton-brown: #5d2728;
+  --ton-light: #f8f6f2;
+  --ton-white: #ffffff;
+  --ton-black: #1a1a1a;
+  --ton-border: #e8dfd5;
+  --ton-shadow: rgba(93, 39, 40, 0.12);
+
+  /* Colores de roles */
+  --color-gerente: #a78bfa;
+  --color-barista: #facc15;
+  --color-chef: #f472b6;
+}
+
+/* =================== TARJETAS DE ROLES =================== */
+
+/* === CONTENEDOR === */
+.roles-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+/* === TARJETA === */
+.role-card {
+  background-color: var(--ton-white);
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px var(--ton-shadow);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s ease;
+  border: 1px solid var(--ton-border);
+}
+
+.role-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px var(--ton-shadow);
+}
+
+/* === ICONO === */
+.role-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  background-color: #f3e9ff;
+  color: #7b4fcd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 1rem;
+}
+
+/* === TÍTULO === */
+.role-card h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ton-brown);
+  margin-bottom: 0.25rem;
+}
+
+/* === DESCRIPCIÓN === */
+.role-card p.description {
+  font-size: 0.93rem;
+  color: #6b5c4a;
+  line-height: 1.4;
+  margin-bottom: 1.2rem;
+}
+
+/* === INFORMACIÓN DE CATEGORÍA Y PERSONAL === */
+.role-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  color: #6b5c4a;
+  margin-bottom: 1rem;
+}
+
+.role-info span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* === ETIQUETAS DE PERMISOS === */
+.permissions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.badge {
+  background-color: #f4f0eb;
+  color: var(--ton-brown);
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-weight: 500;
+  border: 1px solid #e8dfd5;
+}
+
+.badge.extra {
+  background-color: #efe8e0;
+  color: #4a3a2a;
+}
+
+/* === BOTÓN DETALLES === */
+.btn-details {
+  margin-top: auto;
+  background-color: #faf8f5;
+  color: var(--ton-brown);
+  border: 1px solid var(--ton-border);
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-details:hover {
+  background-color: var(--ton-brown);
+  color: var(--ton-white);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 600px) {
+  .role-card {
+    padding: 1.2rem;
+  }
+  .role-card h3 {
+    font-size: 1.1rem;
+  }
+  .btn-details {
+    padding: 0.5rem 0.9rem;
+  }
+}

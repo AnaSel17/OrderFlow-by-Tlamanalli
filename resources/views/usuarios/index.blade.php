@@ -35,7 +35,7 @@
                 </div>
                 <div class="col-md-4">
                     <select name="rol" id="rolSelect" class="form-select-dark">
-                        <option value="">-- Todos los roles --</option>
+                        <option value=""> Todos los roles </option>
                         @foreach ($roles as $rol)
                             <option value="{{ $rol->id_rol }}" {{ request('rol') == $rol->id_rol ? 'selected' : '' }}>
                                 {{ $rol->nombre }}
@@ -87,20 +87,25 @@
                         </td>
                         {{-- CORRECCIÓN: Implementación de los botones de acción --}}
                         <td class="action-buttons d-flex justify-content-start">
-                            <!-- Botón EDITAR -->
-                            <a href="{{ route('usuarios.edit', $usuario) }}" class="btn btn-editar me-2" title="Editar">
-                                <i class="bi bi-pencil-fill"></i>
-                            </a>
-                        
-                            <!-- Botón ELIMINAR -->
-                            <form action="{{ route('usuarios.destroy', $usuario) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar a este usuario?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-eliminar" title="Eliminar">
-                                    <i class="bi bi-trash-fill"></i>
-                                </button>
-                            </form>
+                         <!-- Botón EDITAR -->
+                        <a href="{{ route('usuarios.edit', $usuario) }}" class="btn btn-editar me-2" title="Editar">
+                        <i class="bi bi-pencil-fill"></i>
+                        <span>Editar</span>
+                         </a>
+
+                        <!-- Botón ELIMINAR -->
+                        <form action="{{ route('usuarios.destroy', $usuario) }}" method="POST" 
+                             onsubmit="return confirm('¿Estás seguro de que deseas eliminar a este usuario?');"
+                             style="display:inline;">
+                             @csrf
+                            @method('DELETE')
+                        <button type="submit" class="btn btn-eliminar" title="Eliminar">
+                        <i class="bi bi-trash-fill"></i>
+                        <span>Eliminar</span>
+                        </button>
+                        </form>
                         </td>
+
                     </tr>
                     @empty
                     <tr>
