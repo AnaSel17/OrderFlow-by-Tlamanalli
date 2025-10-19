@@ -2,6 +2,13 @@
 
 @section('title', 'Detalles del Rol')
 
+@push('css')
+    {{-- Conexión al archivo de estilos específico para esta vista --}}
+    <link rel="stylesheet" href="{{ asset('css/editar_roles.css') }}">
+    {{-- Bootstrap Icons para el ícono del rol --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+@endpush
+
 @section('content_header')
     <div class="d-flex align-items-center">
         <a href="{{ route('roles.index') }}" class="btn btn-link text-dark text-decoration-none mr-3">
@@ -11,75 +18,24 @@
 @endsection
 
 @section('content')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-<style>
-    .card {
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        margin-bottom: 20px;
-    }
-    .role-icon-lg {
-        width: 64px;
-        height: 64px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 12px;
-        font-size: 32px;
-    }
-    .badge-custom {
-        background-color: #f8f9fa;
-        color: #495057;
-        font-weight: normal;
-        padding: 5px 10px;
-        border-radius: 20px;
-        margin-right: 5px;
-        margin-bottom: 5px;
-        display: inline-block;
-    }
-    .category-badge {
-        padding: 5px 15px;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        font-weight: 500;
-    }
-    .user-avatar {
-        width: 40px;
-        height: 40px;
-        min-width: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        font-weight: bold;
-    }
-    .user-list-item {
-        padding: 10px 0;
-        border-bottom: 1px solid #f0f0f0;
-    }
-    .user-list-item:last-child {
-        border-bottom: none;
-    }
-</style>
-
 <div class="container-fluid">
     <!-- Header -->
     <div class="mb-4">
         <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
-            <div class="d-flex gap-3">
-                <div class="role-icon-lg" style="background-color: #f0e6ff;">
+            <div class="d-flex align-items-center" style="gap: 15px;">
+                <div class="role-icon-lg">
                     <i class="bi bi-shield"></i>
                 </div>
                 <div>
                     <h1 class="mb-2">Gerente</h1>
-                    <div class="d-flex align-items-center gap-2">
-                        <span class="badge bg-secondary">Gerencial</span>
-                        <span class="text-muted">2 usuarios asignados</span>
+                    <div class="d-flex align-items-center" style="gap: 10px;">
+                        <span class="category-badge">Gerencial</span>
+                        <span class="text-muted small">2 usuarios asignados</span>
                     </div>
                 </div>
             </div>
 
-            <div class="d-flex gap-2">
+            <div class="d-flex" style="gap: 10px;">
                 <a href="#" class="btn btn-outline-primary">
                     <i class="fas fa-pencil-alt mr-1"></i> Editar
                 </a>
@@ -95,9 +51,9 @@
     </div>
 
     <div class="row">
-        <!-- Información principal -->
+        <!-- Columna Izquierda: Información y Usuarios -->
         <div class="col-lg-8">
-            <!-- Descripción -->
+            <!-- Descripción y Permisos -->
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Información General</h5>
@@ -109,7 +65,7 @@
                     <hr>
                     
                     <h6>Permisos (4)</h6>
-                    <div class="d-flex flex-wrap gap-2">
+                    <div class="d-flex flex-wrap" style="gap: 10px;">
                         <span class="badge-custom">Gestión completa</span>
                         <span class="badge-custom">Reportes</span>
                         <span class="badge-custom">Administración de personal</span>
@@ -134,8 +90,8 @@
                     <div class="list-group list-group-flush" style="max-height: 400px; overflow-y: auto;">
                         <div class="user-list-item">
                             <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="user-avatar bg-dark text-white">
+                                <div class="d-flex align-items-center" style="gap: 15px;">
+                                    <div class="user-avatar">
                                         <span>MG</span>
                                     </div>
                                     <div>
@@ -150,8 +106,8 @@
                         </div>
                         <div class="user-list-item">
                             <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="user-avatar bg-dark text-white">
+                                <div class="d-flex align-items-center" style="gap: 15px;">
+                                    <div class="user-avatar">
                                         <span>CR</span>
                                     </div>
                                     <div>
@@ -169,8 +125,9 @@
             </div>
         </div>
 
-        <!-- Estadísticas -->
+        <!-- Columna Derecha: Estadísticas y Actividad -->
         <div class="col-lg-4">
+            <!-- Estadísticas -->
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Estadísticas</h5>
@@ -178,60 +135,61 @@
                     
                     <div class="d-flex align-items-center mb-4">
                         <div class="mr-3">
-                            <i class="fas fa-users fa-fw text-muted"></i>
+                            <i class="fas fa-users fa-fw text-muted" style="font-size: 1.5rem;"></i>
                         </div>
                         <div class="flex-grow-1">
                             <p class="mb-0">Total Usuarios</p>
                         </div>
                         <div>
-                            <h4 class="mb-0">2</h4>
+                            <h4 class="mb-0 text-dark">2</h4>
                         </div>
                     </div>
                     
                     <div class="d-flex align-items-center mb-4">
                         <div class="mr-3">
-                            <i class="fas fa-key fa-fw text-muted"></i>
+                            <i class="fas fa-key fa-fw text-muted" style="font-size: 1.5rem;"></i>
                         </div>
                         <div class="flex-grow-1">
                             <p class="mb-0">Permisos</p>
                         </div>
                         <div>
-                            <h4 class="mb-0">4</h4>
+                            <h4 class="mb-0 text-dark">4</h4>
                         </div>
                     </div>
                     
                     <div class="d-flex align-items-center">
                         <div class="mr-3">
-                            <i class="fas fa-tag fa-fw text-muted"></i>
+                            <i class="fas fa-tag fa-fw text-muted" style="font-size: 1.5rem;"></i>
                         </div>
                         <div class="flex-grow-1">
                             <p class="mb-0">Categoría</p>
                         </div>
                         <div>
-                            <span class="badge bg-secondary">Gerencial</span>
+                            <span class="category-badge">Gerencial</span>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Actividad Reciente -->
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Actividad Reciente</h5>
                     <hr>
                     
-                    <h6 class="mb-3">Últimos usuarios asignados:</h6>
+                    <h6 class="mb-3 text-muted">Últimos usuarios asignados:</h6>
                     <ul class="list-unstyled">
-                        <li class="mb-2">
+                        <li class="mb-2 d-flex align-items-center">
                             <i class="fas fa-circle text-success mr-2" style="font-size: 8px;"></i>
-                            María García
+                            <span class="text-dark">María García</span>
                         </li>
-                        <li class="mb-2">
+                        <li class="mb-2 d-flex align-items-center">
                             <i class="fas fa-circle text-success mr-2" style="font-size: 8px;"></i>
-                            Carlos Rodríguez
+                            <span class="text-dark">Carlos Rodríguez</span>
                         </li>
-                        <li>
+                        <li class="d-flex align-items-center">
                             <i class="fas fa-circle text-success mr-2" style="font-size: 8px;"></i>
-                            Ana Martínez
+                            <span class="text-dark">Ana Martínez</span>
                         </li>
                     </ul>
                 </div>

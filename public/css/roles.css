@@ -1,147 +1,290 @@
-/* ==========================================================
-   TONALLI UI — Roles de Cafetería
-   Estilo minimalista con paleta café y estructura limpia
-   ========================================================== */
-
+/* === Variables de la Paleta (Tierra y Café) === */
 :root {
-  --ton-brown: #5d2728;
-  --ton-light: #f8f6f2;
-  --ton-white: #ffffff;
-  --ton-black: #1a1a1a;
-  --ton-border: #e8dfd5;
-  --ton-shadow: rgba(93, 39, 40, 0.12);
+    --ton-primary-dark: #5d2728;      /* Espresso */
+    --ton-primary-red: #8c463f;       /* Terracotta */
+    --ton-secondary-brown: #947151;   /* Madera tostada */
+    
+    /* MODIFICADO: Fondo de la página a un color latte muy claro */
+    --ton-base-light: #f9f5f1;        /* Usamos tu variable --ton-beige para el fondo principal (Latte) */
 
-  /* Colores de roles */
-  --color-gerente: #a78bfa;
-  --color-barista: #facc15;
-  --color-chef: #f472b6;
+    --ton-blue: var(--ton-primary-dark);
+    --ton-gold: var(--ton-primary-red);
+    
+    --ton-beige: #f9f5f1;             /* Mantenido como el color latte claro */
+    --ton-black: #3b2c24;             /* Texto oscuro */
+    --ton-white: #FFFFFF;             /* BLANCO PURO (se usará para resaltar tarjetas) */
+    --ton-border: #e6ddd0;            /* Borde suave */
+    --ton-shadow: rgba(59, 44, 36, 0.15); /* Sombra con toque de café */
 }
 
-/* =================== TARJETAS DE ROLES =================== */
-
-/* === CONTENEDOR === */
-.roles-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-  gap: 1.5rem;
-  padding: 1rem;
+/* === Global === */
+body {
+    font-family: 'Poppins', sans-serif, 'Helvetica Neue', Arial; 
+    background-color: var(--ton-base-light); /* Fondo Latte/Beige Claro */
+    color: var(--ton-black);
+    max-width: 100vw; 
+    overflow-x: hidden;
 }
 
-/* === TARJETA === */
-.role-card {
-  background-color: var(--ton-white);
-  border-radius: 1rem;
-  box-shadow: 0 4px 10px var(--ton-shadow);
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  transition: all 0.25s ease;
-  border: 1px solid var(--ton-border);
+.content-wrapper {
+    background-color: var(--ton-base-light) !important; /* Wrapper Latte */
 }
 
-.role-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 16px var(--ton-shadow);
+/* MODIFICADO: El contenedor principal ahora es BLANCO PURO para un máximo contraste */
+.container-fluid {
+    background: var(--ton-white); 
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 20px var(--ton-shadow);
+    border: 1px solid var(--ton-border);
 }
 
-/* === ICONO === */
-.role-icon {
-  width: 45px;
-  height: 45px;
-  border-radius: 12px;
-  background-color: #f3e9ff;
-  color: #7b4fcd;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  margin-bottom: 1rem;
+/* === Cabecera (Header de la página) === */
+
+/* ESTILOS ELIMINADOS/SIMPLIFICADOS: Ya que movimos el contenido de la cabecera dentro del .container-fluid, 
+   solo aseguramos que esta clase de AdminLTE no interfiera si persiste en el DOM. */
+.bg-light.rounded-3 {
+    background: transparent !important; 
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin-bottom: 0 !important;
 }
 
-/* === TÍTULO === */
-.role-card h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--ton-brown);
-  margin-bottom: 0.25rem;
+/* Nuevo estilo para la cabecera dentro del contenedor principal (.container-fluid) */
+.container-fluid .header-content {
+    padding-top: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    /* El borde inferior ya fue definido en el PHP Blade, pero lo aseguramos */
+    border-bottom: 1px solid var(--ton-border); 
 }
 
-/* === DESCRIPCIÓN === */
-.role-card p.description {
-  font-size: 0.93rem;
-  color: #6b5c4a;
-  line-height: 1.4;
-  margin-bottom: 1.2rem;
+/* Asegurando los títulos y texto de la cabecera */
+.container-fluid .header-content h1 {
+    color: var(--ton-black) !important;
+    font-size: 2rem; 
+    font-weight: 600;
 }
-
-/* === INFORMACIÓN DE CATEGORÍA Y PERSONAL === */
-.role-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  font-size: 0.9rem;
-  color: #6b5c4a;
-  margin-bottom: 1rem;
-}
-
-.role-info span {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* === ETIQUETAS DE PERMISOS === */
-.permissions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-bottom: 1.5rem;
-}
-
-.badge {
-  background-color: #f4f0eb;
-  color: var(--ton-brown);
-  font-size: 0.8rem;
-  padding: 4px 10px;
-  border-radius: 8px;
-  font-weight: 500;
-  border: 1px solid #e8dfd5;
-}
-
-.badge.extra {
-  background-color: #efe8e0;
-  color: #4a3a2a;
-}
-
-/* === BOTÓN DETALLES === */
-.btn-details {
-  margin-top: auto;
-  background-color: #faf8f5;
-  color: var(--ton-brown);
-  border: 1px solid var(--ton-border);
-  border-radius: 8px;
-  padding: 0.6rem 1rem;
-  font-weight: 500;
-  font-size: 0.9rem;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btn-details:hover {
-  background-color: var(--ton-brown);
-  color: var(--ton-white);
-}
-
-/* === RESPONSIVE === */
-@media (max-width: 600px) {
-  .role-card {
-    padding: 1.2rem;
-  }
-  .role-card h3 {
+.container-fluid .header-content p {
+    color: #594a40 !important;
     font-size: 1.1rem;
-  }
-  .btn-details {
-    padding: 0.5rem 0.9rem;
-  }
+    margin-top: -5px;
+}
+
+/* Botón "Crear Nuevo Rol" */
+.btn.btn-dark.rounded-pill {
+    background-color: var(--ton-primary-dark) !important; 
+    border-color: var(--ton-primary-dark) !important;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+.btn.btn-dark.rounded-pill:hover {
+    background-color: #4a2021 !important; 
+    border-color: #4a2021 !important;
+}
+
+/* === Títulos y Texto === */
+h1 {
+    color: var(--ton-primary-dark);
+}
+h5 {
+    color: var(--ton-primary-dark);
+    font-weight: 600 !important;
+}
+.text-muted-small {
+    font-size: 0.875rem;
+    color: #594a40; 
+    line-height: 1.4;
+    min-height: 40px; 
+}
+.card strong {
+    font-weight: 600;
+    color: var(--ton-primary-dark);
+}
+
+/* === Buscador + Filtro de Categorías === */
+.search-box {
+    margin-bottom: 1rem;
+}
+.search-box input {
+    /* Fondo BLANCO PURO */
+    background: var(--ton-white);
+    border: 1px solid var(--ton-border);
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-size: 0.95rem;
+    width: 100%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s;
+}
+.search-box input:focus {
+    background: var(--ton-white);
+    outline: 2px solid var(--ton-primary-red); 
+    border-color: var(--ton-primary-red);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Filtro de categorías */
+.category-filter .btn {
+    /* Fondo BLANCO PURO */
+    background: var(--ton-white);
+    border: 1px solid var(--ton-border);
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-size: 0.95rem;
+    color: var(--ton-black);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+.category-filter .btn:hover {
+    background: var(--ton-primary-red);
+    color: var(--ton-white);
+    border-color: var(--ton-primary-red);
+}
+
+/* Dropdown */
+.dropdown-menu {
+    background: var(--ton-white); /* Blanco puro para el dropdown */
+    border-radius: 10px;
+    border: 1px solid var(--ton-border);
+    box-shadow: 0 5px 15px var(--ton-shadow);
+}
+.dropdown-item:hover {
+    background: var(--ton-beige); /* El latte claro para el hover */
+    color: var(--ton-primary-dark);
+}
+.card .btn-link {
+    font-size: 1.2rem;
+    color: #6c757d !important;
+}
+
+/* === Tarjetas de Estadísticas (Stats) === */
+.stats-card {
+    background: var(--ton-white); /* Fondo BLANCO PURO */
+    border: 1px solid var(--ton-border);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    display: block; 
+    text-align: left;
+    height: 100%;
+}
+
+.stats-card h5 {
+    font-size: 2.2rem;
+    font-weight: 700 !important;
+    line-height: 1;
+}
+.stats-card small {
+    font-size: 1rem;
+    color: var(--ton-black);
+    font-weight: 500;
+}
+
+.stats-card .stats-icon {
+    float: right; 
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: var(--ton-black); 
+    border: none;
+    font-weight: 700;
+}
+
+/* === Tarjetas de Roles === */
+.card {
+    background: var(--ton-white); /* Fondo BLANCO PURO */
+    border: 1px solid var(--ton-border);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: 0.25s ease;
+    position: relative;
+    padding-bottom: 60px !important;
+}
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px var(--ton-shadow);
+}
+
+/* Iconos de Rol (Cuadrado de color) - Sin cambios */
+.role-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ton-white); 
+    font-size: 24px;
+    margin-bottom: 1rem;
+    background-color: var(--ton-primary-dark); 
+}
+
+/* Colores específicos para iconos de rol - Sin cambios */
+.col-lg-4:nth-child(1) .role-icon {
+    background-color: var(--ton-primary-dark); 
+}
+.col-lg-4:nth-child(2) .role-icon {
+    background-color: var(--ton-secondary-brown); 
+}
+.col-lg-4:nth-child(3) .role-icon {
+    background-color: var(--ton-primary-red); 
+}
+
+
+/* Badges de Permisos - Sin cambios */
+.badge-custom {
+    background: var(--ton-primary-dark); 
+    color: var(--ton-white); 
+    border-radius: 6px; 
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+/* Badges de Categoría - Sin cambios */
+.category-badge {
+    background: var(--ton-secondary-brown); 
+    color: var(--ton-white); 
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+.col-lg-4:nth-child(1) .category-badge {
+    background: var(--ton-primary-dark); 
+}
+
+/* Botón "Ver detalles" */
+.btn-details {
+    display: block; 
+    width: calc(100% - 2rem);
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    border: 1px solid var(--ton-border);
+    border-radius: 10px;
+    color: var(--ton-primary-red); 
+    background: var(--ton-beige); /* Fondo latte claro */
+    padding: 10px 16px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+.btn-details:hover {
+    background: var(--ton-primary-red);
+    color: var(--ton-white); 
+    border-color: var(--ton-primary-red);
 }

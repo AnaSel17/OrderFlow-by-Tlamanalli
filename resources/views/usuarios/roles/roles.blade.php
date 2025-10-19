@@ -2,250 +2,152 @@
 
 @section('title', 'Roles de Cafetería')
 
+{{-- DEJAMOS ESTA SECCIÓN VACÍA para que no haya un contenedor extra --}}
 @section('content_header')
-    <div class="d-flex justify-content-between align-items-center mb-2">
-        <div>
-            <h1 class="m-0">Roles de Cafetería</h1>
-            <p class="text-muted">Gestiona los roles y permisos del personal</p>
-        </div>
-        <a href="{{ route('roles.create') }}" class="btn btn-primary">+ Crear Nuevo Rol</a>
-    </div>
-@endsection
+@stop
 
 @section('content')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-<style>
-    .card {
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        transition: transform 0.2s;
-        margin-bottom: 20px;
-    }
-    .card:hover {
-        transform: translateY(-5px);
-    }
-    .role-icon {
-        width: 50px;
-        height: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 10px;
-        font-size: 24px;
-    }
-    .badge-custom {
-        background-color: #f8f9fa;
-        color: #495057;
-        font-weight: normal;
-        padding: 5px 10px;
-        border-radius: 20px;
-        margin-right: 5px;
-        margin-bottom: 5px;
-        display: inline-block;
-    }
-    .category-badge {
-        padding: 5px 15px;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        font-weight: 500;
-    }
-    .gerencial {
-        background-color: #e9ecef;
-    }
-    .operativo {
-        background-color: #e9ecef;
-    }
-    .btn-details {
-        background-color: #f8f9fa;
-        color: #495057;
-        border: none;
-        border-radius: 5px;
-        padding: 8px 15px;
-        width: 100%;
-        text-align: center;
-        transition: all 0.3s;
-    }
-    .btn-details:hover {
-        background-color: #e9ecef;
-    }
-    .stats-icon {
-        width: 48px;
-        height: 48px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-    }
-</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<link rel="stylesheet" href="{{ asset('css/roles.css') }}">
 
 <div class="container-fluid">
-    <!-- Estadísticas -->
-    <div class="row mb-4">
-        <div class="col-md-4">
-            <div class="card border-0">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <p class="text-muted mb-1">Total Roles</p>
-                            <h2 class="mb-0 fw-bold">6</h2>
-                        </div>
-                        <div class="bg-dark text-white rounded-circle stats-icon">
-                            <i class="bi bi-shield fs-4"></i>
-                        </div>
-                    </div>
-                </div>
+    
+    {{-- === Cabecera (MOVIDA AQUÍ desde content_header) === --}}
+    <div class="header-content p-0 pb-4 mb-4" style="border-bottom: 1px solid var(--ton-border);">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1 class="fw-semibold mb-1" style="color: var(--ton-black);">Roles de Cafetería</h1>
+                <p class="text-muted mb-0" style="font-size: 1.1rem; color: #594a40 !important;">Gestiona los roles y permisos del personal</p>
+            </div>
+            <a href="{{ route('roles.create') }}" class="btn btn-dark rounded-pill px-4">
+                <i class="bi bi-plus-lg me-2"></i>Crear Nuevo Rol
+            </a>
+        </div>
+    </div>
+    {{-- ================================================= --}}
+
+
+    <div class="row align-items-center mb-4 g-2">
+        <div class="col-md-8">
+            <div class="search-box">
+                <input id="role-search" type="text" placeholder="🔍 Buscar roles...">
             </div>
         </div>
-        
-        <div class="col-md-4">
-            <div class="card border-0">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <p class="text-muted mb-1">Personal Activo</p>
-                            <h2 class="mb-0 fw-bold">30</h2>
-                        </div>
-                        <div class="rounded-circle stats-icon text-white" style="background-color: #a68a7b;">
-                            <i class="bi bi-people fs-4"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-4">
-            <div class="card border-0">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <p class="text-muted mb-1">Categorías</p>
-                            <h2 class="mb-0 fw-bold">3</h2>
-                        </div>
-                        <div class="rounded-circle stats-icon text-white" style="background-color: #a68a7b;">
-                            <i class="bi bi-gear fs-4"></i>
-                        </div>
-                    </div>
+        <div class="col-md-4 text-md-end">
+            <div class="d-inline-block category-filter">
+                <div class="dropdown d-inline-block">
+                    <button class="btn dropdown-toggle" type="button" id="categoriesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        Todas las categorías
+                        <i class="bi bi-chevron-down ms-2"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="categoriesDropdown" style="min-width: 220px;">
+                        <li><a class="dropdown-item" href="#">Todas las categorías</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Gerencial</a></li>
+                        <li><a class="dropdown-item" href="#">Operativo</a></li>
+                        <li><a class="dropdown-item" href="#">Administrativo</a></li>
+                        </ul>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Listado de Roles -->
+    <div class="row g-3 mb-4">
+        {{-- Total Roles --}}
+        <div class="col-md-4">
+            <div class="stats-card">
+                {{-- Ícono/Símbolo de 'Roles' (Círculo marrón en la imagen) --}}
+                <div class="stats-icon text-dark" style="background-color: #e9e3e3;">
+                    <i class="bi bi-shield"></i>
+                </div>
+                <h5 class="fw-semibold mb-0">6</h5>
+                <small class="text-muted">Total Roles</small>
+            </div>
+        </div>
+        {{-- Personal Activo --}}
+        <div class="col-md-4">
+            <div class="stats-card">
+                {{-- Ícono/Símbolo de 'Personal Activo' (Círculo beige en la imagen) --}}
+                <div class="stats-icon text-dark" style="background-color: #f7e4d2;">
+                    <i class="bi bi-people"></i>
+                </div>
+                <h5 class="fw-semibold mb-0">30</h5>
+                <small class="text-muted">Personal Activo</small>
+            </div>
+        </div>
+        {{-- Categorías --}}
+        <div class="col-md-4">
+            <div class="stats-card">
+                {{-- Ícono/Símbolo de 'Categorías' (Círculo gris en la imagen) --}}
+                <div class="stats-icon text-dark" style="background-color: #e6e6e6;">
+                    <i class="bi bi-gear"></i>
+                </div>
+                <h5 class="fw-semibold mb-0">3</h5>
+                <small class="text-muted">Categorías</small>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card border-0 h-100">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between mb-3">
-                        <div class="role-icon" style="background-color: #f0e6ff;">
-                            <i class="bi bi-shield"></i>
-                        </div>
-                        <div class="dropdown">
-                            <button class="btn btn-sm" type="button" data-toggle="dropdown">
-                                <i class="bi bi-three-dots-vertical"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Editar</a>
-                                <a class="dropdown-item text-danger" href="#">Eliminar</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h5 class="card-title mb-2">Gerente</h5>
-                    <p class="card-text text-muted mb-3">Supervisa todas las operaciones de la cafetería y toma decisiones estratégicas.</p>
-                    
-                    <div class="mb-3">
-                        <span class="category-badge gerencial">Gerencial</span>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <span class="badge-custom">Gestión completa</span>
-                        <span class="badge-custom">Reportes</span>
-                        <span class="badge-custom">Administración</span>
-                    </div>
-                    
-                    <div class="d-flex justify-content-between align-items-center">
-                        <small class="text-muted">2 usuarios</small>
-                        <a href="{{ route('roles.show', 1) }}" class="btn-details">Ver detalles</a>
-                    </div>
+            <div class="card p-3 h-100">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <div class="role-icon"><i class="bi bi-shield"></i></div>
+                    <button class="btn btn-link text-muted p-0" data-bs-toggle="dropdown"><i class="bi bi-three-dots-vertical"></i></button>
                 </div>
+                <h5 class="fw-semibold">Gerente</h5>
+                <p class="text-muted-small">Supervisa todas las operaciones de la cafetería y toma decisiones estratégicas.</p>
+                <p class="mb-1"><strong>Categoría:</strong> <span class="category-badge">Gerencial</span></p>
+                <p class="mb-2"><strong>Personal asignado:</strong> 2 usuarios</p>
+                <p class="mb-1"><strong>Permisos principales:</strong></p>
+                <div class="mb-3">
+                    <span class="badge-custom">Gestión completa</span>
+                    <span class="badge-custom">Reportes</span>
+                    <span class="badge-custom">Administración de personal</span>
+                    <span class="badge-custom">+1</span>
+                </div>
+                <a href="{{ route('roles.show', 1) }}" class="btn-details">Ver detalles</a>
             </div>
         </div>
 
         <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card border-0 h-100">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between mb-3">
-                        <div class="role-icon" style="background-color: #fff8e6;">
-                            <i class="bi bi-cup-hot"></i>
-                        </div>
-                        <div class="dropdown">
-                            <button class="btn btn-sm" type="button" data-toggle="dropdown">
-                                <i class="bi bi-three-dots-vertical"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Editar</a>
-                                <a class="dropdown-item text-danger" href="#">Eliminar</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h5 class="card-title mb-2">Barista</h5>
-                    <p class="card-text text-muted mb-3">Prepara bebidas de café y otras bebidas especializadas según los estándares.</p>
-                    
-                    <div class="mb-3">
-                        <span class="category-badge operativo">Operativo</span>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <span class="badge-custom">Preparar bebidas</span>
-                        <span class="badge-custom">Gestión de inventario de café</span>
-                        <span class="badge-custom">Atención al cliente</span>
-                    </div>
-                    
-                    <div class="d-flex justify-content-between align-items-center">
-                        <small class="text-muted">8 usuarios</small>
-                        <a href="{{ route('roles.show', 2) }}" class="btn-details">Ver detalles</a>
-                    </div>
+            <div class="card p-3 h-100">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <div class="role-icon"><i class="bi bi-cup-hot"></i></div>
+                    <button class="btn btn-link text-muted p-0" data-bs-toggle="dropdown"><i class="bi bi-three-dots-vertical"></i></button>
                 </div>
+                <h5 class="fw-semibold">Barista</h5>
+                <p class="text-muted-small">Prepara bebidas de café y otras bebidas especializadas según los estándares.</p>
+                <p class="mb-1"><strong>Categoría:</strong> <span class="category-badge">Operativo</span></p>
+                <p class="mb-2"><strong>Personal asignado:</strong> 8 usuarios</p>
+                <p class="mb-1"><strong>Permisos principales:</strong></p>
+                <div class="mb-3">
+                    <span class="badge-custom">Preparar bebidas</span>
+                    <span class="badge-custom">Gestión de inventario de café</span>
+                    <span class="badge-custom">Atención al cliente</span>
+                </div>
+                <a href="{{ route('roles.show', 2) }}" class="btn-details">Ver detalles</a>
             </div>
         </div>
 
         <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card border-0 h-100">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between mb-3">
-                        <div class="role-icon" style="background-color: #ffe6e6;">
-                            <i class="bi bi-cake2"></i>
-                        </div>
-                        <div class="dropdown">
-                            <button class="btn btn-sm" type="button" data-toggle="dropdown">
-                                <i class="bi bi-three-dots-vertical"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Editar</a>
-                                <a class="dropdown-item text-danger" href="#">Eliminar</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h5 class="card-title mb-2">Chef Pastelero</h5>
-                    <p class="card-text text-muted mb-3">Responsable de crear y preparar todos los productos de panadería y repostería.</p>
-                    
-                    <div class="mb-3">
-                        <span class="category-badge operativo">Operativo</span>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <span class="badge-custom">Preparar productos</span>
-                        <span class="badge-custom">Gestión de ingredientes</span>
-                        <span class="badge-custom">Control de calidad</span>
-                    </div>
-                    
-                    <div class="d-flex justify-content-between align-items-center">
-                        <small class="text-muted">3 usuarios</small>
-                        <a href="#" class="btn-details">Ver detalles</a>
-                    </div>
+            <div class="card p-3 h-100">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <div class="role-icon"><i class="bi bi-cake2"></i></div>
+                    <button class="btn btn-link text-muted p-0" data-bs-toggle="dropdown"><i class="bi bi-three-dots-vertical"></i></button>
                 </div>
+                <h5 class="fw-semibold">Chef Pastelero</h5>
+                <p class="text-muted-small">Responsable de crear y preparar todos los productos de panadería y repostería.</p>
+                <p class="mb-1"><strong>Categoría:</strong> <span class="category-badge">Operativo</span></p>
+                <p class="mb-2"><strong>Personal asignado:</strong> 3 usuarios</p>
+                <p class="mb-1"><strong>Permisos principales:</strong></p>
+                <div class="mb-3">
+                    <span class="badge-custom">Preparar productos</span>
+                    <span class="badge-custom">Gestión de ingredientes</span>
+                    <span class="badge-custom">Control de calidad</span>
+                </div>
+                <a href="#" class="btn-details">Ver detalles</a>
             </div>
         </div>
     </div>

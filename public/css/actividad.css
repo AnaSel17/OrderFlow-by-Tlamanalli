@@ -1,4 +1,6 @@
+/* ---------------------------------------------------- */
 /* === PALETA DE COLORES TONALLI === */
+/* ---------------------------------------------------- */
 :root {
     --ton-primary-dark: #5d2728;
     --ton-primary-red: #8c463f;
@@ -9,137 +11,428 @@
     --ton-border: #d8c2a9;
     --ton-shadow-s: rgba(0, 0, 0, 0.06);
     --ton-shadow-m: rgba(0, 0, 0, 0.12);
+
+    /* Colores para las métricas (usados como acentos y bordes en el diseño blanco) */
+    --metric-1: #4a90e2;    /* Azul brillante (Movimientos) */
+    --metric-2: #38a169;    /* Verde (Ingresos) */
+    --metric-3: #63b3ed;    /* Azul claro (Registros) */
+    --metric-4: #f6ad55;    /* Naranja (Activos) */
+
+    /* Colores específicos para el Timeline/Tags */
+    --timeline-success: #38a169; /* Verde (Éxito/Ingreso) */
+    --timeline-info: #4a90e2;    /* Azul (Registro/Creación) */
+    --timeline-warning: #f5a623; /* Naranja (Modificación) */
+    --timeline-error: #d0021b;   /* Rojo (Fallo/Eliminación) */
+    --timeline-line: #f2f2f2;    /* Línea gris clara del timeline */
 }
 
-/* === CONTENEDOR PRINCIPAL === */
-.roles-container {
-    background: var(--ton-white);
-    border-radius: 16px;
-    padding: 2rem;
-    box-shadow: 0 4px 12px var(--ton-shadow-m);
-    border: 1px solid var(--ton-border);
-    max-width: 1100px;
-    margin: 60px auto 0; /* 👈 Esto lo empuja hacia abajo */
+/* ---------------------------------------------------- */
+/* 1. TIPOGRAFÍA Y BASE (Predominio del Blanco) */
+/* ---------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+body, .container-actividad, .card-title, .info-box-text, .info-box-number, .table {
+    font-family: 'Poppins', sans-serif !important;
 }
 
-
-/* === TÍTULO === */
-.section-title {
-    font-weight: 700;
-    color: var(--ton-primary-dark);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-bottom: 2px solid var(--ton-secondary-brown);
-    display: inline-block;
-    padding-bottom: 4px;
+.content-wrapper {
+    background-color: #f7f9fb !important;
 }
 
-/* === FORMULARIO DE BÚSQUEDA === */
-.search-form {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.search-input {
-    padding: 8px 14px;
+/* ---------------------------------------------------- */
+/* 2. HEADER Y BOTONES DE ACCIÓN */
+/* ---------------------------------------------------- */
+.header-actions .btn-action {
     border-radius: 8px;
-    border: 1px solid var(--ton-border);
-    box-shadow: 0 2px 4px var(--ton-shadow-s);
-    outline: none;
-    transition: all 0.3s ease;
-    font-size: 14px;
+    font-weight: 500;
 }
 
-.search-input:focus {
-    border-color: var(--ton-primary-red);
-    box-shadow: 0 0 6px var(--ton-primary-red);
-}
-
-/* === BOTÓN FILTRAR === */
-.btn-clear {
-    background: var(--ton-primary-dark);
-    color: var(--ton-white);
-    border: none;
-    padding: 8px 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.btn-clear:hover {
-    background: var(--ton-primary-red);
-}
-
-/* === TABLA === */
-.table-wrapper {
-    overflow-x: auto;
-    box-shadow: 0 3px 10px var(--ton-shadow-s);
-    border-radius: 12px;
-}
-
-.roles-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: var(--ton-white);
-}
-
-.roles-table thead {
-    background: var(--ton-primary-dark);
-    color: var(--ton-white);
-}
-
-.roles-table th, .roles-table td {
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--ton-border);
-}
-
-.roles-table tbody tr:hover {
-    background: rgba(186, 159, 133, 0.15);
-    transition: background 0.3s ease;
-}
-
-/* === PAGINACIÓN === */
-.pagination-wrapper {
-    margin-top: 1.5rem;
-}
-
-.btn-pagination {
-    background: var(--ton-secondary-brown);
-    color: var(--ton-white);
-    border: none;
-    padding: 8px 18px;
-    border-radius: 8px;
-    margin: 0 4px;
-    font-weight: 600;
-    transition: background 0.3s ease;
-}
-
-.btn-pagination:hover {
-    background: var(--ton-primary-red);
-}
-
-/* === BADGES (estilo tonalli) === */
-.badge {
-    padding: 6px 10px;
-    border-radius: 6px;
-    font-weight: 600;
-}
-
-.bg-success {
-    background-color: var(--ton-secondary-brown) !important;
-}
-
-.bg-primary {
-    background-color: var(--ton-primary-red) !important;
-}
-
-.bg-warning {
-    background-color: var(--ton-base-light) !important;
-    color: var(--ton-black) !important;
-}
-
-.bg-danger {
+.header-actions .export {
+    /* Color de exportar según paleta Tonalli */
     background-color: var(--ton-primary-dark) !important;
+    border-color: var(--ton-primary-dark) !important;
+    color: var(--ton-white) !important;
+}
+
+.subtitle {
+    color: #7f8c9a;
+    margin-top: -10px; 
+    margin-bottom: 30px;
+    font-size: 0.9rem;
+}
+
+/* ---------------------------------------------------- */
+/* 3. BARRA DE FILTROS (Diseño Minimalista y Llamativo) */
+/* ---------------------------------------------------- */
+.filter-bar-custom {
+    background-color: var(--ton-white);
+    border: 1px solid #ddd;
+    padding: 20px; /* Aumento de padding para espacio */
+    border-radius: 10px;
+    box-shadow: 0 1px 5px var(--ton-shadow-s);
+}
+
+/* Estilo para Dropdowns y campos de fecha (Minimalista, sin bordes duros) */
+.filter-group-custom .btn-filter-custom,
+.filter-bar-custom .form-control {
+    background: #f1f4f8 !important; /* Fondo suave */
+    border: none !important; /* Eliminamos el borde */
+    border-radius: 8px !important; 
+    color: var(--ton-black) !important;
+    font-size: 0.95rem; /* Letra ligeramente más grande */
+    padding: .5rem 1rem !important; /* Más padding para altura */
+    box-shadow: none !important;
+    transition: background-color 0.2s;
+}
+
+.filter-group-custom .btn-filter-custom:hover {
+    background: #e2e8f0 !important;
+}
+
+.date-filter-custom {
+    /* Mantenemos el estilo limpio */
+    padding: .5rem 1rem !important; 
+    max-width: 150px !important; /* Aseguramos que se mantenga el ancho */
+}
+
+.filter-btn-custom {
+    /* Botón de Filtro con color de la paleta y sombra destacada */
+    background-color: var(--ton-primary-dark) !important;
+    border-color: var(--ton-primary-dark) !important;
+    color: var(--ton-white) !important;
+    border-radius: 8px !important;
+    padding: 0.5rem 1.5rem !important; /* Más alto y ancho */
+    font-weight: 600;
+    font-size: 1rem !important;
+    box-shadow: 0 4px 10px rgba(93, 39, 40, 0.4); /* Sombra intensa Tonalli */
+    transition: all 0.2s;
+}
+
+.filter-btn-custom:hover {
+    background-color: #4a1f20 !important;
+    box-shadow: 0 6px 15px rgba(93, 39, 40, 0.6);
+}
+
+/* ---------------------------------------------------- */
+/* 4. MÉTRICAS / TARJETAS (Diseño Blanco Llamativo) */
+/* ---------------------------------------------------- */
+.metrics-grid .info-box {
+    border-radius: 10px;
+    padding: 20px;
+    color: var(--ton-black) !important;
+    background-color: var(--ton-white) !important; /* Tarjeta BLANCA */
+    box-shadow: 0 4px 10px var(--ton-shadow-s);
+    min-height: 110px;
+    border-top: none !important; 
+    position: relative;
+    overflow: hidden; /* Oculta el pseudo-elemento de color */
+    transition: transform 0.2s;
+}
+.metrics-grid .info-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Línea de color a la izquierda para identificar la tarjeta, como en el video */
+.metrics-grid .info-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+}
+.metric-card.primary::before { background-color: var(--metric-1); }
+.metric-card.success::before { background-color: var(--metric-2); } 
+.metric-card.info::before { background-color: var(--metric-3); }
+.metric-card.warning::before { background-color: var(--metric-4); }
+
+
+/* ÍCONOS (Separados, Grandes y a Color) */
+.info-box-icon {
+    background-color: transparent !important;
+    opacity: 1 !important;
+    width: auto !important;
+    float: right;
+    margin-right: 0 !important;
+    border-radius: 50% !important;
+    padding: 10px !important;
+}
+.metric-card.primary .metric-icon { color: var(--metric-1) !important; }
+.metric-card.success .metric-icon { color: var(--metric-2) !important; } 
+.metric-card.info .metric-icon { color: var(--metric-3) !important; }
+.metric-card.warning .metric-icon { color: var(--metric-4) !important; }
+
+/* Contenido de la métrica */
+.info-box-content {
+    padding-left: 0 !important;
+}
+.info-box-number.metric-value {
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+.info-box-text.metric-title {
+    color: #64748b;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+.metric-change {
+    font-size: 0.85rem;
+}
+.metric-change .fa-arrow-up, .fa-clock {
+    font-size: 0.8rem;
+}
+
+/* ---------------------------------------------------- */
+/* 5. REGISTRO DE MOVIMIENTOS (TABLA) */
+/* ---------------------------------------------------- */
+.movements-log {
+    background-color: var(--ton-white) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 2px 10px var(--ton-shadow-s) !important;
+    border-top: none !important;
+}
+
+.movements-log .card-header {
+    padding: 1.25rem 1.25rem 0.5rem 1.25rem;
+    border-bottom: 1px solid #f2f2f2 !important; 
+}
+
+/* Estilo para el campo de búsqueda flotante */
+.search-input-custom {
+    border-radius: 8px 0 0 8px !important;
+    border-color: #e2e8f0 !important;
+    background-color: #f9f9f9;
+}
+.search-icon-custom {
+    border-radius: 0 8px 8px 0 !important;
+    border-color: #e2e8f0 !important;
+    background-color: #f9f9f9 !important;
+    color: #a0aec0;
+}
+
+.data-table thead th {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    color: #64748b;
+    background-color: var(--ton-white) !important;
+    border-bottom: none !important;
+    padding-bottom: 10px;
+}
+
+.data-table tbody td {
+    padding: 15px 12px !important; 
+    border-bottom: 1px solid #f0f0f0; 
+    vertical-align: top;
+}
+
+/* Estilos de las celdas para apilamiento (Fecha/Hora y Usuario/ID) */
+.date-text, .user-name {
+    font-weight: 500;
+    color: var(--ton-black);
+    display: block;
+    line-height: 1.3;
+}
+
+.time-text, .user-id {
+    color: #94a3b8 !important;
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.3;
+}
+
+/* Tags de movimiento y estado */
+.tag, .status-tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 5px 8px !important;
+    border-radius: 8px !important; 
+    text-transform: capitalize !important;
+    display: inline-flex !important;
+    align-items: center;
+}
+.tag i {
+    font-size: 0.8rem;
+}
+
+.tag-ingreso { background-color: #d1fae5 !important; color: var(--timeline-success) !important; }
+.tag-registro { background-color: #dbeafe !important; color: var(--timeline-info) !important; }
+.tag-modificacion { background-color: #fef3c7 !important; color: var(--timeline-warning) !important; }
+.tag-eliminacion { background-color: #fee2e2 !important; color: var(--timeline-error) !important; }
+
+.status-tag.success { background-color: #d1fae5 !important; color: var(--timeline-success) !important; }
+.status-tag.error { background-color: #fee2e2 !important; color: var(--timeline-error) !important; }
+
+/* Paginación */
+.pagination-controls .page-item .page-link {
+    border-radius: 6px;
+    margin: 0 2px;
+    border-color: #e2e8f0;
+    color: var(--ton-black);
+}
+
+.pagination-controls .page-item.active .page-link {
+    background-color: var(--ton-primary-dark) !important;
+    border-color: var(--ton-primary-dark) !important;
+    color: var(--ton-white) !important;
+}
+
+/* ---------------------------------------------------- */
+/* 6. ACTIVIDAD RECIENTE (TIMELINE) - Alineación Exacta */
+/* ---------------------------------------------------- */
+.activity-timeline {
+    background-color: var(--ton-white) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 2px 10px var(--ton-shadow-s) !important;
+    border-top: none !important;
+}
+.activity-timeline .card-header {
+    border-bottom: none !important;
+}
+
+.activity-timeline .card-body {
+    /* Quitamos el padding horizontal de bootstrap p-0 y lo ajustamos manualmente */
+    padding: 0 1.25rem 1.5rem 1.25rem !important; 
+}
+
+.timeline-list {
+    position: relative;
+    padding-left: 20px;
+    padding-top: 10px;
+}
+
+.timeline-list::before {
+    /* Línea vertical delgada y clara */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10px; 
+    width: 2px;
+    height: 100%;
+    background-color: var(--timeline-line);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 30px; 
+    padding-left: 50px; /* Mueve el contenido a la derecha del dot */
+    display: flex; 
+    align-items: flex-start;
+    padding-top: 0; 
+    /* Borde inferior para separar visualmente los items, como en la imagen */
+    border-bottom: 1px solid #f9f9f9; 
+    padding-bottom: 20px;
+}
+.timeline-item:last-child {
+    border-bottom: none; /* No hay borde en el último item */
+}
+
+
+.timeline-dot {
+    /* Círculo sólido y llamativo */
+    position: absolute;
+    left: 0;
+    top: 5px; /* Alinear el DOT con la línea superior del texto */
+    width: 30px; 
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ton-white);
+    font-size: 1rem; 
+    z-index: 2; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Colores de los DOTS del Timeline */
+.timeline-dot.success { background-color: var(--timeline-success); }
+.timeline-dot.info { background-color: var(--timeline-info); }
+.timeline-dot.warning { background-color: var(--timeline-warning); }
+.timeline-dot.error { background-color: var(--timeline-error); }
+
+.timeline-content {
+    /* Contenido de texto y hora en la misma línea */
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 0; /* Reiniciamos margen superior */
+}
+
+.timeline-text-content {
+    flex-grow: 1;
+    margin-right: 15px; 
+}
+
+.timeline-title {
+    font-weight: 600;
+    color: var(--ton-black);
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.timeline-details {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-top: 2px;
+    margin-bottom: 5px; /* Más espacio al pie de detalles */
+}
+
+.timeline-user {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-top: 0;
+    line-height: 1.4;
+    display: block; 
+}
+.timeline-user span {
+    color: var(--ton-black) !important; 
+    margin-right: 5px;
+    font-weight: 500;
+}
+.timeline-user .role {
+    font-weight: 500;
+    color: var(--ton-secondary-brown) !important;
+    background-color: #f7f3f0 !important;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 0.75rem;
+}
+
+
+.timeline-meta-right {
+    /* Estilo y posición para la hora alineada a la derecha */
+    flex-shrink: 0;
+    font-size: 0.9rem; /* Hacemos la hora ligeramente más pequeña */
+    font-weight: 500;
+    color: #94a3b8; /* Color sutil para la hora */
+    line-height: 1.4;
+    margin-top: 4px; /* Alinear con el título de forma precisa */
+}
+
+/* Media Query para responsividad (tablets y móviles) */
+@media (max-width: 768px) {
+    .filter-group-custom {
+        justify-content: flex-start !important;
+    }
+    .filter-btn-custom {
+        width: 100%;
+        margin-top: 10px;
+    }
+    .timeline-item {
+        padding-left: 30px;
+    }
+    .timeline-list::before {
+        left: 5px;
+    }
+    .timeline-dot {
+        left: -3px;
+        top: 5px;
+        width: 24px;
+        height: 24px;
+        font-size: 0.8rem;
+    }
 }
