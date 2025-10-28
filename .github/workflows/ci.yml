@@ -1,0 +1,58 @@
+name: Test and Build
+
+on:
+  push:
+    branches: [ "main" ] 
+  pull_request:
+    branches: [ "main" ] 
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # Prueba con la versión de PHP más reciente para Laravel 12
+        php-version: ['8.2']
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-version }}
+        extensions: curl, mbstring, zip, pdo_sqlite
+        coverage: none
+        tools: composer
+
+    # --- Proceso de Compilación (Build) ---
+    - name: Install PHP Dependencies (Composer)
+      run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+    - name: Setup .env for Testing
+      run: cp .env.example .env
+
+    - name: Generate Application Key
+      run: php artisan key:generate
+
+    - name: Install Node Dependencies and Build Assets (Vite)
+      run: |
+        npm install
+        npm run build
+    # -------------------------------------
+
+    # --- Proceso de Pruebas y Calidad ---
+    - name: Run Database Migrations
+      # Usamos SQLite en memoria para máxima velocidad de CI
+      run: php artisan migrate --env=testing --force
+
+    - name: Run PHPUnit Tests (Unit & Feature)
+      run: vendor/bin/phpunit
+
+    - name: Run Static Analysis (PHPStan)
+      run: php -d memory_limit=512M vendor/bin/phpstan analyse
+
+    - name: Run Coding Standards Check (PHP_CodeSniffer)
+      run: vendor/bin/phpcs --standard=PSR12 app
+    # -------------------------------------

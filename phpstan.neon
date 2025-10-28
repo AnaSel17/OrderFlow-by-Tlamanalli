@@ -1,0 +1,7 @@
+# phpstan.neon
+parameters:
+    level: 5
+    paths:
+        - app
+        - database
+        - tests
