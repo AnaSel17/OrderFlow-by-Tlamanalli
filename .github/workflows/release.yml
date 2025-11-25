@@ -1,0 +1,29 @@
+# .github/workflows/release.yml
+name: Create Production Release
+
+on:
+  push:
+    # Este workflow SOLO se activa cuando subes un tag que empieza con 'v'
+    tags:
+      - 'v*' # Ejemplos: v1.0, v1.0.1, v2.0-beta
+
+permissions:
+  contents: write # Permiso necesario para que el bot cree la Release en GitHub
+
+jobs:
+  release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📝 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          # Genera notas automáticas basadas en los títulos de tus Pull Requests
+          generate_release_notes: true 
+          # Crea el release como "Draft" (Borrador) para que lo revises antes de publicar (opcional)
+          draft: false
+          # Si el tag contiene "beta", lo marca como pre-release
+          prerelease: ${{ contains(github.ref, 'beta') }}
