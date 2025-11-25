@@ -127,8 +127,8 @@
 @endsection
 
 @push('scripts')
-{{-- El script de auto-filtrado se mantiene igual, es correcto --}}
 <script>
+    // 🔹 Función debounce: evita enviar el formulario mientras se escribe rápido
     function debounce(func, delay) {
         let timeout;
         return function(...args) {
@@ -140,15 +140,26 @@
     const form = document.getElementById('filtersForm');
     const searchInput = document.getElementById('searchInput');
     const rolSelect = document.getElementById('rolSelect');
-    
-    // El debounce es para esperar a que el usuario termine de escribir
-    const debouncedSubmit = debounce(() => {
-        form.submit();
-    }, 500);
 
+    // 🔹 Enviar el formulario correctamente (respetando el método y ruta)
+    function safeSubmit() {
+        form.requestSubmit(); // ✅ mucho más confiable que form.submit()
+    }
+
+    // 🔹 Filtro de texto: espera 0.5 seg antes de enviar
+    const debouncedSubmit = debounce(safeSubmit, 500);
     searchInput.addEventListener('input', debouncedSubmit);
-    rolSelect.addEventListener('change', () => {
-        form.submit();
+
+    // 🔹 Al cambiar el rol, enviar inmediatamente
+    rolSelect.addEventListener('change', safeSubmit);
+
+    // 🔹 Si presiona Enter dentro del input, enviar manualmente
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            safeSubmit();
+        }
     });
 </script>
 @endpush
+

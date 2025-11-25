@@ -9,12 +9,13 @@
 @section('content')
   {{-- Métricas superiores --}}
   <div class="row">
-    @foreach ([
-      ['icon'=>'fas fa-dollar-sign','label'=>'Ventas del día','value'=>'$1,250'],
-      ['icon'=>'fas fa-clipboard-check','label'=>'Pedidos activos','value'=>'15'],
-      ['icon'=>'fas fa-shopping-cart','label'=>'Productos más vendidos','value'=>'Espresso'],
-      ['icon'=>'fas fa-user','label'=>'Nuevos clientes','value'=>'8'],
-    ] as $c)
+    @foreach (//[
+      //['icon'=>'fas fa-dollar-sign','label'=>'Ventas del día','value'=>'$1,250'],
+      //['icon'=>'fas fa-clipboard-check','label'=>'Pedidos activos','value'=>'15'],
+      //['icon'=>'fas fa-shopping-cart','label'=>'Productos más vendidos','value'=>'Espresso'],
+      //['icon'=>'fas fa-user','label'=>'Nuevos clientes','value'=>'8'],
+    //] 
+    $metricas as $c)
       <div class="col-md-6 col-xl-3 mb-4">
         <div class="card">
           <div class="card-body d-flex align-items-center">
@@ -54,10 +55,10 @@
     new Chart(document.getElementById('salesLine'), {
       type: 'line',
       data: {
-        labels: ['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'],
+        labels: @json($labels7),
         datasets: [{
           label: 'Ventas',
-          data: [10,12,9,14,18,16,20],
+          data: @json($data7),
           borderColor: ton.green,
           backgroundColor: 'transparent',
           fill: false,
@@ -77,10 +78,10 @@
     new Chart(document.getElementById('ordersBar'), {
       type: 'bar',
       data: {
-        labels: ['A','B','C','D'],
+        labels: @json($labelsCat),
         datasets: [{
           label: 'Pedidos',
-          data: [6,9,12,15],
+          data: @json($dataCat),
           backgroundColor: [ton.green, ton.orange, ton.purple, ton.red],
           borderWidth: 0
         }]

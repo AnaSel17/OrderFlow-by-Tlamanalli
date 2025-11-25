@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Rol;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use Illuminate\Validation;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\UserRequest;
+use App\Models\Role;
 
 class UsuarioController extends Controller
 {
@@ -16,30 +18,46 @@ class UsuarioController extends Controller
      */
     public function index(Request $request)
     {
-        // Se inicia la consulta filtrando para excluir a los usuarios
-        // cuyo rol tenga el nombre 'Administrador'.
-        $query = User::whereHas('rol', function ($q) {
+        // 🔹 Cargar usuarios con su rol, excluyendo al Administrador
+    $query = \App\Models\User::with('rol')
+        ->whereHas('rol', function ($q) {
             $q->where('nombre', '!=', 'Administrador');
         });
 
-        // Filtro de búsqueda por 'name' y 'apellido_paterno'
-        $query->when($request->input('search'), function ($q, $search) {
-            return $q->where('name', 'like', "%{$search}%")
-                     ->orWhere('apellido_paterno', 'like', "%{$search}%");
+    // 🔹 Filtro de búsqueda por nombre o apellidos (sin importar acentos o mayúsculas)
+    if ($request->filled('search')) {
+        $search = mb_strtolower(trim($request->search));
+
+        // Normaliza acentos
+        $normalizedSearch = str_replace(
+            ['á','é','í','ó','ú','Á','É','Í','Ó','Ú'],
+            ['a','e','i','o','u','a','e','i','o','u'],
+            $search
+        );
+
+        $query->where(function ($q) use ($normalizedSearch) {
+            $q->whereRaw("LOWER(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(name,'á','a'),'é','e'),'í','i'),'ó','o'),'ú','u')) LIKE ?", ["%{$normalizedSearch}%"])
+              ->orWhereRaw("LOWER(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(apellido_paterno,'á','a'),'é','e'),'í','i'),'ó','o'),'ú','u')) LIKE ?", ["%{$normalizedSearch}%"])
+              ->orWhereRaw("LOWER(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(apellido_materno,'á','a'),'é','e'),'í','i'),'ó','o'),'ú','u')) LIKE ?", ["%{$normalizedSearch}%"]);
         });
+    }
 
-        // Filtro de rol
-        $query->when($request->input('rol'), function ($q, $rolId) {
-            return $q->where('id_rol', $rolId);
-        });
+    // 🔹 Filtro por rol (id_rol viene del select)
+    if ($request->filled('rol')) {
+        $query->where('id_rol', $request->rol);
+    }
 
-        // Pagina los usuarios y precarga la relación 'rol'
-        $usuarios = $query->with('rol')->paginate(10); 
-        
-        // Para el filtro de la vista, también obtenemos los roles que NO son Administrador
-        $roles = Rol::where('nombre', '!=', 'Administrador')->get();
+    // 🔹 Orden y paginación
+    $usuarios = $query->orderBy('id', 'asc')->paginate(10);
 
-        return view('usuarios.index', compact('usuarios', 'roles'));
+    // 🔹 Roles sin incluir Administrador
+    $roles = \App\Models\Role::where('nombre', '!=', 'Administrador')->get();
+
+    // 🔹 Mantiene filtros en la vista
+    return view('usuarios.index', compact('usuarios', 'roles'))
+        ->with('search', $request->search)
+        ->with('rol', $request->rol);
+    
     }
 
     /**
@@ -47,23 +65,16 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        $roles = Rol::where('nombre', '!=', 'Administrador')->get();
+        $roles = Role::where('nombre', '!=', 'Administrador')->get();
         return view('usuarios.create', compact('roles'));
     }
 
     /**
      * Almacena un nuevo usuario en la base de datos.
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'apellido_paterno' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
-            'telefono' => 'nullable|string|max:15',
-            'id_rol' => 'required|exists:roles,id_rol',
-        ]);
+        $validated = $request->validated();
 
         User::create([
             'name' => $request->name,
@@ -98,23 +109,16 @@ class UsuarioController extends Controller
      */
     public function edit(User $usuario) 
     {
-        $roles = Rol::where('nombre', '!=', 'Administrador')->get();
+        $roles = Role::where('nombre', '!=', 'Administrador')->get();
         return view('usuarios.create', compact('usuario', 'roles'));
     }
 
     /**
      * Actualiza un usuario específico en la base de datos.
      */
-    public function update(Request $request, User $usuario) 
+    public function update(UserRequest $request, User $usuario) 
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'apellido_paterno' => 'required|string|max:255',
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($usuario->id)], 
-            'telefono' => 'nullable|string|max:15',
-            'id_rol' => 'required|exists:roles,id_rol',
-            'password' => 'nullable|string|min:8|confirmed',
-        ]);
+        $validated = $request->validated();
 
         $data = $request->except('password');
 

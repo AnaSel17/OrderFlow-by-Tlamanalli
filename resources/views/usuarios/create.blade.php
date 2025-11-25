@@ -54,15 +54,29 @@
                     <div class="col-md-4">
                         <label for="name" class="form-label">Nombre</label>
                         {{-- Se revierte la variable a $usuario --}}
-                        <input type="text" class="form-control-dark" id="name" name="name" value="{{ old('name', $usuario->name ?? '') }}" required>
+                        <input type="text" class="form-control-dark" id="name" name="name" value="{{ old('name', $usuario->name ?? '') }}" 
+                        required minlength="2"
+                        pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+"
+                        title="Solo letras y espacios, mínimo 2 caracteres."
+                        required>
+                        <small class="text-muted">Solo letras y espacios, mínimo 2 caracteres.</small>
                     </div>
                     <div class="col-md-4">
                         <label for="apellido_paterno" class="form-label">Apellido Paterno</label>
-                        <input type="text" class="form-control-dark" id="apellido_paterno" name="apellido_paterno" value="{{ old('apellido_paterno', $usuario->apellido_paterno ?? '') }}" required>
+                        <input type="text" class="form-control-dark" id="apellido_paterno" name="apellido_paterno" value="{{ old('apellido_paterno', $usuario->apellido_paterno ?? '') }}" 
+                        required minlength="2"
+                        pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+"
+                        title="Solo letras y espacios, mínimo 2 caracteres."
+                        required>
+                        <small class="text-muted">Solo letras y espacios, mínimo 2 caracteres.</small>
                     </div>
                     <div class="col-md-4">
                         <label for="apellido_materno" class="form-label">Apellido Materno</label>
-                        <input type="text" class="form-control-dark" id="apellido_materno" name="apellido_materno" value="{{ old('apellido_materno', $usuario->apellido_materno ?? '') }}">
+                        <input type="text" class="form-control-dark" id="apellido_materno" name="apellido_materno" value="{{ old('apellido_materno', $usuario->apellido_materno ?? '') }}"
+                        minlength="2"
+                        pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+"
+                        title="Solo letras y espacios, mínimo 2 caracteres.">
+                        <small class="text-muted">Opcional. Solo letras y espacios, mínimo 2 caracteres.</small>
                     </div>
                 </div>
 
@@ -73,18 +87,34 @@
                     </div>
                     <div class="col-md-6">
                         <label for="telefono" class="form-label">Teléfono (Opcional)</label>
-                        <input type="tel" class="form-control-dark" id="telefono" name="telefono" value="{{ old('telefono', $usuario->telefono ?? '') }}">
+                        <input type="tel" class="form-control-dark" id="telefono" name="telefono" value="{{ old('telefono', $usuario->telefono ?? '') }}"
+                        pattern="[0-9]{10}" maxlength="10"
+                        title="Solo números, espacios o guiones.">
+                        <small class="text-muted">Solo números, espacios o guiones (opcional).</small>
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="password" class="form-label">Nueva Contraseña</label>
-                        <input type="password" class="form-control-dark" id="password" name="password" placeholder="{{ isset($usuario) ? 'Dejar en blanco para no cambiar' : '' }}">
+                        <input type="password" class="form-control-dark" id="password" name="password" placeholder="{{ isset($usuario) ? 'Dejar en blanco para no cambiar' : '' }}"
+                        minlength="8"
+                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#_\-.,])[A-Za-z\d@$!%*?&#_\-.,]{8,}$"
+                        title="Debe tener al menos una mayúscula, una minúscula, un número y un carácter especial.">
+                        
+                        <button type="button" class="btn btn-light toggle-password" data-target="#password">
+                        <i class="fas fa-eye"></i>
+                        <small class="text-muted">Debe tener una mayúscula, una minúscula, un número y un carácter especial.</small>
                     </div>
+
                     <div class="col-md-6">
                         <label for="password_confirmation" class="form-label">Confirmar Contraseña</label>
-                        <input type="password" class="form-control-dark" id="password_confirmation" name="password_confirmation">
+                        <input type="password" class="form-control-dark" id="password_confirmation" name="password_confirmation"
+                        title="Debe coincidir con la contraseña anterior.">
+                        <button type="button" class="btn btn-light toggle-password" data-target="#password">
+                        <i class="fas fa-eye"></i>
+                        </button>
+                        <small class="text-muted">Debe coincidir con la contraseña anterior.</small>
                     </div>
                 </div>
 
@@ -117,4 +147,30 @@
         </div>
     </div>
 </div>
+
 @endsection
+
+@push('scripts')
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.toggle-password').forEach(button => {
+        button.addEventListener('click', () => {
+            const target = document.querySelector(button.dataset.target);
+            const icon = button.querySelector('i');
+            if (target.type === 'password') {
+                target.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                target.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+    });
+});
+</script>
+@endpush
+
+

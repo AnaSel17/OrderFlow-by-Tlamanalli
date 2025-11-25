@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rol extends Model
+class Role extends Model
 {
     use HasFactory;
 
@@ -15,13 +15,13 @@ class Rol extends Model
      *
      * @var string
      */
-    protected $table = 'roles'; // <-- ¡ESTA LÍNEA ES LA SOLUCIÓN!
-
-    protected $primaryKey = 'id_rol';
+    protected $table = 'roles';      // nombre real de la tabla
+    protected $primaryKey = 'id_rol'; //coincide con tu migración
+    protected $fillable = ['nombre', 'descripcion'];
 
     // Un Rol "pertenece" a muchos Usuarios
     public function usuarios()
     {
-        return $this->hasMany(Usuario::class, 'id_rol');
+        return $this->hasMany(User::class, 'id_rol');
     }
 }

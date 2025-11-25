@@ -335,12 +335,12 @@ return [
         'text' => 'Menú',
         'icon' => 'fas fa-list',
         'submenu' => [
-            ['text' => 'Categorías',        'url' => '/menu/categories'],
-            ['text' => 'Platillos',         'url' => '/menu/items'],
+            ['text' => 'Categorías',        'url' => '/categorias'],
+            ['text' => 'Platillos',         'url' => '/productos'],
             ['text' => 'Modificadores',     'url' => '/menu/modifiers'],       // extras: leche, tamaño…
             ['text' => 'Combos',            'url' => '/menu/combos'],
             ['text' => 'Precios & costos',  'url' => '/menu/pricing'],
-            ['text' => 'Inventario',        'url' => '/inventory'],            // stock por insumo
+            ['text' => 'Inventario',        'url' => '/inventarios'],            
             ['text' => 'Importar/Exportar', 'url' => '/menu/import-export'],
         ],
     ],
@@ -348,16 +348,34 @@ return [
     // PEDIDOS
     [
         'text' => 'Pedidos',
+        'icon' => 'fas fa-home',
+        'url'  => '/pedidos',
+    ],
+    [
+        'text' => 'Gestión de Pedidos',
         'icon' => 'fas fa-receipt',
-        'submenu' => [
-            ['text' => 'Nuevo pedido',      'url' => '/orders/create'],
-            ['text' => 'En preparación',    'url' => '/orders/in-progress'],
-            ['text' => 'Listos',            'url' => '/orders/ready'],
-            ['text' => 'Entregados',        'url' => '/orders/delivered'],
-            ['text' => 'Cancelados',        'url' => '/orders/cancelled'],
-            ['text' => 'Mesas',             'url' => '/tables'],
-            ['text' => 'Comandas',          'url' => '/kds'],                   // pantalla cocina (KDS)
-            ['text' => 'Devoluciones',      'url' => '/orders/returns'],
+            'submenu' => [
+
+            
+            ['header' => 'Gestión de área'], // 🔹 Encabezado visual
+                 ['text' => 'Asignar mesa', 'url' => '/mesas/asignar', 'icon' => 'fas fa-chair'],
+                ['text' => 'Zonas',             'url' => '/zonas',  'icon' => 'fas fa-layer-group'],
+                ['text' => 'Mesas',             'url' => '/mesas',  'icon' => 'fas fa-chair'],
+               
+
+            
+            ['header' => 'Gestión de pedidos'], // 🔹 Encabezado visual
+            ['text' => 'Nuevo pedido',      'url' => '/pedidos/create'],
+            ['text' => 'En preparación',    'url' => '/pedidos?estado=en_preparacion'],
+            ['text' => 'Listos',            'url' => '/pedidos?estado=listo'],
+            ['text' => 'Entregados',        'url' => '/pedidos?estado=entregado'],
+            ['text' => 'Cancelados',        'url' => '/pedidos?estado=cancelado'],
+
+            ['header' => 'Operación'], // 🔹 Sección extra opcional
+            ['text' => 'Comandas',          'url' => '/comandas',    'icon' => 'fas fa-list-ul'],
+            ['text' => 'Devoluciones',      'url' => '/devoluciones', 'icon' => 'fas fa-undo'], 
+
+            
         ],
     ],
 

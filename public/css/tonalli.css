@@ -295,3 +295,255 @@ body {
   color: #fff;
   background-color: var(--ton-blue); /* reemplaza el azul por el espresso */
 }
+
+
+/* === BOTONES DE ACCIÓN === */
+.btn-tonalli {
+  background-color: var(--ton-gold);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 8px 16px;
+  transition: all 0.3s ease;
+}
+
+.btn-tonalli:hover {
+  background-color: #b8791e; /* tono más oscuro */
+  color: #fff;
+}
+
+/* Botón eliminar */
+.btn-tonalli-danger {
+  background-color: #c94d3f;
+  color: #fff;
+}
+
+.btn-tonalli-danger:hover {
+  background-color: #a53b30;
+}
+
+/* Tablas personalizadas */
+.table-tonalli {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.table-tonalli th {
+  background-color: var(--ton-gold);
+  color: #fff;
+  text-align: left;
+  padding: 10px;
+}
+
+.table-tonalli td {
+  padding: 10px;
+  border-bottom: 1px solid var(--ton-border);
+}
+
+.table-tonalli tr:hover {
+  background-color: #faf4e8;
+}
+
+/* Alertas */
+.alert {
+  border-radius: 8px;
+}
+
+/* Encabezados */
+.card-title-custom {
+  font-weight: 700;
+  color: #3d3d3d;
+  text-transform: uppercase;
+}
+
+/* ----------------------------------------------------
+   TONALLI EXTENSIÓN — Vistas tipo Historial / Pedidos
+   (Diseño claro sobre la base Tonalli.css)
+   ---------------------------------------------------- */
+
+/* === CONTENEDOR PRINCIPAL === */
+.container-actividad, .container-pedidos {
+    background-color: #f7f9fb !important;
+    padding: 2rem;
+}
+
+/* === ENCABEZADO === */
+.container-actividad h1, .container-pedidos h1 {
+    font-weight: 700;
+    color: var(--ton-primary-dark);
+    letter-spacing: 0.5px;
+}
+
+.subtitle {
+    color: #7f8c9a;
+    font-size: 0.9rem;
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+
+/* === BARRA DE FILTROS (Limpia, moderna) === */
+.filter-bar-custom {
+    background-color: var(--ton-white);
+    border: 1px solid #eaeaea;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 1px 5px var(--ton-shadow-s);
+}
+
+.filter-bar-custom .form-control,
+.filter-bar-custom .btn-filter-custom {
+    background-color: #f1f4f8;
+    border: none;
+    border-radius: 8px;
+    color: var(--ton-black);
+    font-size: 0.95rem;
+    transition: background-color 0.3s;
+}
+
+.filter-bar-custom .btn-filter-custom {
+    background-color: var(--ton-primary-dark);
+    color: var(--ton-white);
+    font-weight: 600;
+}
+.filter-bar-custom .btn-filter-custom:hover {
+    background-color: #4a1f20;
+}
+
+/* === TARJETAS DE MÉTRICAS === */
+.metrics-grid .info-box {
+    background-color: var(--ton-white);
+    border-radius: 10px;
+    box-shadow: 0 2px 10px var(--ton-shadow-s);
+    padding: 20px;
+    transition: transform 0.2s;
+}
+.metrics-grid .info-box:hover {
+    transform: translateY(-3px);
+}
+
+.metrics-grid .info-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 5px; height: 100%;
+    border-radius: 5px 0 0 5px;
+}
+.metric-card.primary::before { background-color: #4a90e2; }
+.metric-card.success::before { background-color: #38a169; }
+.metric-card.info::before { background-color: #63b3ed; }
+.metric-card.warning::before { background-color: #f6ad55; }
+
+.metric-icon {
+    font-size: 2rem;
+    color: #5d2728;
+}
+.metric-title {
+    color: #64748b;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+.metric-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--ton-black);
+}
+
+/* === TABLAS === */
+.table-tonalli {
+    background-color: var(--ton-white);
+    border-radius: 12px;
+    box-shadow: 0 2px 10px var(--ton-shadow-s);
+    overflow: hidden;
+}
+.table-tonalli th {
+    background-color: var(--ton-white);
+    color: #64748b;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    border-bottom: 1px solid #eee;
+}
+.table-tonalli td {
+    padding: 12px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.table-tonalli tr:hover {
+    background-color: #faf4e8;
+}
+
+/* === TAGS Y ESTADOS === */
+.tag-ingreso { background-color: #d1fae5; color: #38a169; }
+.tag-registro { background-color: #dbeafe; color: #4a90e2; }
+.tag-modificacion { background-color: #fef3c7; color: #f5a623; }
+.tag-eliminacion { background-color: #fee2e2; color: #d0021b; }
+
+.status-tag.success { background-color: #d1fae5; color: #38a169; }
+.status-tag.error { background-color: #fee2e2; color: #d0021b; }
+
+/* === PAGINACIÓN === */
+.pagination-controls .page-item .page-link {
+    border-radius: 6px;
+    border-color: #e2e8f0;
+    color: var(--ton-black);
+}
+.pagination-controls .page-item.active .page-link {
+    background-color: var(--ton-primary-dark);
+    border-color: var(--ton-primary-dark);
+    color: var(--ton-white);
+}
+
+/* === TIMELINE === */
+.activity-timeline {
+    background-color: var(--ton-white);
+    border-radius: 12px;
+    box-shadow: 0 2px 10px var(--ton-shadow-s);
+}
+.timeline-list {
+    position: relative;
+    padding-left: 25px;
+}
+.timeline-list::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background-color: #f2f2f2;
+}
+.timeline-item {
+    position: relative;
+    padding-left: 50px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #f9f9f9;
+}
+.timeline-dot {
+    position: absolute;
+    left: 0;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    font-size: 1rem;
+}
+.timeline-dot.success { background-color: #38a169; }
+.timeline-dot.info { background-color: #4a90e2; }
+.timeline-dot.warning { background-color: #f6ad55; }
+.timeline-dot.error { background-color: #d0021b; }
+
+.timeline-title { font-weight: 600; margin: 0; color: var(--ton-black); }
+.timeline-details { color: #64748b; margin-bottom: 5px; }
+.timeline-user { color: #94a3b8; font-size: 0.85rem; }
+.timeline-meta-right { color: #94a3b8; font-size: 0.9rem; }
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .filter-bar-custom { padding: 15px; }
+  .metrics-grid .info-box { margin-bottom: 15px; }
+  .timeline-item { padding-left: 35px; }
+}
+
