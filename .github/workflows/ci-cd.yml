@@ -5,11 +5,13 @@ on:
     branches:
       - develop
       - main
+      - 'feature/**'
   pull_request:
     branches:
       - develop
       - main
-
+      - 'feature/**'
+      
 jobs:
 
   laravel-tests:
