@@ -3,16 +3,16 @@ name: Laravel CI & CD Pipeline
 on:
   push:
     branches:
-      - main
       - develop
+      - main
   pull_request:
     branches:
-      - main
       - develop
+      - main
 
 jobs:
-  laravel-tests:
 
+  laravel-tests:
     runs-on: ubuntu-latest
 
     services:
@@ -67,12 +67,13 @@ jobs:
 
 
   deploy-to-render:
+    if: github.ref == 'refs/heads/main'   # 👈 SOLO DEPLOY EN MAIN
     needs: laravel-tests
     runs-on: ubuntu-latest
 
     steps:
-    - name: Deploy to Render
-      uses: johnbeynon/render-deploy-action@v1
-      with:
-        service-id: ${{ secrets.RENDER_SERVICE_ID }}
-        api-key: ${{ secrets.RENDER_API_KEY }}
+      - name: Deploy to Render
+        uses: johnbeynon/render-deploy-action@v1
+        with:
+          service-id: ${{ secrets.RENDER_SERVICE_ID }}
+          api-key: ${{ secrets.RENDER_API_KEY }}
