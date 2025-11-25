@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: orderflow-tlamanalli
+    env: docker
+    plan: free
+    branch: main
+    dockerfilePath: ./Dockerfile
