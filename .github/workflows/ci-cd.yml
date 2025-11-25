@@ -43,17 +43,17 @@ jobs:
         extensions: mbstring, intl, pgsql, pdo_pgsql
         coverage: none
 
-    - name: Copy .env
-      run: cp .env.example .env
-
-    - name: Configure environment for CI
+    - name: Crear .env CI limpio
       run: |
-        sed -i "s/DB_CONNECTION=.*/DB_CONNECTION=pgsql/" .env
-        sed -i "s/DB_HOST=.*/DB_HOST=127.0.0.1/" .env
-        sed -i "s/DB_PORT=.*/DB_PORT=5432/" .env
-        sed -i "s/DB_DATABASE=.*/DB_DATABASE=tlamanalli_test/" .env
-        sed -i "s/DB_USERNAME=.*/DB_USERNAME=postgres/" .env
-        sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=Luna2534/" .env
+        echo "APP_ENV=testing" > .env
+        echo "APP_KEY=" >> .env
+        echo "DB_CONNECTION=pgsql" >> .env
+        echo "DB_HOST=127.0.0.1" >> .env
+        echo "DB_PORT=5432" >> .env
+        echo "DB_DATABASE=tlamanalli" >> .env
+        echo "DB_USERNAME=postgres" >> .env
+        echo "DB_PASSWORD=Luna2534" >> .env
+
 
     - name: Install Composer dependencies
       run: composer install --prefer-dist --no-progress --no-suggest
