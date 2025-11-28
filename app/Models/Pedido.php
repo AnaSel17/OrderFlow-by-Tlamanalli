@@ -102,6 +102,12 @@ class Pedido extends Model
         return !in_array($this->estado, ['cerrado', 'cancelado']);
     }
 
+    public function cuentas()
+    {
+        return $this->hasMany(Cuenta::class);
+    }
+
+
     
     
 }

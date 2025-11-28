@@ -82,6 +82,20 @@
 <hr>
 
 <h4 class="mt-4">🧾 Detalles del pedido</h4>
+<form action="{{ route('detalles.entregar.seleccionados') }}" method="POST">
+@csrf
+@method('PATCH')
+
+<div class="d-flex justify-content-between mb-2">
+    <div>
+        <input type="checkbox" id="selectAll" style="transform: scale(1.3); margin-right:6px;">
+        <label for="selectAll"><strong>Seleccionar todo</strong></label>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-sm">
+        <i class="fas fa-check"></i> Entregar seleccionados
+    </button>
+</div>
 
 <table class="table table-striped align-middle">
     <thead>
@@ -98,7 +112,16 @@
     <tbody>
     @forelse ($pedido->detalles as $detalle)
         <tr>
-
+{{-- CHECKBOX SOLO PARA DETALLES LISTOS --}}
+        <td>
+            @if ($detalle->estado === 'listo')
+                <input type="checkbox"
+                       name="detalles_entregar[]"
+                       value="{{ $detalle->id }}"
+                       class="detalle-checkbox"
+                       style="transform: scale(1.3);">
+            @endif
+        </td>
         {{-- PRODUCTO --}}
         <td style="width: 25%">
             <div class="d-flex align-items-center">
@@ -248,4 +271,14 @@
 
 
 </div>
+@endsection
+
+
+@section('js')
+<script>
+document.getElementById('selectAll').addEventListener('change', function() {
+    const checkboxes = document.querySelectorAll('.detalle-checkbox');
+    checkboxes.forEach(ch => ch.checked = this.checked);
+});
+</script>
 @endsection

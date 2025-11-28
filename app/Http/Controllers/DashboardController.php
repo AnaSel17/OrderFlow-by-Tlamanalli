@@ -21,7 +21,7 @@ class DashboardController extends Controller
             ->sum('total');
 
         // 2) Pedidos activos
-        $pedidosActivos = Pedido::whereIn('estado', ['en_preparacion','listo_para_entregar'])
+        $pedidosActivos = Pedido::whereIn('estado', ['en_preparacion','listo_para_entregar','pendiente'])
             ->count();
 
         // 3) Producto más vendido (real)

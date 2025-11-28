@@ -19,9 +19,11 @@ return new class extends Migration
 
             $table->integer('cantidad');
             $table->decimal('precio_unitario', 12, 2);
+            $table->decimal('descuento', 12, 2)->default(0)->after('precio_unitario');
+
             $table->string('notas', 200)->nullable();
 
-            $table->enum('estado', ['pendiente', 'enviado_cocina', 'en_preparacion', 'listo', 'entregado', 'cancelado'])
+            $table->enum('estado', ['pendiente', 'enviado_cocina', 'en_preparacion', 'listo', 'entregado', 'cancelado', 'pagado'])
               ->default('pendiente')
               ->after('notas');
 

@@ -97,13 +97,17 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="password" class="form-label">Nueva Contraseña</label>
-                        <input type="password" class="form-control-dark" id="password" name="password" placeholder="{{ isset($usuario) ? 'Dejar en blanco para no cambiar' : '' }}"
+                        <div class="input-group">
+                        <input type="password" class="form-control-dark" id="password" name="password" 
+                        placeholder="{{ isset($usuario) ? 'Dejar en blanco para no cambiar' : '' }}"
                         minlength="8"
                         pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#_\-.,])[A-Za-z\d@$!%*?&#_\-.,]{8,}$"
                         title="Debe tener al menos una mayúscula, una minúscula, un número y un carácter especial.">
                         
                         <button type="button" class="btn btn-light toggle-password" data-target="#password">
                         <i class="fas fa-eye"></i>
+                        </button>
+                        </div>
                         <small class="text-muted">Debe tener una mayúscula, una minúscula, un número y un carácter especial.</small>
                     </div>
 
@@ -111,7 +115,7 @@
                         <label for="password_confirmation" class="form-label">Confirmar Contraseña</label>
                         <input type="password" class="form-control-dark" id="password_confirmation" name="password_confirmation"
                         title="Debe coincidir con la contraseña anterior.">
-                        <button type="button" class="btn btn-light toggle-password" data-target="#password">
+                        <button type="button" class="btn btn-light toggle-password" data-target="#password_confirmation">
                         <i class="fas fa-eye"></i>
                         </button>
                         <small class="text-muted">Debe coincidir con la contraseña anterior.</small>

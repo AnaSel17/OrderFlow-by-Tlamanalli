@@ -223,7 +223,34 @@ public function cancelar(DetallePedido $detallePedido)
     return back()->with('success', 'Producto cancelado del pedido.');
 }
 
+public function entregarSeleccionados(Request $request)
+{
+    $ids = $request->input('detalles_entregar', []);
 
+    if (empty($ids)) {
+        return back()->with('error', 'Selecciona al menos un platillo para entregar.');
+    }
+ // Obtener los detalles
+    $detalles = DetallePedido::whereIn('id', $ids)
+                ->where('estado', 'listo')
+                ->get();
 
+    if ($detalles->isEmpty()) {
+        return back()->with('error', 'Los platillos seleccionados no están listos para entregar.');
+    }
 
+    // ✔ Actualizar a entregado uno por uno
+    foreach ($detalles as $detalle) {
+        $detalle->update(['estado' => 'entregado']);
+    }
+
+    // ✔ Obtener el pedido y recalcular
+    $pedido = $detalles->first()->pedido;
+    $this->recalcularEstadoPedido($pedido);
+
+    return back()->with('success', 'Platillos entregados correctamente.');
 }
+}
+
+
+

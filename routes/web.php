@@ -17,6 +17,7 @@ use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ZonaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CobroController;
 
 use App\Models\DetallePedido;
 use App\Models\Producto;
@@ -115,9 +116,9 @@ Route::middleware(['auth'])->group(function () {
     // Cobrar
     Route::get('/pedidos/{pedido}/cobrar', [PedidoController::class, 'cobrar'])
         ->name('pedidos.cobrar');
-
-    Route::patch('/pedidos/{pedido}/cobrar', [PedidoController::class, 'finalizarCobro'])
-        ->name('pedidos.finalizarCobro');
+    Route::patch('/pedidos/{pedido}/cobrar',
+    [CobroController::class, 'finalizarCobro'])
+    ->name('pedidos.finalizarCobro');
 
     // Ticket
     Route::get('/pedidos/{pedido}/ticket', [PedidoController::class, 'ticket'])
@@ -129,6 +130,10 @@ Route::middleware(['auth'])->group(function () {
 
     // AHORA sí, el resource
     Route::resource('pedidos', PedidoController::class);
+
+
+    //Route::patch('/pedidos/{pedido}/cobrar',     [CobroController::class, 'finalizarCobro']
+//)       ->name('pedidos.finalizarCobro');
 
 
     /*
@@ -157,8 +162,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/detalles/listo-grupo', [DetallePedidoController::class, 'listoGrupo'])
         ->name('detalles.listo.grupo');
 
+    Route::patch('/detalles/entregar-seleccionados', [DetallePedidoController::class, 'entregarSeleccionados'])
+        ->name('detalles.entregar.seleccionados');
+
     // Resource al final
     Route::resource('detalle_pedidos', DetallePedidoController::class);
+
+
 
 
     /*

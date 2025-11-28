@@ -17,6 +17,7 @@ class DetallePedido extends Model
     'producto_id',
     'cantidad',
     'precio_unitario',
+    'descuento',
     'notas',
     'comensal_id',
     'comanda_id',
@@ -50,6 +51,23 @@ class DetallePedido extends Model
     public function cuentaDetalles()
     {
         return $this->hasMany(CuentaDetalle::class, 'detalle_id');
+    }
+
+        // Helpers
+    public function getSubtotalAttribute()
+    {
+        return ($this->cantidad * $this->precio_unitario) - $this->descuento;
+    }
+
+    // Para CFDI (precio base sin IVA)
+    public function getPrecioBaseSinIvaAttribute()
+    {
+        return round($this->precio_unitario / 1.16, 2);
+    }
+
+    public function getDescuentoBaseSinIvaAttribute()
+    {
+        return round($this->descuento / 1.16, 2);
     }
 
 }

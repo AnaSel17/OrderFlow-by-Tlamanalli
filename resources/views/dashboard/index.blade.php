@@ -9,12 +9,7 @@
 @section('content')
   {{-- Métricas superiores --}}
   <div class="row">
-    @foreach (//[
-      //['icon'=>'fas fa-dollar-sign','label'=>'Ventas del día','value'=>'$1,250'],
-      //['icon'=>'fas fa-clipboard-check','label'=>'Pedidos activos','value'=>'15'],
-      //['icon'=>'fas fa-shopping-cart','label'=>'Productos más vendidos','value'=>'Espresso'],
-      //['icon'=>'fas fa-user','label'=>'Nuevos clientes','value'=>'8'],
-    //] 
+    @foreach (
     $metricas as $c)
       <div class="col-md-6 col-xl-3 mb-4">
         <div class="card">

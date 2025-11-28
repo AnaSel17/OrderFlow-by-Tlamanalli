@@ -156,7 +156,9 @@
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 {{-- BOTÓN COBRAR --}}
-                               @if($pedido->estado === 'listo_para_cobrar')
+                               
+                                    @if($pedido->estado === 'listo_para_cobrar' || $pedido->estado === 'listo') 
+                                    {{-- Agregué 'listo' como estado válido por si no quieres esperar a la entrega total --}}
                                     <a href="{{ route('pedidos.cobrar', $pedido) }}" 
                                     class="btn btn-success btn-sm">
                                         <i class="fas fa-cash-register"></i> Cobrar

@@ -21,7 +21,11 @@ return new class extends Migration
 
             $table->decimal('cantidad_asignada', 12, 3);
             $table->decimal('precio_unitario', 12, 2);
+            
+            $table->decimal('descuento', 12, 2)->default(0)->after('precio_unitario');
+
             $table->decimal('subtotal_asignado', 12, 2);
+            $table->boolean('asignado_completo')->default(false);
 
             $table->timestamps();
 

@@ -28,4 +28,20 @@ class Cuenta extends Model
 
     public function detalles() { return $this->hasMany(CuentaDetalle::class); }
     public function pagos()    { return $this->hasMany(Pago::class); }
+
+        // Helpers
+    public function getImporteFacturableAttribute()
+    {
+        return $this->total - $this->propina; 
+    }
+
+    public function getPagadoTotalAttribute()
+    {
+        return $this->pagos->sum('monto');
+    }
+
+    public function getRestanteAttribute()
+    {
+        return $this->total - $this->pagado_total;
+    }
 }

@@ -302,135 +302,125 @@ return [
     */
 
 'menu' => [
-    // ---- TOPBAR ----
+
+    // TOPBAR
     ['type' => 'navbar-search', 'text' => 'Buscar', 'topnav_right' => true],
     ['type' => 'fullscreen-widget', 'topnav_right' => true],
 
-    // ---- SIDEBAR ----
-    ['type' => 'sidebar-menu-search', 'text' => 'Buscar'],
-    ['header' => 'OPERACIÓN'],
-
-    // DASHBOARD
+    // SIDEBAR
+    ['header' => 'INICIO'],
     [
         'text' => 'Dashboard',
-        'icon' => 'fas fa-home',
+        'icon' => 'fas fa-chart-line',
         'url'  => '/dashboard',
     ],
 
-    // USUARIOS
+    ['header' => 'VENTA & MESAS'],
     [
-        'text' => 'Usuarios',
-        'icon' => 'fas fa-user',
+        'text' => 'Mesas / Piso',
+        'icon' => 'fas fa-th-large',
         'submenu' => [
-            ['text' => 'Listado',           'url' => '/usuarios'],
-            ['text' => 'Crear usuario',     'url' => '/usuarios/crear'],
-            ['text' => 'Listado Roles',             'url' => '/roles'],         // can: manage-roles
-            ['text' => 'Permisos',          'url' => '/permissions'],   // can: manage-permissions
-            ['text' => 'Actividad',         'url' => '/users/actividad'], 
+            ['text' => 'Zonas',         'url' => '/zonas', 'icon' => 'fas fa-layer-group'],
+            ['text' => 'Mesas',         'url' => '/mesas', 'icon' => 'fas fa-chair'],
+            ['text' => 'Asignar mesa',  'url' => '/mesas/asignar', 'icon' => 'fas fa-user-check'],
         ],
     ],
-
-    // MENÚ (PRODUCTOS)
-    [
-        'text' => 'Menú',
-        'icon' => 'fas fa-list',
-        'submenu' => [
-            ['text' => 'Categorías',        'url' => '/categorias'],
-            ['text' => 'Platillos',         'url' => '/productos'],
-            ['text' => 'Modificadores',     'url' => '/menu/modifiers'],       // extras: leche, tamaño…
-            ['text' => 'Combos',            'url' => '/menu/combos'],
-            ['text' => 'Precios & costos',  'url' => '/menu/pricing'],
-            ['text' => 'Inventario',        'url' => '/inventarios'],            
-            ['text' => 'Importar/Exportar', 'url' => '/menu/import-export'],
-        ],
-    ],
-
-    // PEDIDOS
     [
         'text' => 'Pedidos',
-        'icon' => 'fas fa-home',
-        'url'  => '/pedidos',
-    ],
-    [
-        'text' => 'Gestión de Pedidos',
         'icon' => 'fas fa-receipt',
-            'submenu' => [
-
-            
-            ['header' => 'Gestión de área'], // 🔹 Encabezado visual
-                 ['text' => 'Asignar mesa', 'url' => '/mesas/asignar', 'icon' => 'fas fa-chair'],
-                ['text' => 'Zonas',             'url' => '/zonas',  'icon' => 'fas fa-layer-group'],
-                ['text' => 'Mesas',             'url' => '/mesas',  'icon' => 'fas fa-chair'],
-               
-
-            
-            ['header' => 'Gestión de pedidos'], // 🔹 Encabezado visual
-            ['text' => 'Nuevo pedido',      'url' => '/pedidos/create'],
-            ['text' => 'En preparación',    'url' => '/pedidos?estado=en_preparacion'],
-            ['text' => 'Listos',            'url' => '/pedidos?estado=listo'],
-            ['text' => 'Entregados',        'url' => '/pedidos?estado=entregado'],
-            ['text' => 'Cancelados',        'url' => '/pedidos?estado=cancelado'],
-
-            ['header' => 'Operación'], // 🔹 Sección extra opcional
-            ['text' => 'Comandas',          'url' => '/comandas',    'icon' => 'fas fa-list-ul'],
-            ['text' => 'Devoluciones',      'url' => '/devoluciones', 'icon' => 'fas fa-undo'], 
-
-            
+        'submenu' => [
+            ['text' => 'Nuevo pedido',        'url' => '/pedidos/create', 'icon' => 'fas fa-plus-circle'],
+            ['text' => 'Todos los pedidos',   'url' => '/pedidos'],
+            ['text' => 'En preparación',      'url' => '/pedidos?estado=en_preparacion'],
+            ['text' => 'Listos',              'url' => '/pedidos?estado=listo'],
+            ['text' => 'Entregados',          'url' => '/pedidos?estado=entregado'],
+            ['text' => 'Cancelados',          'url' => '/pedidos?estado=cancelado'],
+            ['text' => 'Comandas',            'url' => '/comandas', 'icon' => 'fas fa-list-ul'],
+            ['text' => 'Devoluciones',        'url' => '/devoluciones', 'icon' => 'fas fa-undo'],
         ],
     ],
 
-    // REPORTES
+    ['header' => 'COBRO & FINANZAS'],
+
+    // 💰 PAGOS / CAJA
+    [
+        'text' => 'Caja y Cobros',
+        'icon' => 'fas fa-cash-register',
+        'submenu' => [
+            ['text' => 'Cobrar pedido',      'url' => '/pedidos?cobrar=1', 'icon' => 'fas fa-money-bill'],
+            ['text' => 'Pagos registrados',  'url' => '/pagos'],
+            ['text' => 'Cuentas abiertas',   'url' => '/cuentas?estado=abierta'],
+            ['text' => 'Cuentas pagadas',    'url' => '/cuentas?estado=pagada'],
+            ['text' => 'Tickets emitidos',   'url' => '/tickets'],
+        ],
+    ],
+
+    ['header' => 'MENÚ & PRODUCTOS'],
+    [
+        'text' => 'Menú',
+        'icon' => 'fas fa-utensils',
+        'submenu' => [
+            ['text' => 'Categorías',         'url' => '/categorias'],
+            ['text' => 'Platillos',          'url' => '/productos'],
+            ['text' => 'Modificadores',      'url' => '/menu/modifiers'],
+            ['text' => 'Combos',             'url' => '/menu/combos'],
+            ['text' => 'Precios & Costos',   'url' => '/menu/pricing'],
+            ['text' => 'Inventario',         'url' => '/inventarios'],
+            ['text' => 'Importar / Exportar','url' => '/menu/import-export'],
+        ],
+    ],
+
+    ['header' => 'REPORTES'],
     [
         'text' => 'Reportes',
         'icon' => 'fas fa-chart-bar',
         'submenu' => [
-            ['text' => 'Ventas por día',        'url' => '/reports/sales-daily'],
-            ['text' => 'Ventas por producto',    'url' => '/reports/sales-products'],
-            ['text' => 'Top clientes',           'url' => '/reports/top-customers'],
-            ['text' => 'Pedidos por estado',     'url' => '/reports/orders-status'],
-            ['text' => 'Inventario bajo',        'url' => '/reports/low-stock'],
-            ['text' => 'Exportar (CSV/PDF)',     'url' => '/reports/export'],
+            ['text' => 'Ventas por día',      'url' => '/reports/sales-daily'],
+            ['text' => 'Ventas por producto', 'url' => '/reports/sales-products'],
+            ['text' => 'Top clientes',         'url' => '/reports/top-customers'],
+            ['text' => 'Pedidos por estado',   'url' => '/reports/orders-status'],
+            ['text' => 'Inventario bajo',      'url' => '/reports/low-stock'],
+            ['text' => 'Exportar (CSV/PDF)',   'url' => '/reports/export'],
         ],
     ],
 
-    ['header' => 'NEGOCIO'],
-
-    // PROMOCIONES / MARKETING
+    ['header' => 'ADMINISTRACIÓN'],
     [
-        'text' => 'Promociones',
-        'icon' => 'fas fa-tags',
+        'text' => 'Usuarios',
+        'icon' => 'fas fa-user',
         'submenu' => [
-            ['text' => 'Cupones',              'url' => '/promos/coupons'],
-            ['text' => 'Happy hours',          'url' => '/promos/happy-hour'],
-            ['text' => 'Programas de lealtad', 'url' => '/promos/loyalty'],
+            ['text' => 'Listado',              'url' => '/usuarios'],
+            ['text' => 'Crear usuario',        'url' => '/usuarios/crear'],
+            ['text' => 'Roles',                'url' => '/roles'],
+            ['text' => 'Permisos',             'url' => '/permissions'],
+            ['text' => 'Actividad',            'url' => '/users/actividad'],
         ],
     ],
-
-    // CONFIGURACIÓN
     [
         'text' => 'Configuración',
         'icon' => 'fas fa-cog',
         'submenu' => [
-            ['text' => 'Tienda (datos)',    'url' => '/settings/store'],
-            ['text' => 'Impuestos/propina', 'url' => '/settings/tax-tip'],
-            ['text' => 'Pagos',             'url' => '/settings/payments'],   // métodos: cash, tarjeta…
-            ['text' => 'Impresoras',        'url' => '/settings/printers'],
-            ['text' => 'Notificaciones',    'url' => '/settings/notifications'],
-            ['text' => 'Usuarios & seguridad','url' => '/settings/security'],
+            ['text' => 'Datos de la tienda',   'url' => '/settings/store'],
+            ['text' => 'Impuestos y propina',  'url' => '/settings/tax-tip'],
+            ['text' => 'Métodos de pago',      'url' => '/settings/payments'],
+            ['text' => 'Impresoras',           'url' => '/settings/printers'],
+            ['text' => 'Notificaciones',       'url' => '/settings/notifications'],
+            ['text' => 'Seguridad',            'url' => '/settings/security'],
         ],
     ],
 
-    // AYUDA
+    ['header' => 'AYUDA'],
     [
         'text' => 'Ayuda',
         'icon' => 'fas fa-question-circle',
         'submenu' => [
-            ['text' => 'Guía rápida',    'url' => '/help/quickstart'],
-            ['text' => 'Preguntas frecuentes', 'url' => '/help/faq'],
-            ['text' => 'Soporte',        'url' => '/help/support'],
+            ['text' => 'Guía rápida',         'url' => '/help/quickstart'],
+            ['text' => 'Preguntas frecuentes','url' => '/help/faq'],
+            ['text' => 'Soporte',             'url' => '/help/support'],
         ],
     ],
 ],
+
 
 
     /*
