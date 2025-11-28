@@ -2,22 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use Illuminate\Http\Request;
 
 class RolesController extends Controller
 {
-    public function up(): void
+    public function index()
     {
-        Schema::create('roles', function (Blueprint $table) {
-            $table->id('id_rol');
-            $table->string('nombre')->unique();
-            $table->text('descripcion')->nullable();
-            $table->timestamps();
-        });
+        $roles = Role::all();
+        return view('roles.index', compact('roles'));
     }
 
-    public function down(): void
+    public function create()
     {
-        Schema::dropIfExists('roles');
+        return view('roles.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'nombre' => 'required|unique:roles',
+            'descripcion' => 'nullable'
+        ]);
+
+        Role::create($request->all());
+
+        return redirect()->route('roles.index')->with('success', 'Rol creado exitosamente.');
     }
 }
