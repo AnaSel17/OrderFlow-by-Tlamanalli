@@ -49,7 +49,10 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            // CAMBIADO de 'name' a 'nombre'
+            'nombre' => ['required', 'string', 'max:255'], 
+            'apellido_paterno' => ['required', 'string', 'max:60'], // Añadido
+            // Asumo que tu formulario de registro envía todos los campos
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -64,9 +67,13 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            // CAMBIADO de 'name' a 'nombre'
+            'nombre' => $data['nombre'],
+            'apellido_paterno' => $data['apellido_paterno'], // Añadido
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'status' => 'active', // Añadido un default para satisfacer NOT NULL 
+            'rol_id' => 2, // ASUMIDO: Debes asignar un rol por defecto (ej. Mesero)
         ]);
     }
 }

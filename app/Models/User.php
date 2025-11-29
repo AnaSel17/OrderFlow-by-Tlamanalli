@@ -18,9 +18,14 @@ class User extends Authenticatable
      * @var list<string>    
      */
     protected $fillable = [
-        'name',
+        'nombre',            // <--- CAMBIADO de 'name' a 'nombre' (Diccionario V1 )
+        'apellido_paterno',  // <--- Añadido según Diccionario V1 
+        'apellido_materno',  // <--- Añadido según Diccionario V1 
         'email',
         'password',
+        'status',            // <--- Añadido el campo 'status' (Diccionario V1 )
+        'rol_id',            // <--- Añadido el FK 'rol_id' (Diagrama ER [cite: 37])
+        'telefono',          // <--- Añadido el campo 'telefono' (Diccionario V1 )
     ];
 
     /**
