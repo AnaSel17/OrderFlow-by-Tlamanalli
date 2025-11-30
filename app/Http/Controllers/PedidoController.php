@@ -196,27 +196,27 @@ class PedidoController extends Controller
     }
 
     public function cobrar(Pedido $pedido)
-{
-    $pedido->load(['detalles.producto', 'detalles.comensal']);
+    {
+        $pedido->load(['detalles.producto', 'detalles.comensal','cuentas']);
 
-    return view('pedidos.cobrar', compact('pedido'));
-}
-
-
-
-public function ticket(Pedido $pedido)
-{
-    $cuentas = Cuenta::with(['detalles.detalle.producto', 'pagos', 'comensal'])
-        ->where('pedido_id', $pedido->id)
-        ->get();
-
-    if ($cuentas->count() === 1 && $cuentas->first()->tipo === 'completa') {
-        $cuenta = $cuentas->first();
-        return view('tickets.ticket_completo', compact('pedido', 'cuenta'));
+        return view('pedidos.cobrar', compact('pedido'));
     }
 
-    return view('tickets.ticket_por_comensal', compact('pedido', 'cuentas'));
-}
+
+
+// public function ticket(Pedido $pedido)
+// {
+//     $cuentas = Cuenta::with(['detalles.detalle.producto', 'pagos', 'comensal'])
+//         ->where('pedido_id', $pedido->id)
+//         ->get();
+
+//     if ($cuentas->count() === 1 && $cuentas->first()->tipo === 'completa') {
+//         $cuenta = $cuentas->first();
+//         return view('tickets.ticket_completo', compact('pedido', 'cuenta'));
+//     }
+
+//     return view('tickets.ticket_por_comensal', compact('pedido', 'cuentas'));
+// }
 
 
 }

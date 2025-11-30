@@ -3,7 +3,7 @@
 @section('content')
 <div class="ticket">
 
-    <h3>🍽 {{ config('app.name') }}</h3>
+    <h3>🍽 Tlamanali</h3>
     <h5>Ticket de Consumo</h5>
 
     <div class="line"></div>

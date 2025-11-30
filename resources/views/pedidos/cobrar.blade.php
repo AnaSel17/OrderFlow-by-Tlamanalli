@@ -440,6 +440,33 @@
                             </button>
                         </div>
 
+                        {{-- ================================================ --}}
+                        {{-- TICKETS PARA IMPRIMIR --}}
+                        {{-- ================================================ --}}
+
+                        <div class="mt-4" id="btn_tickets_wrapper">
+                            {{-- Verificamos si ya existen cuentas generadas para este pedido --}}
+                                @if($pedido->cuentas->isNotEmpty())
+
+                                    @foreach($pedido->cuentas as $cuenta)
+                                        <div class="mb-2">
+                                            <a href="{{ route('tickets.show', $cuenta->id) }}" 
+                                            target="_blank" 
+                                            class="btn btn-default">
+                                                <i class="fas fa-print"></i> 
+                                                {{-- Si hay varias cuentas, mostramos el ID o nombre para diferenciar --}}
+                                                Imprimir Ticket (Cuenta #{{ $cuenta->id }})
+                                            </a>
+                                        </div>
+                                    @endforeach
+
+                                @else
+                                    {{-- Opcional: Mostrar mensaje o botón deshabilitado si aún no se generan cuentas --}}
+                                    <button class="btn btn-default disabled" disabled>
+                                        <i class="fas fa-print"></i> Sin cuenta generada
+                                    </button>
+                                @endif
+                        </div>
 
                     </div> {{-- card-body --}}
                 </div> {{-- card --}}

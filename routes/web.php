@@ -120,9 +120,20 @@ Route::middleware(['auth'])->group(function () {
     [CobroController::class, 'finalizarCobro'])
     ->name('pedidos.finalizarCobro');
 
-    // Ticket
-    Route::get('/pedidos/{pedido}/ticket', [PedidoController::class, 'ticket'])
-        ->name('pedidos.ticket');
+    // Ticket lo desactivamos temporalmente
+    // Route::get('/pedidos/{pedido}/ticket', [PedidoController::class, 'ticket'])
+    //     ->name('pedidos.ticket');
+
+    /*
+    |--------------------------------------------------------------------------
+    | TICKETS VISTAS
+    |--------------------------------------------------------------------------
+    */
+    Route::get('/cuenta/{cuenta}/imprimir', [App\Http\Controllers\TicketController::class, 'show'])
+        ->name('tickets.show');
+
+    Route::get('/pedido/{pedido}/imprimir-todos', [App\Http\Controllers\TicketController::class, 'showPorComensal'])
+        ->name('tickets.por_comensal');
 
     // Marcar entregado (PEDIDO)
     Route::patch('/pedidos/{pedido}/entregar', [PedidoController::class, 'marcarEntregado'])

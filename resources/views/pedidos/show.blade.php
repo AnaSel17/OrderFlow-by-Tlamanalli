@@ -112,10 +112,6 @@
                     </ul>
                 @endif
 
-                {{-- BOTÓN DE TICKET --}}
-                <a href="{{ route('pedidos.ticket', $pedido) }}" class="btn btn-success mt-3">
-                    <i class="fas fa-receipt"></i> Ver / Imprimir Ticket
-                </a>
 
             </div>
         </div>
