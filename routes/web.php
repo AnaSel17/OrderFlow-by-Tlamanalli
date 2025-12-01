@@ -75,6 +75,24 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/roles/{id}', [RolesController::class, 'show'])->name('roles.show');
     Route::resource('roles', RolesController::class);
 
+    Route::get('/dashboard/admin', [DashboardController::class, 'admin'])
+    ->middleware(['auth'])
+    ->name('dashboard.admin');
+
+
+    Route::get('/dashboard/cajero', [DashboardController::class, 'cajero'])
+    ->middleware(['auth'])
+    ->name('dashboard.cajero');
+    Route::get('/dashboard/mesero', [DashboardController::class, 'mesero'])
+    ->middleware(['auth'])
+    ->name('dashboard.mesero');
+    Route::get('/dashboard/cocinero', [DashboardController::class, 'cocinero'])
+    ->middleware(['auth'])
+    ->name('dashboard.cocinero');
+
+
+
+
 
 
 

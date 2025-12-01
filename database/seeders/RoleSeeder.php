@@ -68,26 +68,6 @@ class RoleSeeder extends Seeder
                 ],
             ],
             [
-                'nombre' => 'Chef Pastelero',
-                'descripcion' => 'Encargado de la elaboración de postres y repostería.',
-                'categoria' => 'Operativo',
-                'permisos' => [
-                    'Preparar productos',
-                    'Gestión de ingredientes',
-                    'Control de calidad'
-                ],
-            ],
-            [
-                'nombre' => 'Barista',
-                'descripcion' => 'Especialista en café y bebidas artesanales.',
-                'categoria' => 'Operativo',
-                'permisos' => [
-                    'Preparar bebidas',
-                    'Atención al cliente',
-                    'Gestión de inventario de café'
-                ],
-            ],
-            [
                 'nombre' => 'Cajero',
                 'descripcion' => 'Encargado de cobrar y registrar pagos.',
                 'categoria' => 'Operativo',
@@ -98,62 +78,7 @@ class RoleSeeder extends Seeder
                 ],
             ],
 
-            // ==============================
-            // SOPORTE Y LOGÍSTICA
-            // ==============================
-            [
-                'nombre' => 'Repartidor',
-                'descripcion' => 'Entrega pedidos a domicilio garantizando tiempos y calidad.',
-                'categoria' => 'Operativo',
-                'permisos' => [
-                    'Entregar pedidos',
-                    'Rutas de entrega',
-                    'Atención al cliente'
-                ],
-            ],
-            [
-                'nombre' => 'Almacenista',
-                'descripcion' => 'Encargado del inventario y control de productos.',
-                'categoria' => 'Operativo',
-                'permisos' => [
-                    'Inventario',
-                    'Gestión de insumos',
-                    'Recepción de mercancía'
-                ],
-            ],
-            [
-                'nombre' => 'Auxiliar de Limpieza',
-                'descripcion' => 'Mantiene las áreas del restaurante limpias y desinfectadas.',
-                'categoria' => 'Operativo',
-                'permisos' => [
-                    'Limpieza general',
-                    'Manejo de residuos'
-                ],
-            ],
 
-            // ==============================
-            // ESPECIALIDADES
-            // ==============================
-            [
-                'nombre' => 'Hostess',
-                'descripcion' => 'Recibe a los clientes y asigna mesas.',
-                'categoria' => 'Operativo',
-                'permisos' => [
-                    'Asignar mesas',
-                    'Atención al cliente',
-                    'Organización de sala'
-                ],
-            ],
-            [
-                'nombre' => 'Supervisor de Turno',
-                'descripcion' => 'Supervisa al personal durante su turno y asegura el cumplimiento de procesos.',
-                'categoria' => 'Gerencial',
-                'permisos' => [
-                    'Supervisión',
-                    'Gestión de turnos',
-                    'Reportes'
-                ],
-            ],
         ];
 
         foreach ($roles as $rol) {

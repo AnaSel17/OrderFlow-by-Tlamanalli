@@ -50,6 +50,8 @@ class DetallePedidoController extends Controller
         $detalle->update(['estado' => 'en_preparacion']);
 
         $this->recalcularEstadoPedido($detalle->pedido);
+        $this->recalcularEstadoComanda($detalle->comanda);
+
 
         return back()->with('success', 'Platillo en preparación');
     }
@@ -59,6 +61,8 @@ class DetallePedidoController extends Controller
         $detalle->update(['estado' => 'listo']);
 
         $this->recalcularEstadoPedido($detalle->pedido);
+        $this->recalcularEstadoComanda($detalle->comanda);
+
 
         return back()->with('success', 'Platillo listo');
     }
@@ -68,6 +72,8 @@ class DetallePedidoController extends Controller
         $detalle->update(['estado' => 'entregado']);
 
         $this->recalcularEstadoPedido($detalle->pedido);
+        $this->recalcularEstadoComanda($detalle->comanda);
+
 
         return back()->with('success', 'Platillo entregado correctamente.');
     }
@@ -140,6 +146,8 @@ public function prepararGrupo(Request $request)
 
     // 🔥 Recalcular estado del pedido
     $this->recalcularEstadoPedido($pedido);
+    $this->recalcularEstadoComanda($detalle->comanda);
+
 
     return back()->with('info', 'Platillos puestos en preparación.');
 }
@@ -168,6 +176,8 @@ public function listoGrupo(Request $request)
 
     // 🔥 Recalcular estado del pedido
     $this->recalcularEstadoPedido($pedido);
+    $this->recalcularEstadoComanda($detalle->comanda);
+
 
     return back()->with('success', 'Platillos marcados como listos.');
 }
@@ -175,6 +185,7 @@ public function listoGrupo(Request $request)
 public function destroy(DetallePedido $detallePedido)
 {
     $pedido = $detallePedido->pedido; // obtener el pedido antes de borrar
+     $comanda = $detallePedido->comanda; // ESTA ES LA CLAVE
 
     // Restar el total correspondiente
     $pedido->total -= ($detallePedido->precio_unitario * $detallePedido->cantidad);
@@ -186,6 +197,8 @@ public function destroy(DetallePedido $detallePedido)
 
     // Recalcular estado del pedido
     $this->recalcularEstadoPedido($pedido);
+    $this->recalcularEstadoComanda($comanda);
+
 
     return back()->with('success', 'Producto eliminado del pedido.');
 }
@@ -193,6 +206,7 @@ public function destroy(DetallePedido $detallePedido)
 public function cancelar(DetallePedido $detallePedido)
 {
     $pedido = $detallePedido->pedido; // obtener el pedido
+     $comanda = $detallePedido->comanda; // ESTA ES LA CLAVE
 
     // Si ya estaba cancelado, no hacer nada
     if ($detallePedido->estado === 'cancelado') {
@@ -211,6 +225,8 @@ public function cancelar(DetallePedido $detallePedido)
 
     // Recalcular estado del pedido
     $this->recalcularEstadoPedido($pedido);
+    $this->recalcularEstadoComanda($comanda);
+
 
     return back()->with('success', 'Producto cancelado del pedido.');
 }
@@ -242,6 +258,59 @@ public function entregarSeleccionados(Request $request)
 
     return back()->with('success', 'Platillos entregados correctamente.');
 }
+
+private function recalcularEstadoComanda($comanda)
+{
+    if (!$comanda) return;
+
+    // Detalles SOLO de esa comanda
+    $detalles = $comanda->pedido->detalles->where('comanda_id', $comanda->id);
+
+    // Cancelados no cuentan
+    $activos = $detalles->where('estado', '!=', 'cancelado');
+
+    if ($activos->count() === 0) {
+        // Si todos están cancelados → dejarla lista por seguridad
+        $comanda->update(['estado' => 'listo']);
+        return;
+    }
+
+    $total          = $activos->count();
+    $pendientes     = $activos->where('estado', 'pendiente')->count();
+    $enviados       = $activos->where('estado', 'enviado_cocina')->count();
+    $preparando     = $activos->where('estado', 'en_preparacion')->count();
+    $listos         = $activos->where('estado', 'listo')->count();
+    $entregados     = $activos->where('estado', 'entregado')->count();
+
+    // 1️⃣ Algo en preparación → comanda en preparación
+    if ($preparando > 0) {
+        $comanda->update(['estado' => 'en_preparacion']);
+        return;
+    }
+
+    // 2️⃣ Hay cosas pendientes o enviadas → enviada a cocina
+    if ($pendientes > 0 || $enviados > 0) {
+        $comanda->update(['estado' => 'enviado_cocina']);
+        return;
+    }
+
+    // 3️⃣ Todos entregados → comanda entregada (ESTADO FINAL)
+    if ($entregados === $total) {
+        $comanda->update(['estado' => 'entregada']);
+        return;
+    }
+
+    // 4️⃣ Todos listos → lista para entregar al mesero
+    if ($listos === $total) {
+        $comanda->update(['estado' => 'listo']);
+        return;
+    }
+
+    // fallback
+    $comanda->update(['estado' => 'enviado_cocina']);
+}
+
+
 }
 
 

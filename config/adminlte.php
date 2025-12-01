@@ -316,89 +316,47 @@ return [
     ],
 
     ['header' => 'VENTA & MESAS'],
-    [
-        'text' => 'Mesas / Piso',
-        'icon' => 'fas fa-th-large',
-        'submenu' => [
-            ['text' => 'Zonas',         'url' => '/zonas', 'icon' => 'fas fa-layer-group'],
-            ['text' => 'Mesas',         'url' => '/mesas', 'icon' => 'fas fa-chair'],
-            ['text' => 'Asignar mesa',  'url' => '/mesas/asignar', 'icon' => 'fas fa-user-check'],
-        ],
-    ],
-    [
-        'text' => 'Pedidos',
-        'icon' => 'fas fa-receipt',
-        'submenu' => [
-            ['text' => 'Nuevo pedido',        'url' => '/pedidos/create', 'icon' => 'fas fa-plus-circle'],
-            ['text' => 'Todos los pedidos',   'url' => '/pedidos'],
-            ['text' => 'En preparación',      'url' => '/pedidos?estado=en_preparacion'],
-            ['text' => 'Listos',              'url' => '/pedidos?estado=listo'],
-            ['text' => 'Entregados',          'url' => '/pedidos?estado=entregado'],
-            ['text' => 'Cancelados',          'url' => '/pedidos?estado=cancelado'],
-            ['text' => 'Comandas',            'url' => '/comandas', 'icon' => 'fas fa-list-ul'],
-            ['text' => 'Devoluciones',        'url' => '/devoluciones', 'icon' => 'fas fa-undo'],
-        ],
-    ],
+    [ 'text' => 'Zonas',        'url' => '/zonas',           'icon' => 'fas fa-layer-group' ],
+    [ 'text' => 'Mesas',        'url' => '/mesas',           'icon' => 'fas fa-chair' ],
+    [ 'text' => 'Asignar mesa', 'url' => '/mesas/asignar',   'icon' => 'fas fa-user-check' ],
+
+    ['header' => 'PEDIDOS'],
+    [ 'text' => 'Nuevo pedido',      'url' => '/pedidos/create',                  'icon' => 'fas fa-plus-circle' ],
+    [ 'text' => 'Todos los pedidos', 'url' => '/pedidos',                         'icon' => 'fas fa-receipt' ],
+    [ 'text' => 'En preparación',    'url' => '/pedidos?estado=en_preparacion',   'icon' => 'fas fa-clock' ],
+    [ 'text' => 'Listos',            'url' => '/pedidos?estado=listo',            'icon' => 'fas fa-check' ],
+    [ 'text' => 'Entregados',        'url' => '/pedidos?estado=entregado',        'icon' => 'fas fa-check-double' ],
+    [ 'text' => 'Cancelados',        'url' => '/pedidos?estado=cancelado',        'icon' => 'fas fa-times' ],
+    [ 'text' => 'Comandas',          'url' => '/comandas',                        'icon' => 'fas fa-list-ul' ],
+    [ 'text' => 'Devoluciones',      'url' => '/devoluciones',                    'icon' => 'fas fa-undo' ],
 
     ['header' => 'COBRO & FINANZAS'],
-
-    // 💰 PAGOS / CAJA
-    [
-        'text' => 'Caja y Cobros',
-        'icon' => 'fas fa-cash-register',
-        'submenu' => [
-            ['text' => 'Cobrar pedido',      'url' => '/pedidos?cobrar=1', 'icon' => 'fas fa-money-bill'],
-            ['text' => 'Pagos registrados',  'url' => '/pagos'],
-            ['text' => 'Cuentas pagadas',    'url' => '/cuentas/pagadas'],
-            ['text' => 'Tickets emitidos',   'url' => '/tickets'],
-        ],
-    ],
+    [ 'text' => 'Cobrar pedido',     'url' => '/pedidos?cobrar=1',    'icon' => 'fas fa-money-bill' ],
+    [ 'text' => 'Pagos registrados', 'url' => '/pagos',               'icon' => 'fas fa-receipt' ],
+    [ 'text' => 'Cuentas pagadas',   'url' => '/cuentas/pagadas',     'icon' => 'fas fa-check-circle' ],
+    [ 'text' => 'Tickets emitidos',  'url' => '/tickets',             'icon' => 'fas fa-ticket-alt' ],
 
     ['header' => 'MENÚ & PRODUCTOS'],
-    [
-        'text' => 'Menú',
-        'icon' => 'fas fa-utensils',
-        'submenu' => [
-            ['text' => 'Menú impreso',         'url' => '/menu'],
-            ['text' => 'Categorías',         'url' => '/categorias'],
-            ['text' => 'Platillos',          'url' => '/productos'],
-            ['text' => 'Inventario',         'url' => '/inventarios'],
-
-        ],
-    ],
+    [ 'text' => 'Menú impreso', 'url' => '/menu',          'icon' => 'fas fa-book-open' ],
+    [ 'text' => 'Categorías',   'url' => '/categorias',    'icon' => 'fas fa-tags' ],
+    [ 'text' => 'Platillos',    'url' => '/productos',     'icon' => 'fas fa-hamburger' ],
+    [ 'text' => 'Inventario',   'url' => '/inventarios',   'icon' => 'fas fa-boxes' ],
 
     ['header' => 'REPORTES'],
-    [
-        'text' => 'Reportes',
-        'icon' => 'fas fa-chart-bar',
-        'submenu' => [
-            ['text' => 'Todos los reportes',      'url' => '/reportes'],
-            ['text' => 'Ventas por día',      'url' => '/reportes/ventas-dia'],
-            ['text' => 'Ventas por producto', 'url' => '/reportes/ventas-producto'],
-
-        ],
-    ],
+    [ 'text' => 'Todos los reportes',    'url' => '/reportes',                 'icon' => 'fas fa-chart-bar' ],
+    [ 'text' => 'Ventas por día',        'url' => '/reportes/ventas-dia',      'icon' => 'fas fa-calendar-day' ],
+    [ 'text' => 'Ventas por producto',   'url' => '/reportes/ventas-producto', 'icon' => 'fas fa-chart-pie' ],
 
     ['header' => 'ADMINISTRACIÓN'],
-    [
-        'text' => 'Usuarios',
-        'icon' => 'fas fa-user',
-        'submenu' => [
-            ['text' => 'Listado',              'url' => '/usuarios'],
-            ['text' => 'Crear usuario',        'url' => '/usuarios/crear'],
-            ['text' => 'Roles',                'url' => '/roles'],
-            ['text' => 'Actividad',            'url' => '/usuarios/actividad'],
-        ],
-    ],
-    [
-        'text' => 'Configuración',
-        'icon' => 'fas fa-cog',
-        'submenu' => [
-            ['text' => 'Datos de la tienda',   'url' => '/settings/store'],
-        ],
-    ],
+    [ 'text' => 'Usuarios',        'url' => '/usuarios',           'icon' => 'fas fa-users' ],
+    [ 'text' => 'Crear usuario',   'url' => '/usuarios/crear',     'icon' => 'fas fa-user-plus' ],
+    [ 'text' => 'Roles',           'url' => '/roles',              'icon' => 'fas fa-user-shield' ],
+    [ 'text' => 'Actividad',       'url' => '/usuarios/actividad', 'icon' => 'fas fa-history' ],
+    [ 'text' => 'Datos de la tienda', 'url' => '/settings/store',  'icon' => 'fas fa-cog' ],
 
 ],
+
+
 
 
 

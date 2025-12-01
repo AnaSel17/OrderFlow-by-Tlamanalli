@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('comandas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pedido_id');
-        $table->enum('estado', ['enviado_cocina', 'en_preparacion', 'listo'])->default('enviado_cocina');
+        $table->enum('estado', ['enviado_cocina', 'en_preparacion', 'listo', 'entregado'])->default('enviado_cocina');
         $table->timestamp('enviada_en')->nullable();
             $table->timestamps();
         });

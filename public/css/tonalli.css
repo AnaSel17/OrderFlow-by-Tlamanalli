@@ -511,3 +511,39 @@ input[type="time"]:focus {
     color: #6f655d;
     font-size: .85rem;
 }
+
+/* --- FIX PARA QUE ABRAN LOS SUBMENÚS DE ADMINLTE --- */
+
+/* Asegura que los elementos del menú sean clickeables */
+.nav-sidebar .nav-item > .nav-link {
+    cursor: pointer !important;
+    position: relative;
+    z-index: 20;
+}
+
+/* Evita que tu fondo beige tape los clics */
+nav.sidebar {
+    z-index: 1000 !important;
+}
+
+/* Restaura el comportamiento de AdminLTE */
+.nav-sidebar .has-treeview > a {
+    pointer-events: auto !important;
+}
+
+/* Asegura que los submenús sean visibles */
+.nav-sidebar .nav-treeview {
+    display: block !important;
+    padding-left: 1rem;
+}
+
+/* Resetea cualquier override que hayas hecho sin querer */
+.sidebar-light .nav-sidebar .nav-link,
+.sidebar-light .nav-sidebar > .nav-item .nav-link {
+    color: #333 !important;
+}
+
+/* Flechita que indica submenú */
+.nav-sidebar .menu-open > .nav-link i.right {
+    transform: rotate(-90deg);
+}

@@ -7,25 +7,29 @@ use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
+    /**
+     * The model to policy mappings for the application.
+     *
+     * @var array
+     */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
     ];
 
-    public function boot(): void
+    /**
+     * Register any authentication / authorization services.
+     */
+    public function boot()
     {
-        $this->registerPolicies();
+        $roles = config('permisos.roles');
 
-        /*
-        |--------------------------------------------------------------------------
-        | Gate para validar roles
-        |--------------------------------------------------------------------------
-        | - @can('is', 'admin')
-        | - @can('is', 'mesero')
-        | - @can('is', 'cocinero')
-        | - @can('is', 'cajero')
-        */
-        Gate::define('is', function ($user, $rolNecesario) {
-            return strtolower($user->rol->nombre ?? '') === strtolower($rolNecesario);
-        });
+        foreach ($roles as $roleId => $permisos) {
+            foreach ($permisos as $permiso) {
+                Gate::define($permiso, function ($user) use ($roleId, $permiso) {
+                    return $user->id_rol == $roleId
+                        && in_array($permiso, config("permisos.roles.$roleId"));
+                });
+            }
+        }
     }
 }

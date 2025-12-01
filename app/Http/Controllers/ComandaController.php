@@ -22,6 +22,29 @@ class ComandaController extends Controller
         return view('comandas.index', compact('comandas'));
     }
 
+    public function cocina()
+{
+    $comandas = Comanda::with(['pedido.usuario', 'pedido.detalles'])
+        ->whereIn('estado', [
+            'enviado_cocina',
+            'en_preparacion',
+            'listo'
+        ]) // ⛔ NO mostrar 'entregada'
+        ->orderByRaw("
+            FIELD(estado,
+                'en_preparacion', 
+                'enviado_cocina',
+                'listo'
+            )
+        ")
+        ->orderBy('enviada_en', 'asc')
+        ->get();
+
+    return view('comandas.cocina', compact('comandas'));
+}
+
+
+
     public function updateDetalleEstado(Request $request, $id)
     {
         $detalle = DetallePedido::findOrFail($id);
