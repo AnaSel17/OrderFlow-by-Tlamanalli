@@ -21,7 +21,7 @@ class PedidoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    
+
     public function index(Request $request)
     {
         // --- FILTROS DINÁMICOS ---
@@ -57,7 +57,7 @@ class PedidoController extends Controller
 
         // --- DATOS PARA FILTROS ---
         $mesas = Mesa::select('id', 'codigo')->orderBy('codigo')->get();
-        $estados = ['pendiente','en_preparacion', 'listo', 'listo_para_cobrar', 'pagado', 'cancelado'];
+        $estados = ['pendiente', 'en_preparacion', 'listo', 'listo_para_cobrar', 'pagado', 'cancelado'];
 
         return view('pedidos.index', compact(
             'pedidos',
@@ -75,7 +75,7 @@ class PedidoController extends Controller
      */
     public function create()
     {
-    // ✅ Solo mesas disponibles
+        // ✅ Solo mesas disponibles
         $mesas = Mesa::where('estado', 'disponible')->get();
 
         // ✅ Solo meseros (si tienes relación con roles)
@@ -92,28 +92,36 @@ class PedidoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(PedidoRequest $request)
-    {
-         
-       $request->validate([
-            'mesa_id' => 'required|exists:mesas,id',
-            'usuario_id' => 'required|exists:users,id',
-            'estado' => 'required|string',
-            'total' => 'nullable|numeric|min:0'
-        ]);
+public function store(PedidoRequest $request)
+{
+    // ✔ Validación según tipo de pedido
+    $request->validate([
+        'tipo_pedido' => 'required|in:mesa,llevar',
+        'mesa_id' => 'required_if:tipo_pedido,mesa|nullable|exists:mesas,id',
+        'usuario_id' => 'required|exists:users,id',
+        'estado' => 'required|string',
+        'total' => 'nullable|numeric|min:0'
+    ]);
 
-        $pedido = Pedido::create([
-            'mesa_id' => $request->mesa_id,
-            'usuario_id' => $request->usuario_id,
-            'estado' => $request->estado,
-            'total' => $request->total ?? 0,
-        ]);
+    // ✔ Crear pedido (mesa_id puede ser null)
+    $pedido = Pedido::create([
+        'mesa_id'    => $request->tipo_pedido === 'mesa' ? $request->mesa_id : null,
+        'usuario_id' => $request->usuario_id,
+        'estado'     => $request->estado,
+        'total'      => 0,
+    ]);
 
-        // Cambiar estado de la mesa a "ocupada"
+    // ✔ Solo ocupar mesa si es pedido normal
+    if ($request->tipo_pedido === 'mesa') {
         Mesa::where('id', $request->mesa_id)->update(['estado' => 'ocupada']);
-
-        return redirect()->route('pedidos.index')->with('success', 'Pedido creado correctamente.');
     }
+
+    // 🔥 REDIRECCIONAR A AGREGAR PRODUCTOS
+    return redirect()
+        ->route('pedidos.edit', $pedido)
+        ->with('success', 'Pedido creado. Ahora agrega los productos.');
+}
+
 
     /**
      * Display the specified resource.
@@ -121,15 +129,15 @@ class PedidoController extends Controller
     public function show(Pedido $pedido)
     {
         // Cargar cuentas asociadas al pedido
-    $cuentas = Cuenta::with([
-        'detalles.detalle.producto',
-        'pagos',
-        'comensal'
-    ])
-    ->where('pedido_id', $pedido->id)
-    ->get();
+        $cuentas = Cuenta::with([
+            'detalles.detalle.producto',
+            'pagos',
+            'comensal'
+        ])
+            ->where('pedido_id', $pedido->id)
+            ->get();
 
-    return view('pedidos.show', compact('pedido', 'cuentas'));
+        return view('pedidos.show', compact('pedido', 'cuentas'));
     }
 
     /**
@@ -149,7 +157,7 @@ class PedidoController extends Controller
      */
     public function update(PedidoRequest $request, Pedido $pedido)
     {
-         DB::transaction(function () use ($request, $pedido) {
+        DB::transaction(function () use ($request, $pedido) {
             $pedido->update([
                 'mesa_id' => $request->mesa_id,
                 'estado' => $request->estado,
@@ -188,35 +196,57 @@ class PedidoController extends Controller
     public function destroy(Pedido $pedido)
     {
         DB::transaction(function () use ($pedido) {
-            $pedido->detalles()->delete();
-            $pedido->delete();
+
+            // Cambiar estado del pedido
+            $pedido->update([
+                'estado' => 'cancelado'
+            ]);
+
+            // Liberar la mesa si el pedido estaba activo
+            if ($pedido->mesa_id) {
+                Mesa::where('id', $pedido->mesa_id)->update([
+                    'estado' => 'disponible'
+                ]);
+            }
+
+            // Si quieres limpiar detalles porque ya no sirven
+            //$pedido->detalles()->delete();
         });
 
-        return redirect()->route('pedidos.index')->with('success', 'Pedido eliminado correctamente.');
+        return redirect()
+            ->route('pedidos.index')
+            ->with('success', 'El pedido fue cancelado correctamente.');
     }
 
     public function cobrar(Pedido $pedido)
-{
-    $pedido->load(['detalles.producto', 'detalles.comensal']);
+    {
+        if ($pedido->estado === 'cancelado') {
+            return redirect()->route('pedidos.index')
+                ->with('error', 'No se puede cobrar un pedido cancelado.');
+        }
 
-    return view('pedidos.cobrar', compact('pedido'));
-}
+        $pedido->load(['detalles.producto', 'detalles.comensal']);
 
+        // 🔥 Detectar si TODO está pagado
+        $todoPagado = $pedido->detalles->every(fn($d) => $d->estado === 'pagado');
 
-
-public function ticket(Pedido $pedido)
-{
-    $cuentas = Cuenta::with(['detalles.detalle.producto', 'pagos', 'comensal'])
-        ->where('pedido_id', $pedido->id)
-        ->get();
-
-    if ($cuentas->count() === 1 && $cuentas->first()->tipo === 'completa') {
-        $cuenta = $cuentas->first();
-        return view('tickets.ticket_completo', compact('pedido', 'cuenta'));
+        return view('pedidos.cobrar', compact('pedido', 'todoPagado'));
     }
 
-    return view('tickets.ticket_por_comensal', compact('pedido', 'cuentas'));
-}
 
 
+
+    public function ticket(Pedido $pedido)
+    {
+        $cuentas = Cuenta::with(['detalles.detalle.producto', 'pagos', 'comensal'])
+            ->where('pedido_id', $pedido->id)
+            ->get();
+
+        if ($cuentas->count() === 1 && $cuentas->first()->tipo === 'completa') {
+            $cuenta = $cuentas->first();
+            return view('tickets.ticket_completo', compact('pedido', 'cuenta'));
+        }
+
+        return view('tickets.ticket_por_comensal', compact('pedido', 'cuentas'));
+    }
 }

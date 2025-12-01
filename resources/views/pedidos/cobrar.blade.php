@@ -453,6 +453,10 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
+   const TODO_PAGADO = {{ $todoPagado ? 'true' : 'false' }};
+</script>
+
+<script>
 /* ============================================================
    CONSTANTES Y ELEMENTOS PRINCIPALES
 ============================================================ */
@@ -670,6 +674,16 @@ function renderPagosGlobales() {
 }
 
 function actualizarTotalConPropina() {
+
+        // 🔥 SI EL PEDIDO YA ESTÁ PAGADO, TODO ES 0
+    if (TODO_PAGADO) {
+        totalInput.value = "0.00";
+        totalConPropinaEl.innerText = "$0.00";
+        faltanteEl.innerText = "$0.00";
+        btnConfirmar.disabled = true;
+        return;
+    }
+    
     const seleccionado = parseFloat(totalInput.value || 0);
     const base = (seleccionado > 0 ? seleccionado : totalPedido);
     const propina = parseFloat(propinaInputGlobal.value || 0);

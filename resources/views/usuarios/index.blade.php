@@ -1,165 +1,233 @@
 @extends('adminlte::page')
-@section('title', 'Lista de Empleados')
 
-{{-- AGREGAR ESTO PARA CARGAR TU ARCHIVO CSS PERSONALIZADO --}}
+@section('title', 'Empleados')
+
 @push('css')
-    <link rel="stylesheet" href="{{ asset('css/empleados.css') }}">
+<link rel="stylesheet" href="{{ asset('css/tonalli.css') }}">
 @endpush
 
 @section('content')
+<div class="container-actividad py-4">
 
-<div class="container-fluid d-flex flex-column gap-4 px-5 py-4">
+    {{-- 🧭 Encabezado principal --}}
+    <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-3">
+        <div>
+            <h1 class="m-0 text-dark">Empleados</h1>
+            <p class="text-muted mb-0">
+                <i class="fas fa-clock"></i> Hora del sistema:
+                <strong>{{ now('America/Mexico_City')->format('H:i:s') }}</strong>
+            </p>
+        </div>
 
-    {{-- Sección para mostrar mensajes de éxito o error --}}
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{-- Botón agregar empleado (ESTILO ZONAS) --}}
+        <a href="{{ route('usuarios.create') }}" class="badge badge-success px-3 py-2">
+            <i class="fas fa-plus"></i> Agregar Empleado
+        </a>
+    </div>
+
+    {{-- 🟢 Mensajes --}}
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show">
             {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     @endif
-    @if(session('error'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show">
             {{ session('error') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     @endif
 
 
-    <div class="controls-container">
-        <h3 class="card-title-custom text-center">GESTIÓN DE EMPLEADOS</h3>
+    {{-- FILTROS (mantenemos tu lógica, estilo Zonas) --}}
+    <div class="card card-outline card-primary shadow-sm mb-4">
+        <div class="card-body">
 
-        <form action="{{ route('usuarios.index') }}" method="GET" id="filtersForm" class="mt-4">
-            <div class="row gx-3 align-items-center justify-content-center">
-                <div class="col-md-5">
-                    <input type="search" name="search" id="searchInput" class="form-control-dark" placeholder="Buscar por nombre o apellido..." value="{{ request('search') }}">
+            <form action="{{ route('usuarios.index') }}" method="GET" id="filtersForm">
+                <div class="row gx-3 align-items-center">
+
+                    {{-- Buscador --}}
+                    <div class="col-md-5">
+                        <input type="search"
+                               name="search"
+                               id="searchInput"
+                               class="form-control"
+                               placeholder="Buscar por nombre o apellido..."
+                               value="{{ request('search') }}">
+                    </div>
+
+                    {{-- Rol --}}
+                    <div class="col-md-4">
+                        <select name="rol" id="rolSelect" class="form-control">
+                            <option value="">Todos los roles</option>
+                            @foreach ($roles as $rol)
+                                <option value="{{ $rol->id_rol }}"
+                                    {{ request('rol') == $rol->id_rol ? 'selected' : '' }}>
+                                    {{ $rol->nombre }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    {{-- Limpiar --}}
+                    <div class="col-md-3">
+                        <a href="{{ route('usuarios.index') }}" class="btn btn-warning w-100">
+                            Limpiar
+                        </a>
+                    </div>
+
                 </div>
-                <div class="col-md-4">
-                    <select name="rol" id="rolSelect" class="form-select-dark">
-                        <option value=""> Todos los roles </option>
-                        @foreach ($roles as $rol)
-                            <option value="{{ $rol->id_rol }}" {{ request('rol') == $rol->id_rol ? 'selected' : '' }}>
-                                {{ $rol->nombre }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <a href="{{ route('usuarios.index') }}" class="btn btn-clear w-100">Limpiar</a>
-                </div>
-            </div>
-        </form>
-        
-        <div class="text-center mt-4">
-            <a href="{{ route('usuarios.create') }}" class="btn btn-add-user" title="Agregar Empleado">
-                <i class="bi bi-plus-lg"></i> Agregar Empleado
-            </a>
+            </form>
+
         </div>
     </div>
 
-    <div class="table-card">
-        <div class="table-responsive-custom">
-            <table class="table table-dark-custom">
+
+    {{-- 📋 Tabla principal (COPIADA DEL ESTILO DE ZONAS) --}}
+    <div class="card card-outline card-primary shadow-sm">
+        <div class="card-body table-responsive p-0">
+
+            <table class="table table-hover text-center align-middle mb-0">
                 <thead>
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Nombre Completo</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Rol</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col" style="width: 120px;">Acciones</th>
+                        <th>ID</th>
+                        <th>Nombre completo</th>
+                        <th>Email</th>
+                        <th>Rol</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
+
                 <tbody>
+
                     @forelse ($usuarios as $usuario)
-                    <tr>
-                        {{-- CORRECCIÓN: Usar los nombres de columna correctos del modelo User --}}
-                        <td>{{ $usuario->id }}</td>
-                        <td>{{ $usuario->name }} {{ $usuario->apellido_paterno }}</td>
-                        <td>{{ $usuario->email }}</td>
-                        <td>{{ $usuario->rol->nombre }}</td>
-                        <td>
-                            {{-- CORRECCIÓN: La columna de estado es 'user_estado' --}}
-                            @if ($usuario->user_estado == 'activo')
-                                <span class="badge bg-success">Activo</span>
-                            @else
-                                <span class="badge bg-danger">Inactivo</span>
-                            @endif
-                        </td>
-                        {{-- CORRECCIÓN: Implementación de los botones de acción --}}
-                        <td class="action-buttons d-flex justify-content-start">
-                         <!-- Botón EDITAR -->
-                        <a href="{{ route('usuarios.edit', $usuario) }}" class="btn btn-editar me-2" title="Editar">
-                        <i class="bi bi-pencil-fill"></i>
-                        <span>Editar</span>
-                         </a>
+                        <tr>
+                            <td>{{ $usuario->id }}</td>
 
-                        <!-- Botón ELIMINAR -->
-                        <form action="{{ route('usuarios.destroy', $usuario) }}" method="POST" 
-                             onsubmit="return confirm('¿Estás seguro de que deseas eliminar a este usuario?');"
-                             style="display:inline;">
-                             @csrf
-                            @method('DELETE')
-                        <button type="submit" class="btn btn-eliminar" title="Eliminar">
-                        <i class="bi bi-trash-fill"></i>
-                        <span>Eliminar</span>
-                        </button>
-                        </form>
-                        </td>
+                            {{-- Nombre --}}
+                            <td class="fw-semibold">
+                                {{ $usuario->name }} {{ $usuario->apellido_paterno }}
+                            </td>
 
-                    </tr>
+                            {{-- Email --}}
+                            <td>{{ $usuario->email }}</td>
+
+                            {{-- Rol --}}
+                            <td>{{ $usuario->rol->nombre }}</td>
+
+                            {{-- Estado (Badge ZONAS) --}}
+                            <td>
+                                <span class="badge px-3 py-2 {{ $usuario->user_estado == 'activo' ? 'badge-success' : 'badge-danger' }}">
+                                    {{ $usuario->user_estado == 'activo' ? 'Activo' : 'Inactivo' }}
+                                </span>
+                            </td>
+
+                            {{-- Acciones mismas que ZONAS --}}
+                            <td>
+
+                                {{-- VER (si quieres, lo dejo opcional) --}}
+                                <a href="{{ route('usuarios.show', $usuario) }}"
+                                   class="btn btn-sm btn-primary"
+                                   title="Ver detalles">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+
+                                {{-- EDITAR --}}
+                                <a href="{{ route('usuarios.edit', $usuario) }}"
+                                   class="btn btn-sm btn-warning"
+                                   title="Editar empleado">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+
+                                {{-- ELIMINAR --}}
+                                <form action="{{ route('usuarios.destroy', $usuario) }}"
+                                      method="POST"
+                                      class="d-inline eliminar-form">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="button"
+                                            class="btn btn-sm btn-danger btn-eliminar"
+                                            data-nombre="{{ $usuario->name }}">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+
+                            </td>
+
+                        </tr>
+
                     @empty
-                    <tr>
-                        <td colspan="6" class="text-center">No se encontraron usuarios con los filtros aplicados.</td>
-                    </tr>
+                        <tr>
+                            <td colspan="6" class="text-muted py-4">
+                                <i class="fas fa-info-circle"></i> No hay empleados registrados.
+                            </td>
+                        </tr>
                     @endforelse
+
                 </tbody>
             </table>
-        </div>
-        
-        {{-- NUEVO: Añadir los enlaces de paginación --}}
-        <div class="pagination-container mt-3">
-            {{ $usuarios->appends(request()->query())->links() }}
-        </div>
 
+        </div>
+    </div>
+
+
+    {{-- 📄 Paginación --}}
+    <div class="mt-3">
+        {{ $usuarios->links() }}
     </div>
 
 </div>
 @endsection
 
-@push('scripts')
+
+@push('js')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
-    // 🔹 Función debounce: evita enviar el formulario mientras se escribe rápido
-    function debounce(func, delay) {
-        let timeout;
-        return function(...args) {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => func.apply(this, args), delay);
-        };
-    }
+    // Activar tooltips por si los usas
+    document.addEventListener("DOMContentLoaded", function() {
+        const tooltipList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipList.map(el => new bootstrap.Tooltip(el));
+    });
 
-    const form = document.getElementById('filtersForm');
-    const searchInput = document.getElementById('searchInput');
-    const rolSelect = document.getElementById('rolSelect');
+    // Confirmación pastel para eliminar (idéntica a ZONAS)
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('.btn-eliminar').forEach(btn => {
 
-    // 🔹 Enviar el formulario correctamente (respetando el método y ruta)
-    function safeSubmit() {
-        form.requestSubmit(); // ✅ mucho más confiable que form.submit()
-    }
+            btn.addEventListener('click', function() {
 
-    // 🔹 Filtro de texto: espera 0.5 seg antes de enviar
-    const debouncedSubmit = debounce(safeSubmit, 500);
-    searchInput.addEventListener('input', debouncedSubmit);
+                let form = this.closest('form');
+                let nombre = this.dataset.nombre;
 
-    // 🔹 Al cambiar el rol, enviar inmediatamente
-    rolSelect.addEventListener('change', safeSubmit);
+                Swal.fire({
+                    title: "¿Eliminar empleado?",
+                    html: "Estás por eliminar <b>" + nombre + "</b>.",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Sí, eliminar",
+                    cancelButtonText: "Cancelar",
 
-    // 🔹 Si presiona Enter dentro del input, enviar manualmente
-    searchInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            safeSubmit();
-        }
+                    background: "#F9F5F1",
+                    color: "#3B2C24",
+                    confirmButtonColor: "#E7A59A",
+                    cancelButtonColor: "#AFC8E4",
+                    customClass: {
+                        popup: 'rounded-4 shadow-lg',
+                        confirmButton: 'px-4 py-2 fw-bold',
+                        cancelButton: 'px-4 py-2 fw-bold'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+
+            });
+        });
     });
 </script>
 @endpush
-

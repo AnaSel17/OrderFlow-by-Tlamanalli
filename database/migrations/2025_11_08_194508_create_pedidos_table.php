@@ -35,6 +35,7 @@ return new class extends Migration
             $table->enum('modo_cuenta', ['completa', 'dividida'])
           ->default('completa')
           ->comment('Define si el pedido se cobrará completo o dividido por comensal');
+            $table->enum('tipo', ['mesa', 'llevar'])->default('mesa');
 
           $table->timestamps();
 

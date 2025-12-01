@@ -24,7 +24,7 @@ class ZonaController extends Controller
     public function create()
     {
          // Días por defecto
-        $diasSemana = ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'];
+        $diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
         return view('zonas.create', compact('diasSemana'));
     }
@@ -37,7 +37,7 @@ class ZonaController extends Controller
         $data = $request->validated();
 
         // Si no seleccionaron días, usar todos los días por defecto
-        $data['dias_activos'] = $request->dias_activos ?? ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'];
+        $data['dias_activos'] = $request->dias_activos ?? ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
         // Si no marcaron "activa", dejarla true por defecto
         $data['activa'] = $request->boolean('activa', true);

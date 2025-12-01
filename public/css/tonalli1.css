@@ -1,0 +1,478 @@
+:root{
+  --ton-gold:#5d2728;   /* Header */
+  --ton-beige:#F6F1E6;  /* Fondo */
+  --ton-border:#E6DFD2; /* Borde tarjeta / divisorias */
+  --ton-border:    #e2d7cc;   /* Divisiones suaves */
+  --ton-brown:     #6a4632;   /* Café oscuro para títulos */
+  --ton-cream:     #f4ede6;   /* Cremita */
+    --ton-primary-dark: #5d2728;     /* Espresso */
+  --ton-primary-red: #8c463f; 
+}
+
+/* Header dorado */
+.tonalli-navbar{ background:var(--ton-gold) !important; color:#fff; }
+.tonalli-navbar .nav-link, .tonalli-navbar .navbar-brand{ color:#fff !important; }
+
+/* Fondo claro del contenido */
+.tonalli-bg{ background:var(--ton-beige); }
+
+/* Tarjetas: solo borde y sombra suave sobre el estilo de AdminLTE */
+.card{
+  border:1px solid var(--ton-border);
+  border-radius:16px;
+  box-shadow:0 6px 18px rgba(0,0,0,.06);
+}
+
+/* Card con dos gráficas y línea divisoria */
+.card .card-body.split{ display:grid; grid-template-columns:1fr 1fr; gap:0; }
+.card .card-body.split > div{ padding:16px; }
+.card .card-body.split > div + div{ border-left:1px solid var(--ton-border); }
+
+
+/* ===== NAVBAR (header dorado) ===== */
+.tonalli-navbar { background: var(--ton-gold) !important; color:#fff; }
+.tonalli-navbar .navbar-brand, 
+.tonalli-navbar .nav-link, 
+.tonalli-navbar .navbar-nav .nav-link { color:#fff !important; }
+
+/* ===== SIDEBAR CLARO (quitar azul y suavizar) ===== */
+.sidebar-light .nav-sidebar > .nav-item > .nav-link {
+  border-radius:12px;
+  margin:2px 8px;
+}
+.sidebar-light .nav-sidebar > .nav-item > .nav-link.active {
+  background:#F0E3C8;            /* dorado MUY claro */
+  color:#3d3d3d;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+.sidebar-light .brand-link {
+  background:#FBF7EF;             /* header logo del sidebar */
+  border-bottom:1px solid var(--ton-border);
+}
+
+/* ===== CONTENT ===== */
+.content-wrapper.tonalli-bg { background: var(--ton-beige); }
+.content-header h1 { font-weight:600; color:#3d3d3d; }
+
+/* ===== CARDS (más borde/sombra/rounded como el mockup) ===== */
+.card{
+  background:#fff;
+  border:1px solid var(--ton-border);
+  border-radius:18px;
+  box-shadow:0 10px 22px rgba(0,0,0,.06);
+}
+.card .card-body{ padding:18px 20px; }
+.card .text-muted{ color:#6b6b6b !important; }
+
+/* Métrica “badge” a la izquierda (opcional) */
+.card .btn.btn-light{
+  background:#F5F0E6; border:none; color:#3d3d3d;
+  box-shadow: inset 0 0 0 1px var(--ton-border);
+  border-radius:12px;
+}
+
+/* ===== PANEL DE GRÁFICAS con divisoria visible ===== */
+.card .card-body.split{ display:grid; grid-template-columns:1fr 1fr; gap:0; min-height:260px; }
+.card .card-body.split > div{ padding:16px; }
+.card .card-body.split > div + div{ border-left:1px solid var(--ton-border); }
+
+/* ===== SCROLL general más suave (detalle) ===== */
+body { scroll-behavior:smooth; }
+
+/* Contenedor del logo */
+.brand-link {
+    flex-direction: column;   /* Logo arriba, texto abajo */
+    align-items: center;
+    padding: 1rem 0 !important;
+    background-color: #fff;   /* Fondo claro, cámbialo si quieres */
+    border-bottom: 1px solid #e6dfd2;
+}
+
+/* Logo grande */
+.brand-link .brand-image {
+    max-height: 80px !important;  /* Ajusta tamaño del logo */
+    width: auto;
+    margin-bottom: 10px;
+}
+
+/* Texto debajo del logo */
+.brand-link .brand-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;  /* Puedes usar el dorado o el color del logo */
+    display: block;
+    text-align: center;
+}
+
+/* === Brand del sidebar: logo arriba, texto abajo, centrados === */
+.main-sidebar .brand-link{
+  height: auto !important;              /* deja crecer el contenedor */
+  padding: 1rem 0 !important;
+  display: flex;
+  flex-direction: column;               /* apila vertical */
+  align-items: center;                  /* centra horizontal */
+  background: #fff;                     /* opcional: claro */
+  border-bottom: 1px solid var(--ton-border);
+}
+
+/* Logo grande y centrado */
+.main-sidebar .brand-link .brand-image{
+  float: none !important;               /* anula float por defecto */
+  display: block;
+  max-height: 80px !important;          /* ajusta tamaño del logo */
+  width: auto;
+  margin: 0 auto 10px !important;       /* centrado + espacio con el texto */
+  border-radius: 0 !important;          /* por si tenía img-circle */
+  box-shadow: none !important;          /* sin elevation */
+}
+
+/* Texto debajo del logo */
+.main-sidebar .brand-link .brand-text{
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #333;
+  line-height: 1.1;
+  text-align: center;
+  margin: 0;
+}
+
+/* ====== CHIPS ====== */
+.chip {
+    padding: 8px 14px;
+    border-radius: 20px;
+    background-color: #f1e7dd;  /* pastel café claro */
+    color: #4b3f35;
+    display: inline-block;
+    cursor: pointer;
+    margin: 4px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    border: 1px solid #d8c6b8;
+}
+
+/* ====== CHIPS SELECCIONADOS ====== */
+.chip.selected {
+    background-color: #c49a6c !important;  /* café dorado más obscuro */
+    color: #fff !important;
+    border-color: #a87f56 !important;
+    font-weight: 600;
+    transform: scale(1.05);
+}
+
+/* Encabezado de tablas oscuro → beige bonito */
+.table-dark {
+    background-color: #F0E3C8 !important;
+    color: #3d3d3d !important;
+    border-color: var(--ton-border) !important;
+}
+
+/* Estado Tonalli */
+.badge.bg-success {
+    background-color: #4CAF50 !important; /* verde suave */
+    color: #fff !important;
+    border-radius: 14px;
+}
+
+.badge.bg-danger {
+    background-color: #D9534F !important; /* rojo suave */
+    color: #fff !important;
+    border-radius: 14px;
+}
+
+/* Quita borde azul feo del card-outline */
+.card-outline.card-primary {
+    border-color: var(--ton-border) !important;
+}
+
+/* Botón ver (ojo) */
+.btn.btn-sm.btn-primary {
+    background: #F5F0E6 !important;
+    color: #3d3d3d !important;
+    border: none !important;
+}
+
+/* Botón editar */
+.btn.btn-sm.btn-warning {
+    background: var(--ton-gold) !important;
+    color: white !important;
+    border: none !important;
+}
+
+/* Botón eliminar */
+.btn.btn-sm.btn-danger {
+    background: #D9534F !important;
+    color: white !important;
+    border: none !important;
+}
+
+/* Fondo del contenido principal */
+.content-wrapper,
+.content,
+.main-panel,
+.wrapper,
+.page-content {
+    background: var(--ton-beige) !important; /* O el que uses */
+    opacity: 1 !important;
+    backdrop-filter: none !important;
+}
+
+body {
+    background: var(--ton-beige) !important;
+    opacity: 1 !important;
+}
+
+/* Selección de texto más estética */
+::selection {
+    background: var(--ton-primary-red) !important; /* Terracotta */
+    color: white !important;
+}
+
+/* === BOTONES TONALLI – versión elegante sin iconos ===================== */
+
+/* Base */
+.btn-tonalli {
+    background-color: var(--ton-brown);    /* Café elegante */
+    color: #fff !important;
+    border: none;
+    border-radius: 14px;                   /* Más redondito */
+    padding: 4px 14px;                     /* Más delgado */
+    font-size: 0.78rem;                    /* Más elegante */
+    font-weight: 500;
+    display: inline-block;                 /* No tan cuadrado */
+    text-decoration: none !important;
+    transition: 0.15s ease-in-out;
+}
+
+/* Hover */
+.btn-tonalli:hover {
+    background-color: #4b2e1f;             /* Café más profundo */
+    transform: translateY(-1px);           /* Micro elevación */
+}
+
+/* Botón peligro */
+.btn-tonalli-danger {
+    background-color: #C0504B !important;  /* Rojo suave elegante */
+    color: #fff !important;
+    border: none;
+    border-radius: 14px;
+    padding: 4px 14px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    display: inline-block;
+    text-decoration: none !important;
+    transition: 0.15s ease-in-out;
+}
+
+/* Hover peligro */
+.btn-tonalli-danger:hover {
+    background-color: #a23d38 !important;
+    transform: translateY(-1px);
+}
+
+/* === BADGES TONALLI – estados elegantes ===================== */
+
+/* Base del chip */
+.badge-tonalli {
+    padding: 5px 14px;
+    border-radius: 14px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+/* Disponible – verde suave */
+.badge-tonalli-success {
+    background-color: #CDECCD;   /* verde pastel */
+    color: #2E7D32;
+    border: 1px solid #A7D6A7;
+}
+
+/* Ocupada – amarillo suave */
+.badge-tonalli-warning {
+    background-color: #FDE9C6;   /* amarillo pastel */
+    color: #8A6D3B;
+    border: 1px solid #E8D2A8;
+}
+
+/* Reservada – azul/teal suave */
+.badge-tonalli-info {
+    background-color: #D8EEF3;   /* azul pastel suave */
+    color: #3A6F75;
+    border: 1px solid #BBDDE3;
+}
+
+
+/* Cerrada – rojo suave pastel */
+.badge-tonalli-danger {
+    background-color: #F5D0D0;    /* rojo pastel suave */
+    color: #8A2B2B;               /* rojo oscuro elegante */
+    border: 1px solid #E3B2B2;    /* borde suave */
+}
+
+
+/* === ENCABEZADOS DE TABLAS TONALLI ========================= */
+
+.table thead th {
+    background-color: #F0E3C8 !important; /* dorado pastel suave */
+    color: #3d2e25 !important;            /* café oscuro elegante */
+    font-weight: 600;
+    border-bottom: 2px solid var(--ton-border) !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* Bordes laterales y superiores más suaves */
+.table th, 
+.table td {
+    border-color: var(--ton-border) !important;
+}
+
+/* OPCIONAL: redondear las esquinas superiores */
+.table thead th:first-child {
+    border-top-left-radius: 12px;
+}
+.table thead th:last-child {
+    border-top-right-radius: 12px;
+}
+
+/* === CONTENEDOR DE CONTROLES TONALLI ========================= */
+
+.controls-container {
+    background: #fff;
+    border: 1px solid var(--ton-border);
+    padding: 18px 22px;
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    margin-bottom: 22px;
+}
+
+/* Título */
+.card-title-custom {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--ton-brown);
+    margin-bottom: 8px;
+}
+
+
+/* === INPUT DE BÚSQUEDA TONALLI ================================ */
+
+.form-control-tonalli {
+    width: auto;
+    min-width: 20ch; /* tamaño mínimo */
+    max-width: 100%; /* nunca salirse */
+    background-color: var(--ton-cream);
+    border: 1px solid var(--ton-border);
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    color: #3a2b20;
+    transition: 0.2s;
+}
+
+.form-control-tonalli:focus {
+    background-color: #fff;
+    border-color: var(--ton-primary-dark);
+    box-shadow: 0 0 0 3px rgba(93, 39, 40, 0.18);
+    outline: none;
+}
+
+
+/* === SELECT TONALLI ========================================== */
+
+.form-select-tonalli {
+    background-color: var(--ton-cream);
+    border: 1px solid var(--ton-border);
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    color: #3a2b20;
+    transition: 0.2s;
+}
+
+.form-select-tonalli:focus {
+    background-color: #fff;
+    border-color: var(--ton-primary-dark);
+    box-shadow: 0 0 0 3px rgba(140, 70, 63, 0.18);
+    outline: none;
+}
+
+
+/* === BOTÓN LIMPIAR TONALLI =================================== */
+
+.btn-tonalli-clear {
+    background-color: var(--ton-primary-red);
+    color: white !important;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 10px 14px;
+    width: 100%;
+    transition: 0.2s;
+}
+
+.btn-tonalli-clear:hover {
+    background-color: #6d332e;
+    transform: translateY(-1px);
+}
+
+
+/* === SWITCH TONALLI VERDE / ROJO ============================== */
+
+.switch-tonalli.form-switch {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Reinicio de Bootstrap */
+.switch-tonalli .form-check-input {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 46px;
+    height: 24px;
+    background-color: #F5D0D0;            /* rojo pastel (OFF) */
+    border-radius: 40px;
+    border: 2px solid #E3B2B2;
+    position: relative;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+/* Bolita */
+.switch-tonalli .form-check-input::before {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: white;
+    border-radius: 50%;
+    top: 50%;
+    left: 3px;
+    transform: translateY(-50%);
+    transition: 0.25s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.18);
+}
+
+/* Estado activo VERDE pastel */
+.switch-tonalli .form-check-input:checked {
+    background-color: #CDECCD;            /* verde pastel */
+    border-color: #A7D6A7;
+}
+
+/* Mover bolita a la derecha */
+.switch-tonalli .form-check-input:checked::before {
+    left: calc(100% - 21px);
+}
+
+/* Focus */
+.switch-tonalli .form-check-input:focus {
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.3);  /* sombra verde */
+}
+
+/* Etiqueta */
+.switch-tonalli .form-check-label {
+    font-weight: 600;
+    color: var(--ton-brown);
+    margin-top: 1px;   /* alineación vertical perfecta */
+}

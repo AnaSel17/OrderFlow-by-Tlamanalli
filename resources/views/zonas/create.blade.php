@@ -20,10 +20,6 @@
                 <input type="text" name="nombre" class="form-control" value="{{ old('nombre', $zona->nombre ?? '') }}" required>
             </div>
 
-            <div class="col-md-4">
-                <label>Color (hex)</label>
-                <input type="color" name="color_hex" class="form-control" value="{{ old('color_hex', $zona->color_hex ?? '#4CAF50') }}">
-            </div>
 
             <div class="col-md-4">
                 <label>Activa</label><br>
@@ -46,7 +42,7 @@
         <div class="mb-3">
             <label>Días activos</label>
             <div class="d-flex flex-wrap gap-3">
-                @foreach(['Lun','Mar','Mie','Jue','Vie','Sab','Dom'] as $dia)
+                @foreach(['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'] as $dia)
                     <div>
                         <input type="checkbox" name="dias_activos[]" value="{{ $dia }}"
                             {{ in_array($dia, old('dias_activos', $zona->dias_activos ?? [])) ? 'checked' : '' }}>

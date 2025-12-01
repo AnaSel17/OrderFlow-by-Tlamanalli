@@ -21,4 +21,10 @@ class Pago extends Model
 
     public function cuenta()  { return $this->belongsTo(Cuenta::class); }
     public function usuario() { return $this->belongsTo(User::class); }
+
+    public function recibidoPor()
+{
+    return $this->belongsTo(\App\Models\User::class, 'recibido_por');
+}
+
 }

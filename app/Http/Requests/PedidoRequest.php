@@ -22,10 +22,10 @@ class PedidoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'mesa_id'     => 'required|exists:mesas,id',
+            'mesa_id' => 'required_if:tipo_pedido,mesa|nullable|exists:mesas,id',
             'usuario_id'  => 'required|exists:users,id',
             'estado'      => 'required|string|in:pendiente,en_preparacion,listo,entregado,cerrado,cancelado',
-            'total'       => 'required|numeric|min:0',
+            
             'propina'     => 'nullable|numeric|min:0',
             'abierta_en'  => 'nullable|date',
             'cerrada_en'  => 'nullable|date|after_or_equal:abierta_en',
@@ -40,7 +40,7 @@ class PedidoRequest extends FormRequest
             'usuario_id.required' => 'Debe indicar el usuario que tomó el pedido.',
             'usuario_id.exists'   => 'El usuario no existe.',
             'estado.in'           => 'El estado no es válido.',
-            'total.required'      => 'Debe indicar el total del pedido.',
+            
             'total.numeric'       => 'El total debe ser un número válido.',
             'propina.numeric'     => 'La propina debe ser un número.',
         ];

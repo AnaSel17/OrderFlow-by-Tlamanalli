@@ -41,18 +41,28 @@ class ProductoController extends Controller
     }
 
     public function update(Request $request, Producto $producto)
-    {
-        $request->validate([
-            'nombre' => 'required|string|max:150',
-            'sku' => 'required|string|max:60|unique:productos,sku,' . $producto->id,
-            'precio' => 'required|numeric|min:0',
-            'categoria_id' => 'required|exists:categorias,id',
-            'activo' => 'boolean',
-        ]);
+{
+    $request->validate([
+        'nombre'       => 'required|string|max:150',
+        'sku'          => 'required|string|max:60|unique:productos,sku,' . $producto->id,
+        'precio'       => 'required|numeric|min:0',
+        'categoria_id' => 'required|exists:categorias,id',
+        'activo'       => 'nullable|boolean',
+    ]);
 
-        $producto->update($request->all());
-        return redirect()->route('productos.index')->with('success', 'Producto actualizado correctamente.');
-    }
+    $producto->update([
+        'nombre'       => $request->nombre,
+        'sku'          => $request->sku,
+        'precio'       => $request->precio,
+        'categoria_id' => $request->categoria_id,
+        'activo'       => $request->boolean('activo'), // 👈 AQUÍ LA MAGIA
+    ]);
+
+    return redirect()
+        ->route('productos.index')
+        ->with('success', 'Producto actualizado correctamente.');
+}
+
 
     public function destroy(Producto $producto)
     {

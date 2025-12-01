@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Mesa;
 use App\Models\MesaPedido;
@@ -24,23 +23,26 @@ class MesaPedidoSeeder extends Seeder
             return;
         }
 
-        // 🔹 Lista de pedidos de prueba (personas por pedido)
+        // 🔹 Lista de pedidos de prueba (personas por pedido EN MESA)
         $pedidosDemo = [
             2, 4, 5, 8, 10, 12
         ];
 
+        /* ============================================
+           1) PEDIDOS NORMALES CON MESA(S)
+        ============================================ */
         foreach ($pedidosDemo as $personas) {
             DB::beginTransaction();
             try {
 
-                // 🔍 Buscar mesas suficientes (tipo: combinaciones simples)
+                // 🔍 Buscar mesas suficientes
                 $capacidadAcumulada = 0;
                 $mesasSeleccionadas = [];
 
                 foreach ($mesas as $m) {
                     if ($m->estado !== 'disponible') continue;
 
-                    $capacidadMesa = $m->capacidad + $m->sillas_extra;
+                    $capacidadMesa      = $m->capacidad + $m->sillas_extra;
                     $mesasSeleccionadas[] = $m;
                     $capacidadAcumulada += $capacidadMesa;
 
@@ -48,7 +50,7 @@ class MesaPedidoSeeder extends Seeder
                 }
 
                 if ($capacidadAcumulada < $personas) {
-                    // 👉 Agregar sillas a la primera mesa
+                    // 👉 Agregar sillas extra a la primera mesa
                     $faltantes = $personas - $capacidadAcumulada;
                     $mesaExtra = $mesasSeleccionadas[0];
 
@@ -58,13 +60,14 @@ class MesaPedidoSeeder extends Seeder
                     $capacidadAcumulada += $mesaExtra->sillas_extra;
                 }
 
-                // 🔸 Crear pedido
+                // 🔸 Crear pedido NORMAL (tipo mesa)
                 $pedido = Pedido::create([
-                    'usuario_id'     => 1,  // Admin por defecto
+                    'usuario_id'     => 1,          // Admin por defecto
                     'estado'         => 'pendiente',
                     'total'          => 0,
                     'num_comensales' => $personas,
                     'modo_cuenta'    => 'completa',
+                    'tipo'           => 'mesa',     // ⭐ IMPORTANTE
                 ]);
 
                 // 🔸 Asociar mesas
@@ -88,12 +91,45 @@ class MesaPedidoSeeder extends Seeder
 
                 DB::commit();
 
-                $this->command->info("🍽 Pedido #{$pedido->id} creado con "
+                $this->command->info("🍽 Pedido #{$pedido->id} (MESA) creado con "
                     . count($mesasSeleccionadas) . " mesa(s) para {$personas} personas.");
 
             } catch (\Throwable $e) {
                 DB::rollBack();
                 $this->command->error("❌ Error asignando mesas: " . $e->getMessage());
+            }
+        }
+
+        /* ============================================
+           2) PEDIDOS PARA LLEVAR (SIN MESA)
+        ============================================ */
+
+        // Por ejemplo, 3 pedidos para llevar
+        $pedidosParaLlevar = [1, 2, 3]; // número de "personas" (solo para num_comensales)
+
+        foreach ($pedidosParaLlevar as $personas) {
+            DB::beginTransaction();
+            try {
+                $pedido = Pedido::create([
+                    'usuario_id'     => 1,
+                    'estado'         => 'pendiente',
+                    'total'          => 0,
+                    'num_comensales' => $personas,   // puedes poner 0 si quieres
+                    'modo_cuenta'    => 'completa',
+                    'tipo'           => 'llevar',    // ⭐ CLAVE
+                ]);
+
+                // 🛍 Para llevar → NO tiene mesas asociadas
+                // 🛍 Si quieres comensales para prueba, puedes crearlos; yo aquí NO los creo
+                // y dejo que tu DetallePedidoSeeder genere detalles generales sin comensal
+
+                DB::commit();
+
+                $this->command->info("🛍 Pedido #{$pedido->id} creado COMO PARA LLEVAR (sin mesa).");
+
+            } catch (\Throwable $e) {
+                DB::rollBack();
+                $this->command->error("❌ Error creando pedido para llevar: " . $e->getMessage());
             }
         }
     }

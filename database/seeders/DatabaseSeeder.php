@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         MesaSeeder::class,
         MesaPedidoSeeder::class,
         DetallePedidoSeeder::class,
-        //ComandaSeeder::class,
+        PedidoDemoSeeder::class,
         //SimulacionCocinaSeeder::class,
         
     ]);

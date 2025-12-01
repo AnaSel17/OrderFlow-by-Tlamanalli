@@ -32,9 +32,22 @@
             </select>
         </div>
         <div class="mb-3">
-            <label>Activo</label>
-            <input type="checkbox" name="activo" value="1" {{ $producto->activo ? 'checked' : '' }}>
-        </div>
+    <label class="form-label fw-bold">Activo</label>
+    <br>
+
+    <input type="hidden" name="activo" value="0">
+
+    <div class="form-check form-switch">
+        <input class="form-check-input"
+               type="checkbox"
+               name="activo"
+               value="1"
+               id="activoSwitch"
+               {{ $producto->activo ? 'checked' : '' }}>
+        <label class="form-check-label" for="activoSwitch">¿Producto activo?</label>
+    </div>
+</div>
+
         <button class="btn btn-primary">Actualizar</button>
     </form>
 @stop

@@ -1,15 +1,84 @@
 @extends('adminlte::page')
+@push('css')
+<style>
+.ticket {
+    width: 280px; /* tamaño tipo ticket */
+    margin: auto;
+    background: white;
+    padding: 15px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    border: 1px solid #ddd;
+}
+
+.ticket h3, 
+.ticket h5 {
+    text-align: center;
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+.ticket img.logo {
+    display: block;
+    margin: 0 auto 10px auto;
+    width: 80px;
+}
+
+.ticket table {
+    width: 100%;
+}
+
+.ticket table td {
+    padding: 3px 0;
+}
+
+.ticket .desc {
+    text-align: left;
+}
+
+.ticket .total {
+    text-align: right;
+}
+
+.line {
+    border-top: 1px dashed #333;
+    margin: 10px 0;
+}
+
+.small {
+    font-size: 12px;
+}
+
+.no-print {
+    margin-top: 15px;
+}
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    body {
+        background: white;
+    }
+}
+</style>
+@endpush
 
 @section('content')
 <div class="ticket">
 
-    <h3>🍽 {{ config('app.name') }}</h3>
+    {{-- LOGO --}}
+    <img src="{{ asset('images/logo.png') }}" class="logo" alt="Logo">
+
+    <h3>Tonalli Café</h3>
     <h5>Ticket de Consumo</h5>
 
     <div class="line"></div>
 
     <p>
         <strong>Pedido:</strong> #{{ $pedido->id }} <br>
+        <strong>Tipo:</strong>
+            {{ $pedido->tipo ?? 'En mesa' }} <br>
         <strong>Mesero:</strong> {{ $pedido->usuario->name }} <br>
         <strong>Mesas:</strong> {{ $pedido->mesas_texto }} <br>
         <strong>Fecha:</strong> {{ $cuenta->created_at->format('d/m/Y H:i') }}
@@ -39,6 +108,16 @@
         Propina: <span class="text-right">${{ number_format($cuenta->propina, 2) }}</span><br>
         <strong>Total:</strong> <span class="text-right">${{ number_format($cuenta->total, 2) }}</span>
     </p>
+
+    {{-- CAMBIO SI EXISTE --}}
+    @php
+        $pagoEfectivo = $cuenta->pagos->where('metodo','efectivo')->sum('monto');
+        $cambio = $pagoEfectivo - $cuenta->total;
+    @endphp
+
+    @if ($cambio > 0)
+        <p><strong>Cambio:</strong> ${{ number_format($cambio, 2) }}</p>
+    @endif
 
     <div class="line"></div>
 

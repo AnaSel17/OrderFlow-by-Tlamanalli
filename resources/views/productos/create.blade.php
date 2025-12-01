@@ -31,9 +31,16 @@
             </select>
         </div>
         <div class="mb-3">
-            <label>Activo</label>
+            <label>Activo</label> <br>
+
+            <!-- Este hidden SIEMPRE manda 0 cuando el checkbox está apagado -->
+            <input type="hidden" name="activo" value="0">
+
+            <!-- Este es el checkbox real -->
             <input type="checkbox" name="activo" value="1" checked>
         </div>
+
         <button class="btn btn-success">Guardar</button>
+        <a href="{{ route('productos.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 @stop

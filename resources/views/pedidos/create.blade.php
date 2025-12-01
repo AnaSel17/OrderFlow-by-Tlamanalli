@@ -9,49 +9,78 @@
 <div class="container-actividad py-4">
     <h1 class="fw-bold mb-4">Registrar nuevo pedido</h1>
 
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <strong>Corrige los siguientes errores:</strong>
+        <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+
     <form method="POST" action="{{ route('pedidos.store') }}">
         @csrf
-        <div class="row mb-3">
-            <div class="col-md-4">
-                <label for="mesa_id" class="form-label">Mesa</label>
-                <select name="mesa_id" class="form-select" required>
-                    <option value="">Seleccionar mesa</option>
-                    @foreach ($mesas as $mesa)
-                        <option value="{{ $mesa->id }}">{{ $mesa->codigo }}</option>
-                    @endforeach
-                </select>
-            </div>
 
-            <div class="col-md-4">
-                <label for="usuario_id" class="form-label">Mesero</label>
-                <select name="usuario_id" class="form-select" required>
-                    <option value="">Seleccionar mesero</option>
-                    @foreach ($usuarios as $usuario)
-                        <option value="{{ $usuario->id }}">{{ $usuario->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="col-md-4">
-                <label for="estado" class="form-label">Estado</label>
-                <select name="estado" class="form-select" required>
-                    <option value="pendiente">Pendiente</option>
-                    <option value="en_preparacion">En preparación</option>
-                    <option value="listo">Listo</option>
-                    <option value="entregado">Entregado</option>
-                </select>
-            </div>
+        {{-- Tipo de pedido --}}
+        <div class="mb-4">
+            <label class="form-label fw-bold">Tipo de Pedido</label>
+            <select id="tipo_pedido" name="tipo_pedido" class="form-select" required>
+                <option value="mesa" selected>Pedido en mesa</option>
+                <option value="llevar">Pedido para llevar</option>
+            </select>
         </div>
 
-        <div class="mb-3">
-            <label for="total" class="form-label">Total inicial</label>
-            <input type="number" step="0.01" name="total" class="form-control" placeholder="0.00">
+        {{-- Mesa (solo visibles si es pedido normal) --}}
+        <div id="seccion_mesa" class="mb-4">
+            <label for="mesa_id" class="form-label fw-bold">Mesa</label>
+            <select name="mesa_id" id="mesa_id" class="form-select">
+                <option value="">Seleccionar mesa</option>
+                @foreach ($mesas as $mesa)
+                    <option value="{{ $mesa->id }}">{{ $mesa->codigo }}</option>
+                @endforeach
+            </select>
         </div>
 
+        {{-- Mesero --}}
+        <div class="mb-4">
+            <label for="usuario_id" class="form-label fw-bold">Mesero</label>
+            <select name="usuario_id" class="form-select" required>
+                <option value="">Seleccionar mesero</option>
+                @foreach ($usuarios as $usuario)
+                    <option value="{{ $usuario->id }}">{{ $usuario->name }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        {{-- Estado inicial --}}
+        <input type="hidden" name="estado" value="pendiente">
+
+       
         <div class="text-end">
             <a href="{{ route('pedidos.index') }}" class="btn btn-secondary">Cancelar</a>
-            <button type="submit" class="btn btn-success">Guardar Pedido</button>
+            <button type="submit" class="btn btn-success">Crear y Agregar Productos</button>
         </div>
     </form>
 </div>
+
 @endsection
+
+@push('js')
+<script>
+    const tipoPedido = document.getElementById('tipo_pedido');
+    const seccionMesa = document.getElementById('seccion_mesa');
+    const mesaId = document.getElementById('mesa_id');
+
+    tipoPedido.addEventListener('change', function() {
+        if (this.value === 'llevar') {
+            seccionMesa.classList.add('d-none');
+            mesaId.value = ""; // limpiar mesa
+        } else {
+            seccionMesa.classList.remove('d-none');
+        }
+    });
+</script>
+@endpush

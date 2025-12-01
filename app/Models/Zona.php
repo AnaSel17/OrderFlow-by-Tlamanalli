@@ -48,7 +48,7 @@ class Zona extends Model
         $ahora = Carbon::now('America/Mexico_City')->format('H:i:s');
 
         // Día actual abreviado (Lun, Mar, Mie, etc.)
-        $dia = ucfirst(substr(Carbon::now('America/Mexico_City')->locale('es')->dayName, 0, 3));
+        $dia = ucfirst(Carbon::now('America/Mexico_City')->locale('es')->dayName);
 
         // Validar día activo
         if (is_array($this->dias_activos) && !in_array($dia, $this->dias_activos)) {

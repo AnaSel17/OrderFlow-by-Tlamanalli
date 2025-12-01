@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('mesa_pedidos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('mesa_id')
+            ->nullable()
           ->constrained('mesas')
           ->restrictOnDelete()
           ->restrictOnUpdate();

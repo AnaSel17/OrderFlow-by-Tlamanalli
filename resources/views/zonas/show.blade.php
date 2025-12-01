@@ -11,12 +11,13 @@
     <p><strong>Descripción:</strong> {{ $zona->descripcion }}</p>
     <p><strong>Horario:</strong> {{ $zona->hora_apertura }} - {{ $zona->hora_cierre }}</p>
     <p><strong>Días activos:</strong> {{ implode(', ', $zona->dias_activos ?? []) }}</p>
-    <p><strong>Estado actual:</strong>
-        <span class="badge {{ $zona->estaAbierta() ? 'bg-success' : 'bg-danger' }}">
-            {{ $zona->estado_texto }}
-        </span>
-    </p>
-    <p><strong>Color visual:</strong> <span class="badge" style="background: {{ $zona->color_hex }}">{{ $zona->color_hex }}</span></p>
+<p><strong>Estado actual:</strong>
+    <span class="badge px-3 py-2 {{ $zona->esta_abierta ? 'badge-success' : 'badge-danger' }}">
+        {{ $zona->esta_abierta ? 'Abierta' : 'Cerrada' }}
+    </span>
+</p>
+
+
 
     <a href="{{ route('zonas.index') }}" class="btn btn-secondary mt-3">Volver</a>
 </div>

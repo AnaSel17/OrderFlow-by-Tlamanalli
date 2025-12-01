@@ -17,7 +17,11 @@ class Role extends Model
      */
     protected $table = 'roles';      // nombre real de la tabla
     protected $primaryKey = 'id_rol'; //coincide con tu migración
-    protected $fillable = ['nombre', 'descripcion'];
+    protected $fillable = ['nombre', 'descripcion','categoria','permisos'];
+
+    protected $casts = [
+        'permisos' => 'array'
+    ];
 
     // Un Rol "pertenece" a muchos Usuarios
     public function usuarios()

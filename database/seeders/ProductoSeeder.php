@@ -4,48 +4,78 @@ namespace Database\Seeders;
 
 use App\Models\Categoria;
 use App\Models\Producto;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
 class ProductoSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $productos = [
-            // BEBIDAS CALIENTES
-            ['nombre' => 'Café Expreso',      'precio' => 25.00, 'categoria' => 'Bebidas Calientes'],
-            ['nombre' => 'Capuchino',         'precio' => 38.00, 'categoria' => 'Bebidas Calientes'],
-            // BEBIDAS FRÍAS
-            ['nombre' => 'Jugo de Naranja',   'precio' => 30.00, 'categoria' => 'Bebidas Frías'],
-            ['nombre' => 'Jugo Verde',        'precio' => 32.00, 'categoria' => 'Bebidas Frías'],
-            // SANDWICHES Y BAGUETTES
-            ['nombre' => 'Sándwich de Pavo',  'precio' => 45.00, 'categoria' => 'Sandwiches y Baguettes'],
-            ['nombre' => 'Sándwich de Atún',  'precio' => 48.00, 'categoria' => 'Sandwiches y Baguettes'],
-            ['nombre' => 'Baguette de Pechuga', 'precio' => 52.00, 'categoria' => 'Sandwiches y Baguettes'],
+
+            // CAFÉ CALIENTE
+            ['nombre' => 'Americano', 'precio' => 30, 'categoria' => 'Café Caliente'],
+            ['nombre' => 'Latte', 'precio' => 42, 'categoria' => 'Café Caliente'],
+            ['nombre' => 'Mocha', 'precio' => 48, 'categoria' => 'Café Caliente'],
+            ['nombre' => 'Caramel Latte', 'precio' => 49, 'categoria' => 'Café Caliente'],
+            ['nombre' => 'Matcha Latte Caliente', 'precio' => 52, 'categoria' => 'Café Caliente'],
+
+            // CAFÉ FRÍO
+            ['nombre' => 'Cold Brew', 'precio' => 45, 'categoria' => 'Café Frío'],
+            ['nombre' => 'Iced Latte', 'precio' => 44, 'categoria' => 'Café Frío'],
+            ['nombre' => 'Iced Mocha', 'precio' => 49, 'categoria' => 'Café Frío'],
+
+            // FRAPPÉS
+            ['nombre' => 'Frappé de Café', 'precio' => 55, 'categoria' => 'Frappés'],
+            ['nombre' => 'Frappé Oreo', 'precio' => 58, 'categoria' => 'Frappés'],
+            ['nombre' => 'Frappé Caramelo', 'precio' => 57, 'categoria' => 'Frappés'],
+
+            // TÉS E INFUSIONES
+            ['nombre' => 'Té Negro', 'precio' => 28, 'categoria' => 'Tés e Infusiones'],
+            ['nombre' => 'Té Verde', 'precio' => 28, 'categoria' => 'Tés e Infusiones'],
+            ['nombre' => 'Tizana Frutal', 'precio' => 42, 'categoria' => 'Tés e Infusiones'],
+
+            // ESPECIALES
+            ['nombre' => 'Chocolate Caliente', 'precio' => 40, 'categoria' => 'Bebidas Especiales'],
+            ['nombre' => 'Golden Milk', 'precio' => 48, 'categoria' => 'Bebidas Especiales'],
+            ['nombre' => 'Chai Latte', 'precio' => 47, 'categoria' => 'Bebidas Especiales'],
+
+            // DESAYUNOS
+            ['nombre' => 'Chilaquiles Verdes', 'precio' => 68, 'categoria' => 'Desayunos'],
+            ['nombre' => 'Molletes', 'precio' => 55, 'categoria' => 'Desayunos'],
+            ['nombre' => 'Hot Cakes', 'precio' => 60, 'categoria' => 'Desayunos'],
+
+            // SÁNDWICHES
+            ['nombre' => 'Sándwich de Pavo', 'precio' => 48, 'categoria' => 'Sándwiches'],
+            ['nombre' => 'Sándwich de Atún', 'precio' => 50, 'categoria' => 'Sándwiches'],
+            ['nombre' => 'Panini de Pollo', 'precio' => 62, 'categoria' => 'Sándwiches'],
+
+            // PANADERÍA
+            ['nombre' => 'Croissant', 'precio' => 28, 'categoria' => 'Panadería'],
+            ['nombre' => 'Concha Artesanal', 'precio' => 22, 'categoria' => 'Panadería'],
+            ['nombre' => 'Rol de Canela', 'precio' => 26, 'categoria' => 'Panadería'],
+
             // POSTRES
-            ['nombre' => 'Pay de Zarzamora',  'precio' => 42.00, 'categoria' => 'Postres'],
+            ['nombre' => 'Cheesecake', 'precio' => 48, 'categoria' => 'Postres'],
+            ['nombre' => 'Brownie', 'precio' => 32, 'categoria' => 'Postres'],
+            ['nombre' => 'Pay de Limón', 'precio' => 45, 'categoria' => 'Postres'],
         ];
 
         foreach ($productos as $p) {
             $categoria = Categoria::where('nombre', $p['categoria'])->first();
-            if ($categoria) {
-                Producto::firstOrCreate(
-                    ['sku' => Str::slug($p['nombre'])],
-                    [
-                        'nombre'       => $p['nombre'],
-                        'sku'          => strtoupper(Str::slug($p['nombre'], '_')),
-                        'precio'       => $p['precio'],
-                        'activo'       => true,
-                        'categoria_id' => $categoria->id,
-                    ]
-                );
-            }
+
+            Producto::firstOrCreate(
+                ['sku' => strtoupper(Str::slug($p['nombre'], '_'))],
+                [
+                    'nombre'       => $p['nombre'],
+                    'sku'          => strtoupper(Str::slug($p['nombre'], '_')),
+                    'precio'       => $p['precio'],
+                    'activo'       => true,
+                    'categoria_id' => $categoria->id,
+                ]
+            );
         }
 
-        $this->command->info(' Productos de cafetería creados correctamente.');
+        $this->command->info('☕ Productos premium creados correctamente.');
     }
 }

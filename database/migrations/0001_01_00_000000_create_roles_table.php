@@ -12,6 +12,8 @@ return new class extends Migration
             $table->id('id_rol');
             $table->string('nombre')->unique();
             $table->text('descripcion')->nullable();
+            $table->text('categoria')->nullable();
+            $table->json('permisos')->nullable();
             $table->timestamps();
         });
     }

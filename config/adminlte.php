@@ -349,8 +349,7 @@ return [
         'submenu' => [
             ['text' => 'Cobrar pedido',      'url' => '/pedidos?cobrar=1', 'icon' => 'fas fa-money-bill'],
             ['text' => 'Pagos registrados',  'url' => '/pagos'],
-            ['text' => 'Cuentas abiertas',   'url' => '/cuentas?estado=abierta'],
-            ['text' => 'Cuentas pagadas',    'url' => '/cuentas?estado=pagada'],
+            ['text' => 'Cuentas pagadas',    'url' => '/cuentas/pagadas'],
             ['text' => 'Tickets emitidos',   'url' => '/tickets'],
         ],
     ],
@@ -360,13 +359,11 @@ return [
         'text' => 'Menú',
         'icon' => 'fas fa-utensils',
         'submenu' => [
+            ['text' => 'Menú impreso',         'url' => '/menu'],
             ['text' => 'Categorías',         'url' => '/categorias'],
             ['text' => 'Platillos',          'url' => '/productos'],
-            ['text' => 'Modificadores',      'url' => '/menu/modifiers'],
-            ['text' => 'Combos',             'url' => '/menu/combos'],
-            ['text' => 'Precios & Costos',   'url' => '/menu/pricing'],
             ['text' => 'Inventario',         'url' => '/inventarios'],
-            ['text' => 'Importar / Exportar','url' => '/menu/import-export'],
+
         ],
     ],
 
@@ -375,12 +372,10 @@ return [
         'text' => 'Reportes',
         'icon' => 'fas fa-chart-bar',
         'submenu' => [
-            ['text' => 'Ventas por día',      'url' => '/reports/sales-daily'],
-            ['text' => 'Ventas por producto', 'url' => '/reports/sales-products'],
-            ['text' => 'Top clientes',         'url' => '/reports/top-customers'],
-            ['text' => 'Pedidos por estado',   'url' => '/reports/orders-status'],
-            ['text' => 'Inventario bajo',      'url' => '/reports/low-stock'],
-            ['text' => 'Exportar (CSV/PDF)',   'url' => '/reports/export'],
+            ['text' => 'Todos los reportes',      'url' => '/reportes'],
+            ['text' => 'Ventas por día',      'url' => '/reportes/ventas-dia'],
+            ['text' => 'Ventas por producto', 'url' => '/reportes/ventas-producto'],
+
         ],
     ],
 
@@ -392,8 +387,7 @@ return [
             ['text' => 'Listado',              'url' => '/usuarios'],
             ['text' => 'Crear usuario',        'url' => '/usuarios/crear'],
             ['text' => 'Roles',                'url' => '/roles'],
-            ['text' => 'Permisos',             'url' => '/permissions'],
-            ['text' => 'Actividad',            'url' => '/users/actividad'],
+            ['text' => 'Actividad',            'url' => '/usuarios/actividad'],
         ],
     ],
     [
@@ -401,24 +395,9 @@ return [
         'icon' => 'fas fa-cog',
         'submenu' => [
             ['text' => 'Datos de la tienda',   'url' => '/settings/store'],
-            ['text' => 'Impuestos y propina',  'url' => '/settings/tax-tip'],
-            ['text' => 'Métodos de pago',      'url' => '/settings/payments'],
-            ['text' => 'Impresoras',           'url' => '/settings/printers'],
-            ['text' => 'Notificaciones',       'url' => '/settings/notifications'],
-            ['text' => 'Seguridad',            'url' => '/settings/security'],
         ],
     ],
 
-    ['header' => 'AYUDA'],
-    [
-        'text' => 'Ayuda',
-        'icon' => 'fas fa-question-circle',
-        'submenu' => [
-            ['text' => 'Guía rápida',         'url' => '/help/quickstart'],
-            ['text' => 'Preguntas frecuentes','url' => '/help/faq'],
-            ['text' => 'Soporte',             'url' => '/help/support'],
-        ],
-    ],
 ],
 
 

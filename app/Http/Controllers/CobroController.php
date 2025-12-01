@@ -45,7 +45,9 @@ public function finalizarCobro(Request $request, Pedido $pedido)
         }
 
         DB::commit();
-        return back()->with('success', 'Pago registrado correctamente.');
+        return redirect()->route('pedidos.show', $pedido->id)
+    ->with('success', 'Pago registrado correctamente.');
+
 
     } catch (\Throwable $th) {
         DB::rollBack();

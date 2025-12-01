@@ -77,52 +77,44 @@ class DetallePedidoController extends Controller
      */
 private function recalcularEstadoPedido(Pedido $pedido)
 {
-    $detalles = $pedido->detalles; // relación hasMany
+    $detalles = $pedido->detalles; 
 
-    $total       = $detalles->count();
-    $pend = $detalles->where('estado', 'pendiente')->count();
-    $enviados    = $detalles->where('estado', 'enviado_cocina')->count();
-    $preparando  = $detalles->where('estado', 'en_preparacion')->count();
-    $listos      = $detalles->where('estado', 'listo')->count();
-    $entregados  = $detalles->where('estado', 'entregado')->count();
+    // EXCLUIR CANCELADOS PARA TODA LA LÓGICA
+    $activos = $detalles->where('estado', '!=', 'cancelado');
 
-    //  Si no hay productos aún, NO cambiar estado
+    $total       = $activos->count();
+    $pend        = $activos->where('estado', 'pendiente')->count();
+    $enviados    = $activos->where('estado', 'enviado_cocina')->count();
+    $preparando  = $activos->where('estado', 'en_preparacion')->count();
+    $listos      = $activos->where('estado', 'listo')->count();
+    $entregados  = $activos->where('estado', 'entregado')->count();
+
     if ($total === 0) {
         $pedido->update(['estado' => 'pendiente']);
         return;
     }
 
-    // 🔵 Hay pendientes o enviados: sigue en cocina
     if ($pend > 0 || $enviados > 0) {
         $pedido->update(['estado' => 'enviado_cocina']);
         return;
     }
 
-    // 🟠 Hay algo en preparación: el pedido está en preparación
     if ($preparando > 0) {
         $pedido->update(['estado' => 'en_preparacion']);
         return;
     }
 
-    // 🟢 Todos listos (cocina terminó)
     if ($listos === $total) {
         $pedido->update(['estado' => 'listo']);
         return;
     }
 
-    // 💵 Todo entregado → listo para cobrar
     if ($entregados === $total) {
         $pedido->update(['estado' => 'listo_para_cobrar']);
         return;
     }
-
-    // Mezcla de listos + entregados → sigue preparación
-    //$pedido->update(['estado' => 'en_preparacion']);
-
-   
-
-
 }
+
 
 
 public function prepararGrupo(Request $request)

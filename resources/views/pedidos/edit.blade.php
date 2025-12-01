@@ -37,7 +37,8 @@
     </div>
 
     {{-- 🧾 Formulario para agregar un nuevo producto --}}
-@if (in_array($pedido->estado, ['pendiente', 'enviado_cocina']))
+@if ($pedido->estado !== 'pagado')
+
 <form action="{{ route('detalle_pedidos.store') }}" method="POST">
     @csrf
     <input type="hidden" name="pedido_id" value="{{ $pedido->id }}">
@@ -112,16 +113,7 @@
     <tbody>
     @forelse ($pedido->detalles as $detalle)
         <tr>
-{{-- CHECKBOX SOLO PARA DETALLES LISTOS --}}
-        <td>
-            @if ($detalle->estado === 'listo')
-                <input type="checkbox"
-                       name="detalles_entregar[]"
-                       value="{{ $detalle->id }}"
-                       class="detalle-checkbox"
-                       style="transform: scale(1.3);">
-            @endif
-        </td>
+
         {{-- PRODUCTO --}}
         <td style="width: 25%">
             <div class="d-flex align-items-center">
@@ -227,6 +219,16 @@
 
         {{-- ACCIONES --}}
         <td class="text-center">
+            {{-- CHECKBOX SOLO PARA DETALLES LISTOS --}}
+        
+            @if ($detalle->estado === 'listo')
+                <input type="checkbox"
+                       name="detalles_entregar[]"
+                       value="{{ $detalle->id }}"
+                       class="detalle-checkbox"
+                       style="transform: scale(1.3);">
+            @endif
+        
 
             {{-- ELIMINAR (pendiente o enviado) --}}
             @if (in_array($detalle->estado, ['pendiente','enviado_cocina']))

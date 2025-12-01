@@ -106,7 +106,11 @@ class Pedido extends Model
     {
         return $this->hasMany(Cuenta::class);
     }
-
+    
+    public function esParaLlevar()
+    {
+        return $this->tipo === 'llevar';
+    }
 
     
     

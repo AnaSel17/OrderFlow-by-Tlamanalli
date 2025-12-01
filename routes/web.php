@@ -18,7 +18,9 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ZonaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CobroController;
-
+use App\Http\Controllers\CuentaController;
+use App\Http\Controllers\PagoController;
+use App\Http\Controllers\ReporteController;
 use App\Models\DetallePedido;
 use App\Models\Producto;
 
@@ -62,17 +64,18 @@ Route::middleware(['auth'])->group(function () {
     | ROLES (TUS VISTAS PERSONALIZADAS)
     |--------------------------------------------------------------------------
     */
-    Route::get('/roles', function () {
-        return view('usuarios.roles.roles');
-    })->name('roles.index');
+    
 
-    Route::get('/roles/create', function () {
-        return view('usuarios.roles.create_roles');
-    })->name('roles.create');
 
-    Route::get('/roles/{id}', function ($id) {
-        return view('usuarios.roles.show', ['id' => $id]);
-    })->name('roles.show');
+
+    Route::get('/roles', [RolesController::class, 'index'])->name('roles.index');
+    Route::get('/roles/create', [RolesController::class, 'create'])->name('roles.create');
+    Route::get('/roles/edit/{id}', [RolesController::class, 'edit'])->name('roles.edit');
+    Route::post('/roles', [RolesController::class, 'store'])->name('roles.store');
+    Route::get('/roles/{id}', [RolesController::class, 'show'])->name('roles.show');
+    Route::resource('roles', RolesController::class);
+
+
 
 
     /*
@@ -136,6 +139,38 @@ Route::middleware(['auth'])->group(function () {
 //)       ->name('pedidos.finalizarCobro');
 
 
+
+    Route::get('/pagos', [PagoController::class, 'index'])
+    ->name('pagos.index');
+
+    Route::get('/cuentas/abiertas', [CuentaController::class, 'abiertas'])->name('cuentas.abiertas');
+Route::get('/cuentas/pagadas', [CuentaController::class, 'pagadas'])->name('cuentas.pagadas');
+
+Route::get('/tickets', [CuentaController::class, 'tickets'])->name('tickets.index');
+
+Route::get('/menu', function () {
+    $categorias = \App\Models\Categoria::with('productos')->get();
+    return view('menu.index', compact('categorias'));
+})->name('menu.index');
+
+
+Route::prefix('reportes')->name('reportes.')->group(function () {
+    
+    Route::get('/', [ReporteController::class, 'index'])->name('index');
+
+    Route::get('/ventas-dia', [ReporteController::class, 'ventasDia'])->name('ventas-dia');
+    Route::get('/ventas-producto', [ReporteController::class, 'ventasProducto'])->name('ventas-producto');
+    Route::get('/top-clientes', [ReporteController::class, 'topClientes'])->name('top-clientes');
+    Route::get('/pedidos-estado', [ReporteController::class, 'pedidosEstado'])->name('pedidos-estado');
+    Route::get('/inventario-bajo', [ReporteController::class, 'inventarioBajo'])->name('inventario-bajo');
+
+    Route::get('/ventas-ultimos-7-dias', [ReporteController::class, 'ventasUltimos7Dias'])
+    ->name('ventas.ultimos7dias');
+
+
+    Route::get('/exportar', [ReporteController::class, 'exportar'])->name('exportar');
+
+});
     /*
     |--------------------------------------------------------------------------
     | DETALLES DE PEDIDOS

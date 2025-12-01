@@ -20,7 +20,7 @@ class ZonaSeeder extends Seeder
                 'activa' => true,
                 'hora_apertura' => '08:00:00',
                 'hora_cierre' => '22:00:00',
-                'dias_activos' => ['Lun','Mar','Mie','Jue','Vie','Sab','Dom'],
+                'dias_activos' => ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'],
                 'color_hex' => '#4CAF50',
             ],
             [
@@ -29,7 +29,7 @@ class ZonaSeeder extends Seeder
                 'activa' => true,
                 'hora_apertura' => '10:00:00',
                 'hora_cierre' => '20:00:00',
-                'dias_activos' => ['Vie','Sab','Dom'],
+                'dias_activos' => ['Viernes','Sábado','Domingo'],
                 'color_hex' => '#FF9800',
             ],
             [
@@ -38,7 +38,7 @@ class ZonaSeeder extends Seeder
                 'activa' => true,
                 'hora_apertura' => '07:00:00',
                 'hora_cierre' => '23:00:00',
-                'dias_activos' => ['Lun','Mar','Mie','Jue','Vie','Sab','Dom'],
+                'dias_activos' => ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'],
                 'color_hex' => '#2196F3',
             ],
         ];

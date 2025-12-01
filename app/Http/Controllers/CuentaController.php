@@ -9,7 +9,41 @@ class CuentaController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * 
+     * 
      */
+
+    public function abiertas()
+    {
+        $cuentas = Cuenta::with(['pedido', 'comensal'])
+                        ->whereIn('estado', ['abierta', 'parcial'])
+                        ->orderBy('created_at', 'desc')
+                        ->paginate(20);
+
+        return view('cuentas.abiertas', compact('cuentas'));
+    }
+
+    public function pagadas()
+    {
+        $cuentas = Cuenta::with(['pedido', 'comensal', 'pagos'])
+                        ->where('estado', 'pagada')
+                        ->orderBy('created_at', 'desc')
+                        ->paginate(20);
+
+        return view('cuentas.pagadas', compact('cuentas'));
+    }
+
+    public function tickets()
+{
+    // Tickets = cuentas pagadas
+    $tickets = Cuenta::with(['pedido', 'usuario', 'comensal', 'pagos'])
+        ->where('estado', 'pagada')
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+    return view('tickets.index', compact('tickets'));
+}
+
     public function index()
     {
         //

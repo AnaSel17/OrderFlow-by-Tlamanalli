@@ -13,6 +13,79 @@ use Illuminate\Support\Facades\DB;
 
 class PagoController extends Controller
 {
+
+       public function index(Request $request)
+    {
+        // =============================
+        // FILTROS
+        // =============================
+        $metodo     = $request->metodo;
+        $desde      = $request->desde;
+        $hasta      = $request->hasta;
+
+        $pagosQuery = Pago::with(['cuenta.pedido', 'cuenta.comensal', 'recibidoPor']);
+
+        if ($metodo) {
+            $pagosQuery->where('metodo', $metodo);
+        }
+
+        if ($desde) {
+            $pagosQuery->whereDate('created_at', '>=', $desde);
+        }
+
+        if ($hasta) {
+            $pagosQuery->whereDate('created_at', '<=', $hasta);
+        }
+
+        $pagos = $pagosQuery->orderBy('created_at', 'desc')->paginate(20);
+
+
+        // =============================
+        // CÁLCULOS GLOBALES
+        // =============================
+
+        // Cuentas pagadas
+        $cuentas = Cuenta::with('pagos')
+            ->where('estado', 'pagada')
+            ->get();
+
+        // 🔥 Total sin propinas
+        $totalCobrado = $cuentas->sum('subtotal');
+
+        // 🔥 Total propinas
+        $totalPropinas = $cuentas->sum('propina');
+
+        // 🔥 Total general (subtotal + propina)
+        $totalGeneral = $cuentas->sum('total');
+
+        // 🔥 Total por método (efectivo, tarjeta, transferencia)
+        $totalPorMetodo = Pago::select('metodo', DB::raw('SUM(monto) as total'))
+            ->groupBy('metodo')
+            ->get();
+
+        // 🔥 Total de cambio entregado
+        $cambioTotal = 0;
+
+        foreach ($cuentas as $cuenta) {
+            foreach ($cuenta->pagos as $pago) {
+                if ($pago->metodo === 'efectivo') {
+                    $cambio = $pago->monto - $cuenta->total;
+                    if ($cambio > 0) {
+                        $cambioTotal += $cambio;
+                    }
+                }
+            }
+        }
+
+        return view('pagos.index', compact(
+            'pagos',
+            'totalCobrado',
+            'totalPropinas',
+            'totalGeneral',
+            'totalPorMetodo',
+            'cambioTotal'
+        ));
+    }
     /**
      * Muestra el formulario para registrar pagos.
      */

@@ -31,10 +31,10 @@
   <div class="card">
     <div class="card-body split">
       <div>
-        <canvas id="salesLine" height="140"></canvas>
+        <canvas id="salesLine"></canvas>
       </div>
       <div>
-        <canvas id="ordersBar" height="140"></canvas>
+        <canvas id="ordersBar"></canvas>
       </div>
     </div>
   </div>
